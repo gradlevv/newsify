@@ -3,17 +3,20 @@ plugins {
     id 'kotlin-android'
 }
 
+apply from: "$rootDir/buildScript/shared_dependencies.gradle"
+
 android {
-    compileSdk 31
+
+    compileSdkVersion build.compiledSdkVersion
 
     defaultConfig {
-        applicationId "com.gradlevv.newsify"
-        minSdk 21
-        targetSdk 31
-        versionCode 1
-        versionName "1.0"
+        applicationId "com.samcrow.newsify"
+        minSdkVersion build.minSdkVersion
+        targetSdkVersion build.targetSdkVersion
+        versionCode build.versionCode
+        versionName build.versionName
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -33,8 +36,4 @@ android {
 
 dependencies {
 
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }

@@ -1,0 +1,57 @@
+apply from: "$rootDir/buildScript/libraryVersions.gradle"
+
+ext {
+    // kotlin
+    kotlinStd7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$app.kotlin"
+    kotlinStd8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$app.kotlin"
+
+    // material
+    material = "com.google.android.material:material:$libraryVersion.materialVersion"
+
+    // androidx core
+    coreKtx = "androidx.core:core-ktx:$libraryVersion.androidXCoreKtx"
+    // androidx annotation
+    androidXAnnotations = "androidx.annotation:annotation:$libraryVersion.androidXAnnotations"
+    // androidx appcompat
+    appcompat = "androidx.appcompat:appcompat:$libraryVersion.appcompat"
+
+    // dagger
+    dagger = "com.google.dagger:dagger:$libraryVersion.dagger2Version"
+    daggerCompiler = "com.google.dagger:dagger-compiler:$libraryVersion.dagger2Version"
+
+    // retrofit
+    retrofit = "com.squareup.retrofit2:retrofit:$libraryVersion.retrofitVersion"
+    retrofitGson = "com.squareup.retrofit2:converter-gson:$libraryVersion.retrofitVersion"
+
+    // okhttp
+    okhttp = "com.squareup.okhttp3:okhttp:$libraryVersion.okHttpVersion"
+    interceptor = "com.squareup.okhttp3:logging-interceptor:$libraryVersion.okHttpVersion"
+
+    // arch component
+    viewmodel = "androidx.lifecycle:lifecycle-viewmodel:$libraryVersion.archVersion"
+    livedataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:$libraryVersion.archVersion"
+    lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:$libraryVersion.archVersion"
+    lifecycleViewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$libraryVersion.archVersion"
+    lifecycleCommonJava8 = "androidx.lifecycle:lifecycle-common-java8:$libraryVersion.archVersion"
+
+    // timber logger
+    timber = "com.jakewharton.timber:timber:$libraryVersion.timberVersion"
+
+    fragmentKtx = "androidx.fragment:fragment-ktx:$libraryVersion.fragmentKtxVersion"
+
+    // navigation
+    navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:$libraryVersion.navigationVersion"
+    navigationUiKtx = "androidx.navigation:navigation-ui-ktx:$libraryVersion.navigationVersion"
+
+
+    //firebase
+    firebaseCore = "com.google.firebase:firebase-core:$libraryVersion.firebaseCore"
+    firebaseMessaging = "com.google.firebase:firebase-messaging:$libraryVersion.firebaseMessagingVersion"
+    firebaseInappmessaging = "com.google.firebase:firebase-inappmessaging-display:$libraryVersion.firebaseInappmessagingVersion"
+    firebaseAnalytics = "com.google.firebase:firebase-analytics:$libraryVersion.firebaseAnalyticsVersion"
+    firebaseCrashlytics = "com.google.firebase:firebase-crashlytics:$libraryVersion.firebaseCrashlyticsVersion"
+
+    multidex = "androidx.multidex:multidex:$libraryVersion.multidexVersion"
+
+    constraintLayout = "androidx.constraintlayout:constraintlayout:$libraryVersion.constraintLayoutVersion"
+}

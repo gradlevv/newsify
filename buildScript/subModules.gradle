@@ -1,0 +1,47 @@
+subprojects {
+
+    afterEvaluate { project ->
+
+        if (project.getPlugins().hasPlugin('com.android.library')) {
+
+            project.apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+            android {
+
+                compileSdkVersion build.compiledSdkVersion
+
+                defaultConfig {
+
+                    targetSdkVersion build.targetSdkVersion
+                    minSdkVersion build.minSdkVersion
+
+                    versionCode app.versionCode
+                    versionName app.versionName
+
+                    vectorDrawables.useSupportLibrary true
+                }
+
+                buildTypes {
+
+                    debug {
+                        minifyEnabled false
+                    }
+
+                    release {
+                        minifyEnabled true
+                    }
+                }
+
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_1_8
+                    targetCompatibility JavaVersion.VERSION_1_8
+                }
+
+                kotlinOptions {
+                    jvmTarget = "1.8"
+                }
+            }
+        }
+
+    }
+}
