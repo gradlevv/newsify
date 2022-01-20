@@ -1,0 +1,53 @@
+apply from: "$rootDir/buildScript/dependencies.gradle"
+
+dependencies {
+
+    // kotlin
+    implementation kotlinStd8
+    implementation kotlinStd7
+
+    // material
+    implementation material
+
+    // androidx core
+    implementation coreKtx
+    // androidx annotation
+    implementation androidXAnnotations
+    // androidx appcompat
+    implementation appcompat
+
+    // dagger
+    implementation dagger
+
+    // retrofit
+    implementation retrofit
+    implementation retrofitGson
+
+    // okhttp
+    implementation okhttp
+    implementation interceptor
+
+    // arch component
+    implementation viewmodel
+    implementation livedataKtx
+    implementation lifecycleExtensions
+    implementation lifecycleViewModelKtx
+
+    // timber logger
+    implementation timber
+
+    implementation fragmentKtx
+
+    // navigation
+    implementation navigationFragmentKtx
+    implementation navigationUiKtx
+
+    //firebase
+    implementation firebaseCore
+    implementation firebaseMessaging
+    implementation firebaseInappmessaging
+    implementation firebaseAnalytics
+    implementation firebaseCrashlytics
+
+    implementation multidex
+}
