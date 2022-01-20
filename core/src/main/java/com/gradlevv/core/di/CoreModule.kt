@@ -1,4 +1,4 @@
-package di
+package com.gradlevv.core.di
 
 import android.app.Application
 import android.content.Context
