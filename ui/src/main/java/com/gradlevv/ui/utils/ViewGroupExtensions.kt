@@ -1,5 +1,6 @@
 package com.gradlevv.ui.utils
 
+import android.content.Context
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
@@ -140,5 +141,17 @@ fun FrameLayout.matchWidthAndHeight(initLayout: FrameLayout.LayoutParams.() -> U
     ).apply(initLayout)
 }
 
+fun FrameLayout.matchWidthCustomHeight(
+    hInDp:Int, initLayout: FrameLayout.LayoutParams.() -> Unit = {}
+): FrameLayout.LayoutParams {
+    return FrameLayout.LayoutParams(
+        FrameLayout.LayoutParams.MATCH_PARENT,
+        hInDp.dp()
+    ).apply(initLayout)
+}
+
+fun Context.frameLayout(initLayout: FrameLayout.() -> Unit = {}): FrameLayout {
+    return FrameLayout(this).apply(initLayout)
+}
 
 
