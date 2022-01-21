@@ -1,0 +1,16 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+apply from: "$rootDir/buildScript/libraryVersions.gradle"
+apply from: "$rootDir/buildScript/shared_dependencies.gradle"
+
+dependencies {
+
+    implementation multidex
+
+    kapt daggerCompiler
+
+}
