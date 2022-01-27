@@ -4,18 +4,18 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.Gravity
 import android.view.Menu
-import android.view.MenuItem
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
+import com.gradlevv.core.util.getSelectorDrawable
 import com.gradlevv.newsify.R
 import com.gradlevv.ui.utils.frameLayout
 import com.gradlevv.ui.utils.matchWidthCustomHeight
 import com.gradlevv.ui.utils.matchWidthWrapHeight
-import java.lang.IllegalArgumentException
 
 
 class MainActivity : AppCompatActivity() {
@@ -50,7 +50,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun initBottomNavigationView() {
 
-        bottomNavigationView = BottomNavigationView(this)
+        bottomNavigationView = BottomNavigationView(this).apply {
+            labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_UNLABELED
+        }
 
         bottomNavigationContainer = frameLayout {
             addView(bottomNavigationView, matchWidthCustomHeight(72) {
@@ -65,10 +67,45 @@ class MainActivity : AppCompatActivity() {
                 gravity = Gravity.BOTTOM
             })
         }
+
+        navController.addOnDestinationChangedListener {_, destination,_ ->
+
+        }
+    }
+
+
+    private enum class Menus(val id: Int) {
+        HOME(1),
+        FAVORITE(2),
+        SEARCH(3),
+        SETTING(4)
     }
 
     private fun addMenuItems() {
 
+        bottomNavigationView.menu.add(Menu.NONE, Menus.FAVORITE.id, Menu.NONE, "")
+            .setChecked(false).icon = getSelectorDrawable(
+            com.gradlevv.ui.R.drawable.ic_favorite_fill,
+            com.gradlevv.ui.R.drawable.ic_favorite_stroke
+        )
+
+        bottomNavigationView.menu.add(Menu.NONE, Menus.HOME.id, Menu.NONE, "")
+            .setChecked(true).icon = getSelectorDrawable(
+            com.gradlevv.ui.R.drawable.ic_home_fill,
+            com.gradlevv.ui.R.drawable.ic_home_stroke
+        )
+
+        bottomNavigationView.menu.add(Menu.NONE, Menus.SEARCH.id, Menu.NONE, "")
+            .setChecked(false).icon = getSelectorDrawable(
+            com.gradlevv.ui.R.drawable.ic_search_fill,
+            com.gradlevv.ui.R.drawable.ic_search_fill
+        )
+
+        bottomNavigationView.menu.add(Menu.NONE, Menus.SETTING.id, Menu.NONE, "")
+            .setChecked(false).icon = getSelectorDrawable(
+            com.gradlevv.ui.R.drawable.ic_settings_fill,
+            com.gradlevv.ui.R.drawable.ic_settings_stroke
+        )
     }
 
 }
