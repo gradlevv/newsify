@@ -1,7 +1,5 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-}
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 apply from: "$rootDir/buildScript/shared_dependencies.gradle"
 
@@ -10,7 +8,7 @@ android {
     compileSdkVersion build.compiledSdkVersion
 
     defaultConfig {
-        applicationId "com.samcrow.newsify"
+        applicationId "com.gradlevv.newsify"
         minSdkVersion build.minSdkVersion
         targetSdkVersion build.targetSdkVersion
         versionCode build.versionCode
