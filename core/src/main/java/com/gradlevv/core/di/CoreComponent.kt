@@ -11,7 +11,7 @@ import javax.inject.Singleton
 interface CoreComponent {
 
     fun provideApplication(): Application
-    fun contex(): Context
+    fun context(): Context
 
     @Component.Builder
     interface Builder{

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.samcrow.core.base.BaseViewModel
+import com.gradlevv.core.base.BaseViewModel
 
 abstract class BaseFragment<V : BaseViewModel> : Fragment() {
 

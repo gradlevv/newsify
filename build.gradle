@@ -16,6 +16,16 @@ buildscript {
     }
 }
 
+allprojects {
+    apply from: "$rootDir/buildScript/dependencies.gradle"
+    repositories {
+        maven { url 'https://maven.google.com' }
+        google()
+        jcenter()
+        mavenCentral()
+    }
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
