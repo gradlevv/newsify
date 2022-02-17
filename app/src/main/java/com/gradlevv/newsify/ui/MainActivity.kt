@@ -1,7 +1,6 @@
 package com.gradlevv.newsify.ui
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.Gravity
 import android.view.Menu
 import android.widget.FrameLayout
@@ -28,8 +27,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navGraph: NavGraph
     private lateinit var navHostFragment: NavHostFragment
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setUpView()
     }
@@ -85,26 +84,26 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigationView.menu.add(Menu.NONE, Menus.FAVORITE.id, Menu.NONE, "")
             .setChecked(false).icon = getSelectorDrawable(
-            com.gradlevv.ui.R.drawable.ic_favorite_fill,
-            com.gradlevv.ui.R.drawable.ic_favorite_stroke
+            R.drawable.ic_favorite_fill,
+            R.drawable.ic_favorite_stroke
         )
 
         bottomNavigationView.menu.add(Menu.NONE, Menus.HOME.id, Menu.NONE, "")
             .setChecked(true).icon = getSelectorDrawable(
-            com.gradlevv.ui.R.drawable.ic_home_fill,
-            com.gradlevv.ui.R.drawable.ic_home_stroke
+            R.drawable.ic_home_fill,
+            R.drawable.ic_home_stroke
         )
 
         bottomNavigationView.menu.add(Menu.NONE, Menus.SEARCH.id, Menu.NONE, "")
             .setChecked(false).icon = getSelectorDrawable(
-            com.gradlevv.ui.R.drawable.ic_search_fill,
-            com.gradlevv.ui.R.drawable.ic_search_fill
+            R.drawable.ic_search_fill,
+            R.drawable.ic_search_fill
         )
 
         bottomNavigationView.menu.add(Menu.NONE, Menus.SETTING.id, Menu.NONE, "")
             .setChecked(false).icon = getSelectorDrawable(
-            com.gradlevv.ui.R.drawable.ic_settings_fill,
-            com.gradlevv.ui.R.drawable.ic_settings_stroke
+            R.drawable.ic_settings_fill,
+            R.drawable.ic_settings_stroke
         )
     }
 
