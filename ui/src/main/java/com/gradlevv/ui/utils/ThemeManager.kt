@@ -104,10 +104,10 @@ object ThemeManager {
         val colorPrimaryDark = Color.parseColor("#141414")
 
         @ColorInt
-        val colorBackground  = Color.parseColor("#141414")
+        val colorBackground  = Color.parseColor("#ffffff")
 
         @ColorInt
-        val colorAccent = Color.parseColor("#E50379")
+        val colorAccent = Color.parseColor("#03DAC5")
 
         @ColorInt
         val colorText = Color.parseColor("#363636")
@@ -132,7 +132,7 @@ object ThemeManager {
         val colorBackground  = Color.parseColor("#141414")
 
         @ColorInt
-        val colorAccent = Color.parseColor("#E50379")
+        val colorAccent = Color.parseColor("#03DAC5")
 
         @ColorInt
         val colorText = Color.parseColor("#fafafa")
@@ -180,36 +180,6 @@ object ThemeManager {
             }
             null -> {
                 dayColors[key]!!
-            }
-        }
-    }
-
-    @JvmStatic
-    @ColorInt
-    fun getColor(@Colors key: String, theme: Theme): Int {
-        return when (theme) {
-            Theme.Day -> {
-                dayColors[key]!!
-            }
-            Theme.Night -> {
-                nightColors[key]!!
-            }
-            Theme.Amoled -> {
-                amoledColors[key]!!
-            }
-        }
-    }
-
-    fun getColorState(@Colors key: String, theme: Theme): ColorStateList {
-        return when (theme) {
-            Theme.Day -> {
-                ColorStateList.valueOf(dayColors[key]!!)
-            }
-            Theme.Night -> {
-                ColorStateList.valueOf(nightColors[key]!!)
-            }
-            Theme.Amoled -> {
-                ColorStateList.valueOf(amoledColors[key]!!)
             }
         }
     }
