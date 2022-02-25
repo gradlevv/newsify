@@ -82,16 +82,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun addMenuItems() {
 
-        bottomNavigationView.menu.add(Menu.NONE, Menus.FAVORITE.id, Menu.NONE, "")
-            .setChecked(false).icon = getSelectorDrawable(
-            R.drawable.ic_favorite_fill,
-            R.drawable.ic_favorite_stroke
-        )
-
         bottomNavigationView.menu.add(Menu.NONE, Menus.HOME.id, Menu.NONE, "")
             .setChecked(true).icon = getSelectorDrawable(
             R.drawable.ic_home_fill,
             R.drawable.ic_home_stroke
+        )
+
+        bottomNavigationView.menu.add(Menu.NONE, Menus.FAVORITE.id, Menu.NONE, "")
+            .setChecked(false).icon = getSelectorDrawable(
+            R.drawable.ic_favorite_fill,
+            R.drawable.ic_favorite_stroke
         )
 
         bottomNavigationView.menu.add(Menu.NONE, Menus.SEARCH.id, Menu.NONE, "")
