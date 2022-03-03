@@ -3,13 +3,14 @@ package com.gradlevv.core.base
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import com.samcrow.core.util.Event
-import com.samcrow.core.util.NavigationCommand
+import com.gradlevv.core.util.NavigationCommand
 import com.samcrow.core.util.SingleLiveEvent
 
-abstract class BaseViewModel {
+abstract class BaseViewModel : ViewModel(){
 
     private val navigationCommands = SingleLiveEvent<NavigationCommand>()
     private val navigationUpEvent = MutableLiveData<Event<Boolean>>()
