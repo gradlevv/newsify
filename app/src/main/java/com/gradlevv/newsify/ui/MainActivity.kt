@@ -1,5 +1,6 @@
 package com.gradlevv.newsify.ui
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
@@ -10,6 +11,7 @@ import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
+import com.google.android.material.navigation.NavigationView
 import com.gradlevv.core.util.getSelectorDrawable
 import com.gradlevv.newsify.R
 import com.gradlevv.ui.utils.frameLayout
@@ -26,6 +28,47 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var navGraph: NavGraph
     private lateinit var navHostFragment: NavHostFragment
+
+    private val navigationItemClickListener by lazy {
+        BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+
+                Menus.HOME.id -> {
+                    navController.navigate(
+                        Uri.parse(applicationContext.getString(com.gradlevv.core.R.string.news_list_fragment))
+                    )
+                    true
+                }
+
+                Menus.FAVORITE.id -> {
+                    navController.navigate(
+                        Uri.parse(applicationContext.getString(com.gradlevv.core.R.string.news_list_fragment))
+                    )
+                    true
+                }
+
+                Menus.SEARCH.id -> {
+                    navController.navigate(
+                        Uri.parse(applicationContext.getString(com.gradlevv.core.R.string.news_list_fragment))
+                    )
+                    true
+                }
+
+                Menus.SETTING.id -> {
+                    navController.navigate(
+                        Uri.parse(applicationContext.getString(com.gradlevv.core.R.string.news_list_fragment))
+                    )
+                    true
+                }
+                else -> {
+                    navController.navigate(
+                        Uri.parse(applicationContext.getString(com.gradlevv.core.R.string.news_list_fragment))
+                    )
+                    true
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +94,7 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigationView = BottomNavigationView(this).apply {
             labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_UNLABELED
+            setOnNavigationItemSelectedListener(navigationItemClickListener)
         }
 
         bottomNavigationContainer = frameLayout {
@@ -67,7 +111,7 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
-        navController.addOnDestinationChangedListener {_, destination,_ ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
 
         }
     }

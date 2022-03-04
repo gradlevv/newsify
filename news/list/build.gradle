@@ -7,4 +7,6 @@ apply from: "$rootDir/buildScript/shared_dependencies.gradle"
 dependencies {
     implementation project(':core')
     implementation project(':ui')
+
+    kapt daggerCompiler
 }
