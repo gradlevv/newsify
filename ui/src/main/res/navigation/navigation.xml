@@ -12,4 +12,12 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/favoriteNewsFragment"
+        android:name="com.gradlevv.favorite.ui.FavoriteNewsFragment">
+
+        <deepLink app:uri="@string/favorite_news_fragment" />
+
+    </fragment>
+
 </navigation>
