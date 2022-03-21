@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/newsListFragment"
-        android:name="com.gradlevv.ui.NewsListFragment">
+        android:name="com.gradlevv.list.ui.NewsListFragment">
 
         <deepLink app:uri="@string/news_list_fragment" />
 

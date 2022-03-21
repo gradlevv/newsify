@@ -1,15 +1,25 @@
 package com.gradlevv.list.ui
 
+import android.graphics.Color
+import android.view.Gravity
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.gradlevv.core.di.ViewModelFactory
 import com.gradlevv.core.util.coreComponent
+import com.gradlevv.core.util.dp
 import com.gradlevv.list.di.DaggerNewsListComponent
 import com.gradlevv.ui.base.BaseFragment
+import com.gradlevv.ui.dsl.linearLayout
+import com.gradlevv.ui.dsl.textView
+import com.gradlevv.ui.utils.matchWidthWrapHeight
 import javax.inject.Inject
 
 class NewsListFragment : BaseFragment<NewsListViewModel>() {
+
+    private lateinit var root: LinearLayout
+    private lateinit var tvTitle: TextView
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -17,7 +27,21 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
     override val viewModel: NewsListViewModel by viewModels { viewModelFactory }
 
     override fun createUi(): View? {
-        return TextView(context)
+        root = linearLayout {
+            orientation = LinearLayout.VERTICAL
+
+            tvTitle = textView {
+                text = "News List Fragment"
+                setTextColor(Color.BLACK)
+                gravity = Gravity.CENTER
+            }
+
+            addView(tvTitle, matchWidthWrapHeight {
+                rightMargin = 16.dp()
+                leftMargin = 16.dp()
+            })
+        }
+        return root
     }
 
     override fun setUpUi() {
