@@ -14,4 +14,6 @@ abstract class CoreApp : Application(),CoreComponentProvider {
             .application(this)
             .build()
     }
+
+    override fun coreComponent() = coreComponent
 }

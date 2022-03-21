@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 apply from: "$rootDir/buildScript/shared_dependencies.gradle"
 
@@ -44,4 +45,6 @@ dependencies {
     implementation project(':core')
     implementation project(':ui')
     implementation project(':news:list')
+
+    kapt daggerCompiler
 }
