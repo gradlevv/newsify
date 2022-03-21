@@ -20,4 +20,12 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/searchNewsFragment"
+        android:name="com.gradlevv.search.ui.SearchNewsFragment">
+
+        <deepLink app:uri="@string/search_news_fragment" />
+
+    </fragment>
+
 </navigation>
