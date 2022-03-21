@@ -49,6 +49,9 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 Menus.SEARCH.id -> {
+                    navController.navigate(
+                        Uri.parse(applicationContext.getString(R.string.search_news_fragment))
+                    )
                     true
                 }
 
