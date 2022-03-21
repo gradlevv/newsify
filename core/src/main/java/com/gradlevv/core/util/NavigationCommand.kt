@@ -1,4 +1,4 @@
-package com.samcrow.core.util
+package com.gradlevv.core.util
 
 import androidx.annotation.StringRes
 import androidx.navigation.NavDirections
