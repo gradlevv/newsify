@@ -45,6 +45,7 @@ dependencies {
     implementation project(':core')
     implementation project(':ui')
     implementation project(':news:list')
+    implementation project(':news:favorite')
 
     kapt daggerCompiler
 }
