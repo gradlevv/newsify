@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
     private val navigationItemClickListener by lazy {
         BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-
                 Menus.HOME.id -> {
                     navController.navigate(
                         Uri.parse(applicationContext.getString(R.string.news_list_fragment))
@@ -56,6 +55,9 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 Menus.SETTING.id -> {
+                    navController.navigate(
+                        Uri.parse(applicationContext.getString(R.string.setting_fragment))
+                    )
                     true
                 }
                 else -> {
@@ -149,6 +151,8 @@ class MainActivity : AppCompatActivity() {
             R.drawable.ic_settings_fill,
             R.drawable.ic_settings_stroke
         )
+
+        bottomNavigationView.selectedItemId = Menus.HOME.id
     }
 
 }

@@ -28,4 +28,12 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.gradlevv.setting.ui.SettingFragment">
+
+        <deepLink app:uri="@string/setting_fragment" />
+
+    </fragment>
+
 </navigation>
