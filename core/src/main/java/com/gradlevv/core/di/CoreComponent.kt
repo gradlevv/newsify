@@ -6,7 +6,7 @@ import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
-@Component(modules = [CoreModule::class])
+@Component(modules = [CoreModule::class, CoreNetworkModule::class])
 @Singleton
 interface CoreComponent {
 
@@ -14,7 +14,7 @@ interface CoreComponent {
     fun context(): Context
 
     @Component.Builder
-    interface Builder{
+    interface Builder {
         fun application(@BindsInstance application: Application): Builder
         fun build(): CoreComponent
     }
