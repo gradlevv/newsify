@@ -8,7 +8,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import com.samcrow.core.util.Event
 import com.gradlevv.core.util.NavigationCommand
-import com.samcrow.core.util.SingleLiveEvent
+import com.gradlevv.core.util.SingleLiveEvent
 
 abstract class BaseViewModel : ViewModel(){
 
