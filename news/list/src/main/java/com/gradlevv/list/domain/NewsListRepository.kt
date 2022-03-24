@@ -1,4 +1,4 @@
-package com.gradlevv.list.data.source
+package com.gradlevv.list.domain
 
 import com.gradlevv.core.data.model.Resource
 import com.gradlevv.list.data.model.TopHeadLinesResponse
