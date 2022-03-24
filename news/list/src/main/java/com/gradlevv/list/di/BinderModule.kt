@@ -2,7 +2,7 @@ package com.gradlevv.list.di
 
 import androidx.lifecycle.ViewModel
 import com.gradlevv.core.di.ViewModelKey
-import com.gradlevv.list.data.source.NewsListRepository
+import com.gradlevv.list.domain.NewsListRepository
 import com.gradlevv.list.data.source.NewsListRepositoryImpl
 import com.gradlevv.list.ui.NewsListViewModel
 import dagger.Binds
