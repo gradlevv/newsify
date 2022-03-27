@@ -19,6 +19,10 @@ ext {
     dagger = "com.google.dagger:dagger:$libraryVersion.dagger2Version"
     daggerCompiler = "com.google.dagger:dagger-compiler:$libraryVersion.dagger2Version"
 
+    //coroutine
+    coroutineCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$libraryVersion.coroutinesCoreVersion"
+    coroutineAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$libraryVersion.coroutinesAndroidVersion"
+
     // retrofit
     retrofit = "com.squareup.retrofit2:retrofit:$libraryVersion.retrofitVersion"
     retrofitGson = "com.squareup.retrofit2:converter-gson:$libraryVersion.retrofitVersion"

@@ -3,6 +3,7 @@ package com.gradlevv.core.di
 import android.content.Context
 import android.net.ConnectivityManager
 import com.google.gson.Gson
+import com.gradlevv.core.BuildConfig
 import com.gradlevv.core.util.Constants.API_KEY
 import com.gradlevv.core.util.Constants.BASE_URL_API
 import dagger.Lazy
@@ -80,10 +81,19 @@ object CoreNetworkModule {
     fun provideRequestHeadersInterceptor(): Interceptor {
         return Interceptor { chain ->
             val request = chain.request().newBuilder()
-                .addHeader("apiKey", API_KEY)
+                .addHeader("X-Api-Key", API_KEY)
 
             return@Interceptor chain.proceed(request.build())
         }
     }
 
+    @Provides
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor =
+        HttpLoggingInterceptor().apply {
+            level = if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.NONE
+            }
+        }
 }
