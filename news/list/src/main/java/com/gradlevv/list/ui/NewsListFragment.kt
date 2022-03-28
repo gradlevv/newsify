@@ -1,7 +1,10 @@
 package com.gradlevv.list.ui
 
+import android.graphics.drawable.Drawable
+import android.view.Gravity
 import android.view.View
-import android.widget.LinearLayout
+import android.widget.FrameLayout
+import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,17 +15,22 @@ import com.gradlevv.core.util.coreComponent
 import com.gradlevv.list.di.DaggerNewsListComponent
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.ui.base.BaseFragment
-import com.gradlevv.ui.dsl.linearLayout
+import com.gradlevv.ui.dsl.frameLayout
 import com.gradlevv.ui.dsl.recyclerView
+import com.gradlevv.ui.shape.materialShape
+import com.gradlevv.ui.utils.Colors
+import com.gradlevv.ui.utils.ThemeManager
 import com.gradlevv.ui.utils.matchWidthAndHeight
+import com.gradlevv.ui.utils.matchWidthWrapHeight
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class NewsListFragment : BaseFragment<NewsListViewModel>() {
 
-    private lateinit var root: LinearLayout
+    private lateinit var root: FrameLayout
     private lateinit var rvTopHeadLines: RecyclerView
     private lateinit var gridLayoutManager: GridLayoutManager
+    private lateinit var loading: ProgressBar
 
     private val topHeadLinesAdapter: TopHeadLinesAdapter by lazy {
         TopHeadLinesAdapter(
@@ -40,9 +48,12 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
     override val viewModel: NewsListViewModel by viewModels { viewModelFactory }
 
     override fun createUi(): View? {
-        root = linearLayout {
+        root = frameLayout {
 
-            orientation = LinearLayout.VERTICAL
+            loading = ProgressBar(context).apply {
+                isIndeterminate = true
+                visibility = View.GONE
+            }
 
             gridLayoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
 
@@ -51,7 +62,9 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
                 clipToPadding = false
                 adapter = topHeadLinesAdapter
             }
-
+            addView(loading,matchWidthWrapHeight {
+                gravity = Gravity.CENTER
+            })
             addView(rvTopHeadLines,matchWidthAndHeight())
         }
         return root
@@ -63,15 +76,16 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
             viewModel.topHeadLinesList.collect { topHeadLinesState ->
 
                 if (topHeadLinesState.isLoading) {
-
+                    loading.visibility = View.VISIBLE
                 }
 
                 if (topHeadLinesState.items.isNotEmpty()) {
+                    loading.visibility = View.GONE
                     topHeadLinesAdapter.submitList(topHeadLinesState.items)
                 }
 
                 if (topHeadLinesState.isError) {
-
+                    loading.visibility = View.GONE
                 }
             }
         }

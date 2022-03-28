@@ -6,10 +6,12 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.gradlevv.core.util.dp
+import com.gradlevv.core.util.dpf
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.ui.dsl.imageView
 import com.gradlevv.ui.dsl.linearLayout
 import com.gradlevv.ui.dsl.textView
+import com.gradlevv.ui.shape.materialShape
 import com.gradlevv.ui.utils.*
 
 class TopHeadLineRowView(context: Context) : FrameLayout(context) {
@@ -32,6 +34,12 @@ class TopHeadLineRowView(context: Context) : FrameLayout(context) {
 
     init {
 
+        background = materialShape {
+            fillColor = ThemeManager.getColorState(Colors.colorBackground)
+            strokeColor = ThemeManager.getColorState(Colors.colorPrimary)
+            setCornerSize(14.dpf())
+        }
+
         addView(linearLayout {
 
             orientation = LinearLayout.VERTICAL
@@ -40,7 +48,7 @@ class TopHeadLineRowView(context: Context) : FrameLayout(context) {
                 topMargin = 32.dp()
             })
 
-            addView(tvDescription,matchWidthAndHeight{
+            addView(tvDescription, matchWidthAndHeight {
                 topMargin = 16.dp()
             })
 
@@ -53,12 +61,12 @@ class TopHeadLineRowView(context: Context) : FrameLayout(context) {
         addView(linearLayout {
             orientation = LinearLayout.HORIZONTAL
 
-            addView(ivLogo,customWidthAndHeight(36,36))
-            addView(tvContent,wrapWidthAndHeight{
+            addView(ivLogo, customWidthAndHeight(36, 36))
+            addView(tvContent, wrapWidthAndHeight {
                 leftMargin = 4.dp()
             })
 
-        },matchWidthWrapHeight {
+        }, matchWidthWrapHeight {
             gravity = Gravity.BOTTOM or Gravity.LEFT
             rightMargin = 16.dp()
             leftMargin = 16.dp()
@@ -66,10 +74,12 @@ class TopHeadLineRowView(context: Context) : FrameLayout(context) {
 
     }
 
-    fun bind(item: TopHeadLinesItem){
+    fun bind(item: TopHeadLinesItem) {
 
         tvTitle.text = item.title
         tvDescription.text = item.description
         tvContent.text = item.author
+
+        ivLogo.loadImage(item.imageUrl)
     }
 }
