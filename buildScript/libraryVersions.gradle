@@ -3,7 +3,7 @@ ext {
     build = [
             compiledSdkVersion: 30,
             targetSdkVersion  : 30,
-            minSdkVersion     : 19
+            minSdkVersion     : 21
     ]
 
     versionning = [
