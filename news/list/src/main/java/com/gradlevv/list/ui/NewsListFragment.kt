@@ -1,6 +1,5 @@
 package com.gradlevv.list.ui
 
-import android.graphics.drawable.Drawable
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
@@ -12,14 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gradlevv.core.di.ViewModelFactory
 import com.gradlevv.core.util.coreComponent
+import com.gradlevv.core.util.dp
 import com.gradlevv.list.di.DaggerNewsListComponent
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.ui.base.BaseFragment
 import com.gradlevv.ui.dsl.frameLayout
 import com.gradlevv.ui.dsl.recyclerView
-import com.gradlevv.ui.shape.materialShape
-import com.gradlevv.ui.utils.Colors
-import com.gradlevv.ui.utils.ThemeManager
 import com.gradlevv.ui.utils.matchWidthAndHeight
 import com.gradlevv.ui.utils.matchWidthWrapHeight
 import kotlinx.coroutines.flow.collect
@@ -61,11 +58,15 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
                 layoutManager = gridLayoutManager
                 clipToPadding = false
                 adapter = topHeadLinesAdapter
+                setPadding(0,0,0,80.dp())
             }
             addView(loading,matchWidthWrapHeight {
                 gravity = Gravity.CENTER
             })
-            addView(rvTopHeadLines,matchWidthAndHeight())
+            addView(rvTopHeadLines,matchWidthAndHeight{
+                rightMargin = 8.dp()
+                leftMargin = 8.dp()
+            })
         }
         return root
     }

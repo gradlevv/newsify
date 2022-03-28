@@ -36,7 +36,8 @@ class TopHeadLineRowView(context: Context) : FrameLayout(context) {
 
         background = materialShape {
             fillColor = ThemeManager.getColorState(Colors.colorBackground)
-            strokeColor = ThemeManager.getColorState(Colors.colorPrimary)
+            strokeWidth = 1.dpf()
+            strokeColor = ThemeManager.getColorState(Colors.colorPrimaryDark)
             setCornerSize(14.dpf())
         }
 
