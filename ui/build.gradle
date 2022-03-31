@@ -9,4 +9,7 @@ dependencies {
 
     // Constraint Layout
     api constraintLayout
+
+    api glide
+    kapt glideCompiler
 }

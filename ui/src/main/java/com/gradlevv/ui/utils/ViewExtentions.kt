@@ -5,11 +5,20 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
+import com.bumptech.glide.Glide
 import com.gradlevv.core.util.getCompatDrawable
+import com.gradlevv.ui.R
 
 
 fun ImageView.setCompatDrawable(@DrawableRes id: Int) {
     setImageDrawable(context.getCompatDrawable(id))
+}
+
+fun ImageView.loadImage(url: String?){
+    Glide.with(this)
+        .load(url)
+        .placeholder(R.drawable.ic_place_holder)
+        .into(this)
 }
 
 fun View.closeKeyboard() {

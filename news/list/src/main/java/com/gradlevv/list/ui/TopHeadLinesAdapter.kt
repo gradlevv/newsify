@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.gradlevv.core.util.dp
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.list.ui.component.TopHeadLineRowView
 
@@ -18,7 +19,9 @@ class TopHeadLinesAdapter(
             RecyclerView.LayoutParams.MATCH_PARENT,
             RecyclerView.LayoutParams.WRAP_CONTENT
         ).apply {
-
+            topMargin = 8.dp()
+            rightMargin = 8.dp()
+            leftMargin = 8.dp()
         }
         return TopHeadLinesViewHolder(view, itemClick)
     }

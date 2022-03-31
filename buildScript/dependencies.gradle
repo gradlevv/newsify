@@ -31,6 +31,10 @@ ext {
     okhttp = "com.squareup.okhttp3:okhttp:$libraryVersion.okHttpVersion"
     interceptor = "com.squareup.okhttp3:logging-interceptor:$libraryVersion.okHttpVersion"
 
+    // glide
+    glide = "com.github.bumptech.glide:glide:$libraryVersion.glideVersion"
+    glideCompiler = "com.github.bumptech.glide:compiler:$libraryVersion.glideVersion"
+
     // arch component
     viewmodel = "androidx.lifecycle:lifecycle-viewmodel:$libraryVersion.archVersion"
     livedataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:$libraryVersion.archVersion"

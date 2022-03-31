@@ -64,7 +64,7 @@ fun ViewGroup.customWidthAndHeight(wInDp: Int, hInDp: Int): ViewGroup.LayoutPara
     return ViewGroup.LayoutParams(wInDp.dp(), hInDp.dp())
 }
 
-fun ViewGroup.wrapWidthAndHeight(wInDp: Int, hInDp: Int): ViewGroup.LayoutParams {
+fun ViewGroup.wrapWidthAndHeight(): ViewGroup.LayoutParams {
     return ViewGroup.LayoutParams(
         ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT
@@ -147,6 +147,13 @@ fun FrameLayout.matchWidthCustomHeight(
     return FrameLayout.LayoutParams(
         FrameLayout.LayoutParams.MATCH_PARENT,
         hInDp.dp()
+    ).apply(initLayout)
+}
+
+fun FrameLayout.wrapWidthAndHeight(initLayout: FrameLayout.LayoutParams.() -> Unit = {}): FrameLayout.LayoutParams {
+    return FrameLayout.LayoutParams(
+        FrameLayout.LayoutParams.WRAP_CONTENT,
+        FrameLayout.LayoutParams.WRAP_CONTENT
     ).apply(initLayout)
 }
 

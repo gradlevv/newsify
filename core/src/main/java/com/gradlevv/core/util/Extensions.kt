@@ -5,11 +5,11 @@ import android.util.TypedValue
 import kotlin.math.ceil
 
 fun Int.dpf(): Float {
-    return this.dpf().toFloat()
+    return this.dp().toFloat()
 }
 
 fun Float.dpf(): Float {
-    return this.dpf().toFloat()
+    return this.dp().toFloat()
 }
 
 fun Int.dp(): Int {
