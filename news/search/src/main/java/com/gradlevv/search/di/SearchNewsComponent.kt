@@ -7,7 +7,7 @@ import dagger.Component
 
 @Component(
     dependencies = [CoreComponent::class],
-    modules = [BinderModule::class]
+    modules = [BinderModule::class,SearchNewsModule::class]
 )
 @AppScope
 interface SearchNewsComponent {
