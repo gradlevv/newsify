@@ -6,7 +6,6 @@ import android.widget.FrameLayout
 import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gradlevv.core.di.ViewModelFactory
@@ -26,7 +25,7 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
 
     private lateinit var root: FrameLayout
     private lateinit var rvTopHeadLines: RecyclerView
-    private lateinit var gridLayoutManager: GridLayoutManager
+    private lateinit var gridLayoutManager: LinearLayoutManager
     private lateinit var loading: ProgressBar
 
     private val topHeadLinesAdapter: TopHeadLinesAdapter by lazy {
@@ -52,18 +51,18 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
                 visibility = View.GONE
             }
 
-            gridLayoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
+            gridLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
             rvTopHeadLines = recyclerView {
                 layoutManager = gridLayoutManager
                 clipToPadding = false
                 adapter = topHeadLinesAdapter
-                setPadding(0,0,0,80.dp())
+                setPadding(0, 0, 0, 80.dp())
             }
-            addView(loading,matchWidthWrapHeight {
+            addView(loading, matchWidthWrapHeight {
                 gravity = Gravity.CENTER
             })
-            addView(rvTopHeadLines,matchWidthAndHeight{
+            addView(rvTopHeadLines, matchWidthAndHeight{
                 rightMargin = 8.dp()
                 leftMargin = 8.dp()
             })

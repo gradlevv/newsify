@@ -7,6 +7,7 @@ import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import com.bumptech.glide.Glide
 import com.gradlevv.core.util.getCompatDrawable
+import com.gradlevv.ui.R
 
 
 fun ImageView.setCompatDrawable(@DrawableRes id: Int) {
@@ -16,6 +17,7 @@ fun ImageView.setCompatDrawable(@DrawableRes id: Int) {
 fun ImageView.loadImage(url: String?){
     Glide.with(this)
         .load(url)
+        .placeholder(R.drawable.ic_place_holder)
         .into(this)
 }
 

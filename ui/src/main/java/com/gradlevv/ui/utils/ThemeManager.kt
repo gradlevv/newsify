@@ -24,7 +24,8 @@ import androidx.lifecycle.MutableLiveData
     Colors.colorAccent,
     Colors.colorBackground,
     Colors.colorText,
-    Colors.colorIconTint
+    Colors.colorIconTint,
+    Colors.colorWhite
 )
 annotation class Colors {
     companion object {
@@ -37,6 +38,8 @@ annotation class Colors {
 
         const val colorText = "colorText"
         const val colorIconTint = "colorIconTint"
+
+        const val colorWhite = "colorWhite"
 
         const val colorTransparent = "colorTransparent"
 
@@ -69,7 +72,8 @@ object ThemeManager {
         Colors.colorBackground to Day.colorBackground,
         Colors.colorAccent to Day.colorAccent,
         Colors.colorText to Day.colorText,
-        Colors.colorIconTint to Day.colorIconTint
+        Colors.colorIconTint to Day.colorIconTint,
+        Colors.colorWhite to Day.colorWhite
         )
 
     private val nightColors: HashMap<String, Int> = hashMapOf(
@@ -79,7 +83,8 @@ object ThemeManager {
         Colors.colorBackground to Night.colorBackground,
         Colors.colorAccent to Night.colorAccent,
         Colors.colorText to Night.colorText,
-        Colors.colorIconTint to Night.colorIconTint
+        Colors.colorIconTint to Night.colorIconTint,
+        Colors.colorWhite to Night.colorWhite
     )
 
     private val amoledColors: HashMap<String, Int> = hashMapOf(
@@ -89,7 +94,8 @@ object ThemeManager {
         Colors.colorBackground to Amoled.colorBackground,
         Colors.colorAccent to Amoled.colorAccent,
         Colors.colorText to Amoled.colorText,
-        Colors.colorIconTint to Amoled.colorIconTint
+        Colors.colorIconTint to Amoled.colorIconTint,
+        Colors.colorWhite to Amoled.colorWhite
     )
 
     private object Day {
@@ -115,6 +121,9 @@ object ThemeManager {
         @ColorInt
         val colorIconTint = Color.parseColor("#A2A2A2")
 
+        @ColorInt
+        val colorWhite = Color.parseColor("#FFFFFF")
+
     }
 
     private object Night {
@@ -139,6 +148,9 @@ object ThemeManager {
 
         @ColorInt
         val colorIconTint = Color.parseColor("#A2A2A2")
+
+        @ColorInt
+        val colorWhite = Color.parseColor("#FFFFFF")
     }
 
     private object Amoled {
@@ -163,6 +175,9 @@ object ThemeManager {
 
         @ColorInt
         val colorIconTint = Color.parseColor("#A2A2A2")
+
+        @ColorInt
+        val colorWhite = Color.parseColor("#FFFFFF")
     }
 
     @JvmStatic
