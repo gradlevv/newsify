@@ -1,25 +1,43 @@
 package com.gradlevv.search.ui
 
-import android.graphics.Color
 import android.view.Gravity
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.FrameLayout
+import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.gradlevv.core.di.ViewModelFactory
 import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dp
 import com.gradlevv.search.di.DaggerSearchNewsComponent
+import com.gradlevv.search.domain.SearchNewsItem
 import com.gradlevv.ui.base.BaseFragment
-import com.gradlevv.ui.dsl.linearLayout
-import com.gradlevv.ui.dsl.textView
+import com.gradlevv.ui.dsl.frameLayout
+import com.gradlevv.ui.dsl.recyclerView
+import com.gradlevv.ui.utils.matchWidthAndHeight
 import com.gradlevv.ui.utils.matchWidthWrapHeight
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
 
-    private lateinit var root: LinearLayout
-    private lateinit var tvTitle: TextView
+    private lateinit var root: FrameLayout
+    private lateinit var rvTopHeadLines: RecyclerView
+    private lateinit var gridLayoutManager: GridLayoutManager
+    private lateinit var loading: ProgressBar
+
+    private val searchNewsAdapter: SearchNewsAdapter by lazy {
+        SearchNewsAdapter(
+            ::onItemClick
+        )
+    }
+
+    private fun onItemClick(position: Int, topHeadLinesItem: SearchNewsItem) {
+
+    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -27,18 +45,27 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
     override val viewModel: SearchNewsViewModel by viewModels { viewModelFactory }
 
     override fun createUi(): View? {
-        root = linearLayout {
-            orientation = LinearLayout.VERTICAL
+        root = frameLayout {
 
-            tvTitle = textView {
-                text = "Search News Fragment"
-                setTextColor(Color.BLACK)
-                gravity = Gravity.CENTER
+            loading = ProgressBar(context).apply {
+                isIndeterminate = true
+                visibility = View.GONE
             }
 
-            addView(tvTitle, matchWidthWrapHeight {
-                rightMargin = 16.dp()
-                leftMargin = 16.dp()
+            gridLayoutManager = GridLayoutManager(context,2, LinearLayoutManager.VERTICAL, false)
+
+            rvTopHeadLines = recyclerView {
+                layoutManager = gridLayoutManager
+                clipToPadding = false
+                adapter = searchNewsAdapter
+                setPadding(0, 0, 0, 80.dp())
+            }
+            addView(loading, matchWidthWrapHeight {
+                gravity = Gravity.CENTER
+            })
+            addView(rvTopHeadLines, matchWidthAndHeight{
+                rightMargin = 8.dp()
+                leftMargin = 8.dp()
             })
         }
         return root
@@ -46,6 +73,24 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
 
     override fun setUpUi() {
 
+        lifecycleScope.launchWhenCreated {
+
+            viewModel.searchNewsList.collect { searchList ->
+
+                if (searchList.isLoading) {
+                    loading.visibility = View.VISIBLE
+                }
+
+                if (searchList.items.isNotEmpty()) {
+                    loading.visibility = View.GONE
+                    searchNewsAdapter.submitList(searchList.items)
+                }
+
+                if (searchList.isError){
+                    loading.visibility = View.GONE
+                }
+            }
+        }
     }
 
     override fun daggerSetUp() {

@@ -7,6 +7,9 @@ import com.gradlevv.core.util.Constants.DATE_FORMAT
 import com.gradlevv.core.util.Constants.SORT_BY
 import com.gradlevv.search.domain.SearchDomainModel
 import com.gradlevv.search.domain.usecase.SearchNewsUseCase
+import com.gradlevv.search.ui.state.SearchNewsState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -16,6 +19,9 @@ class SearchNewsViewModel @Inject constructor(
     private val searchNewsUseCase: SearchNewsUseCase
 ) : BaseViewModel() {
 
+    private val _searchNewsList = MutableStateFlow(SearchNewsState())
+    val searchNewsList = _searchNewsList.asStateFlow()
+
     private val defaultSearchTag = "Android"
 
     init {
@@ -23,6 +29,8 @@ class SearchNewsViewModel @Inject constructor(
     }
 
     fun searchNews(tag: String) {
+
+        _searchNewsList.value = SearchNewsState(isLoading = true)
 
         viewModelScope.launch {
 
@@ -36,13 +44,14 @@ class SearchNewsViewModel @Inject constructor(
                 sortedBy = SORT_BY
             )
 
-            when (val result = searchNewsUseCase.invoke(request = request)) {
+            when (val result = searchNewsUseCase(request = request)) {
 
                 is Resource.Success -> {
+                    _searchNewsList.value = SearchNewsState(items = result.data ?: arrayListOf())
                 }
 
                 is Resource.Error -> {
-
+                    _searchNewsList.value = SearchNewsState(isError = true)
                 }
             }
 
