@@ -1,10 +1,7 @@
 package com.gradlevv.ui.dsl
 
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 
@@ -26,4 +23,8 @@ inline fun ViewGroup.frameLayout(init : FrameLayout.() -> Unit): FrameLayout {
 
 inline fun ViewGroup.recyclerView(init: RecyclerView.() -> Unit): RecyclerView {
     return RecyclerView(context).apply(init)
+}
+
+inline fun ViewGroup.editText(init: EditText.() -> Unit): EditText {
+    return EditText(context).apply(init)
 }
