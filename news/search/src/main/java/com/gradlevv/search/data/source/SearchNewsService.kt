@@ -7,6 +7,12 @@ import retrofit2.http.Query
 
 interface SearchNewsService {
 
-    @GET("v2/everything?")
-    suspend fun searchNews(@Query("q=") tag : String) : Response<SearchResponse>
+    @GET("v2/everything")
+    suspend fun searchNews(
+        @Query("q") tag: String,
+        @Query("from") from: String,
+        @Query("to") to: String,
+        @Query("sortBy") sortedBy: String
+
+    ): Response<SearchResponse>
 }
