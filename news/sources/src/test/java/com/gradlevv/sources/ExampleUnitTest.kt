@@ -1,4 +1,4 @@
-package com.gradlevv.favorite
+package com.gradlevv.sources
 
 import org.junit.Test
 

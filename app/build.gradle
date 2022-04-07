@@ -45,7 +45,7 @@ dependencies {
     implementation project(':core')
     implementation project(':ui')
     implementation project(':news:list')
-    implementation project(':news:favorite')
+    implementation project(':news:sources')
     implementation project(':news:search')
     implementation project(':news:setting')
 

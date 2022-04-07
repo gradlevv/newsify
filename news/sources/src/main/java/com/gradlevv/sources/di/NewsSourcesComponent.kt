@@ -1,8 +1,8 @@
-package com.gradlevv.favorite.di
+package com.gradlevv.sources.di
 
 import com.gradlevv.core.di.AppScope
 import com.gradlevv.core.di.CoreComponent
-import com.gradlevv.favorite.ui.FavoriteNewsFragment
+import com.gradlevv.sources.ui.NewsSourcesFragment
 import dagger.Component
 
 @Component(
@@ -10,12 +10,12 @@ import dagger.Component
     modules = [BinderModule::class]
 )
 @AppScope
-interface FavoriteNewsComponent {
+interface NewsSourcesComponent {
 
-    fun inject(fragment: FavoriteNewsFragment)
+    fun inject(sourcesFragment: NewsSourcesFragment)
 
    @Component.Factory
    interface Builder{
-       fun create(coreComponent: CoreComponent): FavoriteNewsComponent
+       fun create(coreComponent: CoreComponent): NewsSourcesComponent
    }
 }

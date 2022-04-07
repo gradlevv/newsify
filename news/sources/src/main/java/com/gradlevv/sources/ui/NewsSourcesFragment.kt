@@ -1,4 +1,4 @@
-package com.gradlevv.favorite.ui
+package com.gradlevv.sources.ui
 
 import android.graphics.Color
 import android.view.Gravity
@@ -9,14 +9,14 @@ import androidx.fragment.app.viewModels
 import com.gradlevv.core.di.ViewModelFactory
 import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dp
-import com.gradlevv.favorite.di.DaggerFavoriteNewsComponent
+import com.gradlevv.sources.di.DaggerNewsSourcesComponent
 import com.gradlevv.ui.base.BaseFragment
 import com.gradlevv.ui.dsl.linearLayout
 import com.gradlevv.ui.dsl.textView
 import com.gradlevv.ui.utils.matchWidthWrapHeight
 import javax.inject.Inject
 
-class FavoriteNewsFragment: BaseFragment<FavoriteNewsViewModel>() {
+class NewsSourcesFragment: BaseFragment<NewsSourcesViewModel>() {
 
     private lateinit var root: LinearLayout
     private lateinit var tvTitle: TextView
@@ -24,7 +24,7 @@ class FavoriteNewsFragment: BaseFragment<FavoriteNewsViewModel>() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    override val viewModel: FavoriteNewsViewModel by viewModels { viewModelFactory }
+    override val viewModel: NewsSourcesViewModel by viewModels { viewModelFactory }
 
     override fun createUi(): View? {
         root = linearLayout {
@@ -49,6 +49,6 @@ class FavoriteNewsFragment: BaseFragment<FavoriteNewsViewModel>() {
     }
 
     override fun daggerSetUp() {
-        DaggerFavoriteNewsComponent.factory().create(requireActivity().coreComponent()).inject(this)
+        DaggerNewsSourcesComponent.factory().create(requireActivity().coreComponent()).inject(this)
     }
 }
