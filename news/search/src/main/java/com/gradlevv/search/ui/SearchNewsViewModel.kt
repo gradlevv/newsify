@@ -22,13 +22,13 @@ class SearchNewsViewModel @Inject constructor(
     private val _searchNewsList = MutableStateFlow(SearchNewsState())
     val searchNewsList = _searchNewsList.asStateFlow()
 
-    private val defaultSearchTag = "Android"
+    var searchTag = "Android"
 
     init {
-        searchNews(defaultSearchTag)
+        searchNews()
     }
 
-    fun searchNews(tag: String) {
+    fun searchNews() {
 
         _searchNewsList.value = SearchNewsState(isLoading = true)
 
@@ -38,7 +38,7 @@ class SearchNewsViewModel @Inject constructor(
             val date = Date()
 
             val request = SearchDomainModel(
-                tag = tag,
+                tag = searchTag,
                 from = simpleDateFormat.format(date),
                 to = simpleDateFormat.format(date),
                 sortedBy = SORT_BY

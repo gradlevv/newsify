@@ -1,30 +1,29 @@
 package com.gradlevv.search.ui
 
+import android.content.res.ColorStateList
 import android.text.InputFilter
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.FrameLayout
-import android.widget.ProgressBar
+import android.widget.*
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.gradlevv.core.di.ViewModelFactory
 import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dp
+import com.gradlevv.core.util.dpf
+import com.gradlevv.search.R
 import com.gradlevv.search.di.DaggerSearchNewsComponent
 import com.gradlevv.search.domain.SearchNewsItem
 import com.gradlevv.ui.base.BaseFragment
-import com.gradlevv.ui.dsl.editText
-import com.gradlevv.ui.dsl.frameLayout
-import com.gradlevv.ui.dsl.recyclerView
-import com.gradlevv.ui.utils.matchWidthAndHeight
-import com.gradlevv.ui.utils.matchWidthCustomHeight
-import com.gradlevv.ui.utils.matchWidthWrapHeight
+import com.gradlevv.ui.dsl.*
+import com.gradlevv.ui.shape.materialShape
+import com.gradlevv.ui.utils.*
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
@@ -35,6 +34,11 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var loading: ProgressBar
     private lateinit var etSearch: EditText
+    private lateinit var flSearch: FrameLayout
+    private lateinit var ivSearch: ImageView
+    private lateinit var btnSearch: MaterialButton
+    private lateinit var llSearch: LinearLayout
+    private lateinit var tvNoResult: TextView
 
     private val searchNewsAdapter: SearchNewsAdapter by lazy {
         SearchNewsAdapter(
@@ -52,15 +56,69 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
     override val viewModel: SearchNewsViewModel by viewModels { viewModelFactory }
 
     override fun createUi(): View? {
+
         root = frameLayout {
 
             etSearch = editText {
-                gravity = Gravity.CENTER or Gravity.CENTER_VERTICAL
+                gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
                 setImeActionLabel("Next", EditorInfo.IME_ACTION_NEXT)
-                setTextSize(TypedValue.COMPLEX_UNIT_SP,14f)
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
                 maxLines = 1
                 filters = arrayOf(InputFilter.LengthFilter(16))
+                background = null
+                setPadding(24.dp(), 0, 24.dp(), 0)
+            }
 
+            ivSearch = imageView {
+                setImageResource(R.drawable.ic_search_fill)
+            }
+
+            tvNoResult = textView {
+                setTextColor(ThemeManager.getColor(Colors.colorText))
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 24f)
+                visibility = View.GONE
+                text = getString(R.string.no_result_found)
+                gravity = Gravity.CENTER or Gravity.CENTER_VERTICAL
+            }
+
+            btnSearch = normalButton {
+                insetTop = 0
+                insetBottom = 0
+                setTextColor(ThemeManager.getColor(Colors.colorBackground))
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+                backgroundTintList = ColorStateList.valueOf(ThemeManager.getColor(Colors.colorText))
+                text = getString(R.string.search)
+                cornerRadius = 14.dp()
+            }
+
+            flSearch = frameLayout {
+
+                background = materialShape {
+                    fillColor = ThemeManager.getColorState(Colors.colorText)
+                    setCornerSize(14.dpf())
+                }
+
+                addView(ivSearch, customWithAndHeight(24, 24).apply {
+                    gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
+                    leftMargin = 8.dp()
+                })
+
+                addView(etSearch, matchWidthCustomHeight(48) {
+                    rightMargin = 8.dp()
+                    leftMargin = 8.dp()
+                })
+            }
+
+            llSearch = linearLayout {
+
+                orientation = LinearLayout.HORIZONTAL
+
+                addView(flSearch, customWidthAndHeight(0, 48) {
+                    weight = 1f
+                    rightMargin = 8.dp()
+                })
+
+                addView(btnSearch, customWidthAndHeight(100, 48))
             }
 
             loading = ProgressBar(context).apply {
@@ -76,21 +134,26 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
                 adapter = searchNewsAdapter
                 setPadding(0, 0, 0, 80.dp())
             }
-            addView(loading, matchWidthWrapHeight {
-                gravity = Gravity.CENTER
-            })
-
-            addView(etSearch, matchWidthCustomHeight(48) {
+            addView(llSearch, matchWidthCustomHeight(48) {
                 gravity = Gravity.TOP
-                rightMargin = 8.dp()
-                leftMargin = 8.dp()
+                topMargin = 8.dp()
+                rightMargin = 32.dp()
+                leftMargin = 32.dp()
             })
 
             addView(rvTopHeadLines, matchWidthAndHeight {
                 gravity = Gravity.TOP
-                topMargin = 40.dp()
+                topMargin = 60.dp()
                 rightMargin = 8.dp()
                 leftMargin = 8.dp()
+            })
+
+            addView(loading, matchWidthWrapHeight {
+                gravity = Gravity.CENTER
+            })
+
+            addView(tvNoResult,matchWidthWrapHeight {
+                gravity = Gravity.CENTER
             })
         }
         return root
@@ -117,6 +180,16 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
                 }
             }
         }
+
+        btnSearch.setOnClickListener {
+            submitSearch()
+        }
+    }
+
+    private fun submitSearch() {
+        viewModel.searchTag = etSearch.text.toString()
+        viewModel.searchNews()
+        btnSearch.closeKeyboard()
     }
 
     override fun daggerSetUp() {

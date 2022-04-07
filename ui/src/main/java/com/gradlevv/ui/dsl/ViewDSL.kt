@@ -32,5 +32,5 @@ inline fun ViewGroup.editText(init: EditText.() -> Unit): EditText {
 }
 
 inline fun ViewGroup.normalButton(init: MaterialButton.() -> Unit): MaterialButton {
-    return MaterialButton(context,null,R.attr.borderlessButtonStyle)
+    return MaterialButton(context,null,R.attr.borderlessButtonStyle).apply(init)
 }
