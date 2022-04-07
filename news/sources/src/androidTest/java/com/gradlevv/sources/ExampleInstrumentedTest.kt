@@ -1,4 +1,4 @@
-package com.gradlevv.favorite
+package com.gradlevv.sources
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
