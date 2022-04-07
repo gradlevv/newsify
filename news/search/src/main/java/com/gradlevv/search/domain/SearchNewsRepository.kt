@@ -4,5 +4,5 @@ import com.gradlevv.core.data.model.Resource
 
 interface SearchNewsRepository {
 
-    suspend fun searchNews(tag: String): Resource<List<SearchNewsItem>>
+    suspend fun searchNews(request: SearchDomainModel): Resource<List<SearchNewsItem>>
 }

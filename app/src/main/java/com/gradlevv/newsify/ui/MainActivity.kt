@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
@@ -35,28 +36,36 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 Menus.HOME.id -> {
                     navController.navigate(
-                        Uri.parse(applicationContext.getString(R.string.news_list_fragment))
+                        Uri.parse(applicationContext.getString(R.string.news_list_fragment)),
+                        NavOptions.Builder()
+                            .setPopUpTo(R.id.newsListFragment, true).build()
                     )
                     true
                 }
 
                 Menus.FAVORITE.id -> {
                     navController.navigate(
-                        Uri.parse(applicationContext.getString(R.string.favorite_news_fragment))
+                        Uri.parse(applicationContext.getString(R.string.favorite_news_fragment)),
+                        NavOptions.Builder()
+                            .setPopUpTo(R.id.favoriteNewsFragment, true).build()
                     )
                     true
                 }
 
                 Menus.SEARCH.id -> {
                     navController.navigate(
-                        Uri.parse(applicationContext.getString(R.string.search_news_fragment))
+                        Uri.parse(applicationContext.getString(R.string.search_news_fragment)),
+                        NavOptions.Builder()
+                            .setPopUpTo(R.id.searchNewsFragment, true).build()
                     )
                     true
                 }
 
                 Menus.SETTING.id -> {
                     navController.navigate(
-                        Uri.parse(applicationContext.getString(R.string.setting_fragment))
+                        Uri.parse(applicationContext.getString(R.string.setting_fragment)),
+                        NavOptions.Builder()
+                            .setPopUpTo(R.id.settingFragment, true).build()
                     )
                     true
                 }
@@ -90,6 +99,11 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         navController.graph = navGraph
 
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+            }
+        }
+
         initBottomNavigationView()
     }
 
@@ -114,9 +128,7 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-
-        }
+        bottomNavigationView.setOnNavigationItemReselectedListener {}
     }
 
     private enum class Menus(val id: Int) {

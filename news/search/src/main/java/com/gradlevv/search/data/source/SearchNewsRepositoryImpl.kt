@@ -4,6 +4,7 @@ import com.gradlevv.core.data.model.Resource
 import com.gradlevv.core.data.model.mapTo
 import com.gradlevv.core.data.network.ResponseHandler
 import com.gradlevv.search.data.SearchNewsMapper
+import com.gradlevv.search.domain.SearchDomainModel
 import com.gradlevv.search.domain.SearchNewsItem
 import com.gradlevv.search.domain.SearchNewsRepository
 import kotlinx.coroutines.Dispatchers
@@ -15,9 +16,16 @@ class SearchNewsRepositoryImpl @Inject constructor(
     private val mapper: SearchNewsMapper
 ) : ResponseHandler(), SearchNewsRepository {
 
-    override suspend fun searchNews(tag: String): Resource<List<SearchNewsItem>> {
+    override suspend fun searchNews(request: SearchDomainModel): Resource<List<SearchNewsItem>> {
         return withContext(Dispatchers.IO) {
-            return@withContext getResource { searchNewsService.searchNews(tag) }.mapTo(mapper)
+            return@withContext getResource {
+                searchNewsService.searchNews(
+                    tag = request.tag,
+                    from = request.from,
+                    to = request.to,
+                    sortedBy = request.sortedBy
+                )
+            }.mapTo(mapper)
         }
     }
 }
