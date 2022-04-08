@@ -2,7 +2,7 @@
 
 <resources>
     <string name="news_list_fragment" translatable="false">app://newsListFragment</string>
-    <string name="favorite_news_fragment" translatable="false">app://favoriteNewsFragment</string>
+    <string name="news_sources_fragment" translatable="false">app://newsSourcesFragment</string>
     <string name="search_news_fragment" translatable="false">app://searchNewsFragment</string>
     <string name="setting_fragment" translatable="false">app://settingFragment</string>
 </resources>

@@ -45,9 +45,9 @@ class MainActivity : AppCompatActivity() {
 
                 Menus.FAVORITE.id -> {
                     navController.navigate(
-                        Uri.parse(applicationContext.getString(R.string.favorite_news_fragment)),
+                        Uri.parse(applicationContext.getString(R.string.news_sources_fragment)),
                         NavOptions.Builder()
-                            .setPopUpTo(R.id.favoriteNewsFragment, true).build()
+                            .setPopUpTo(R.id.newsSourcesFragment, true).build()
                     )
                     true
                 }
