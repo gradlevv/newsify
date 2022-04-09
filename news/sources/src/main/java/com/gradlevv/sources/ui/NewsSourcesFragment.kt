@@ -34,7 +34,12 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
         )
     }
 
-    private fun onItemClick(position: Int, topHeadLinesItem: SourceItemDomainModel) {
+    private fun onItemClick(position: Int, item: SourceItemDomainModel) {
+
+        NewsSourceBottomSheet(requireContext())
+            .setOnSubmitClickListener {
+
+            }.setValues(item).show()
 
     }
 
