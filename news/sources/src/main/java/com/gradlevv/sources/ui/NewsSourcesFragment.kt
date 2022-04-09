@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gradlevv.core.di.ViewModelFactory
+import com.gradlevv.core.util.IntentUtils
 import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dp
 import com.gradlevv.sources.di.DaggerNewsSourcesComponent
@@ -38,10 +39,13 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
 
         NewsSourceBottomSheet(requireContext())
             .setOnSubmitClickListener {
-
+                intentUtils.openLinkInDeviceBrowser(item.url)
             }.setValues(item).show()
 
     }
+
+    @Inject
+    lateinit var intentUtils: IntentUtils
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
