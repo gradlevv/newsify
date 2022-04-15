@@ -47,7 +47,7 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
 
                 is NavigationCommand.ToDeppLink -> {
                     findNavController().navigate(
-                        Uri.parse(requireContext().getString(it.deepLink))
+                        Uri.parse(requireContext().getString(it.deepLink)),it.navOptions
                     )
                 }
 
