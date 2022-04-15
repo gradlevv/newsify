@@ -5,6 +5,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
+import androidx.navigation.NavOptions
 import com.bumptech.glide.Glide
 import com.gradlevv.core.util.getCompatDrawable
 import com.gradlevv.ui.R
@@ -39,3 +40,9 @@ fun View.openKeyboard(): Boolean {
     }
     return false
 }
+
+val navOptions = NavOptions.Builder()
+    .setEnterAnim(R.anim.enter_anim)
+    .setExitAnim(R.anim.exit_anim)
+    .setPopEnterAnim(R.anim.pop_enter_anim)
+    .setPopExitAnim(R.anim.pop_exit_anim).build()

@@ -3,8 +3,11 @@ package com.gradlevv.list.ui
 import androidx.lifecycle.viewModelScope
 import com.gradlevv.core.base.BaseViewModel
 import com.gradlevv.core.data.model.Resource
+import com.gradlevv.list.R
+import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.list.domain.usecase.GetTopHeadLinesUseCase
 import com.gradlevv.list.ui.state.TopHeadLinesState
+import com.gradlevv.ui.utils.navOptions
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -16,6 +19,9 @@ class NewsListViewModel @Inject constructor(
 
     private val _topHeadLinesList = MutableStateFlow(TopHeadLinesState())
     val topHeadLinesList = _topHeadLinesList.asStateFlow()
+
+    private val _newsDetailItem = MutableStateFlow<TopHeadLinesItem?>(null)
+    val newsDetailItem = _newsDetailItem.asStateFlow()
 
     init {
         getTopHeadlines()
@@ -39,5 +45,10 @@ class NewsListViewModel @Inject constructor(
 
         }
 
+    }
+
+    fun navigateToNewsDetail(topHeadLinesItem: TopHeadLinesItem) {
+        _newsDetailItem.value = topHeadLinesItem
+        navigate(R.string.news_detail_fragment, navOptions)
     }
 }
