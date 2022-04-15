@@ -6,11 +6,13 @@ import android.widget.FrameLayout
 import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gradlevv.core.di.ViewModelFactory
 import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dp
+import com.gradlevv.list.R
 import com.gradlevv.list.di.DaggerNewsListComponent
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.ui.base.BaseFragment
@@ -41,7 +43,7 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    override val viewModel: NewsListViewModel by viewModels { viewModelFactory }
+    override val viewModel: NewsListViewModel by navGraphViewModels(R.id.news_list_graph) { viewModelFactory }
 
     override fun createUi(): View? {
         root = frameLayout {

@@ -4,13 +4,28 @@
     app:startDestination="@id/newsListFragment"
     android:id="@+id/main_navigation">
 
-    <fragment
-        android:id="@+id/newsListFragment"
-        android:name="com.gradlevv.list.ui.NewsListFragment">
+    <navigation
+        android:id="@+id/news_list_graph"
+        app:startDestination="@string/news_list_fragment">
 
-        <deepLink app:uri="@string/news_list_fragment" />
+        <fragment
+            android:id="@+id/newsListFragment"
+            android:name="com.gradlevv.list.ui.NewsListFragment">
 
-    </fragment>
+            <deepLink app:uri="@string/news_list_fragment" />
+
+        </fragment>
+
+
+        <fragment
+            android:id="@+id/newsDetailFragment"
+            android:name="com.gradlevv.list.ui.NewsDetailFragment">
+
+            <deepLink app:uri="@string/news_list_fragment" />
+
+        </fragment>
+
+    </navigation>
 
     <fragment
         android:id="@+id/newsSourcesFragment"

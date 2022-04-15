@@ -27,11 +27,11 @@ class TopHeadLinesAdapter(
     }
 
     override fun onBindViewHolder(holder: TopHeadLinesViewHolder, position: Int) {
-        holder.view.bind(getItem(position))
+        holder.bind(getItem(position))
     }
 
     class TopHeadLinesViewHolder(
-        val view: TopHeadLineRowView,
+        private val view: TopHeadLineRowView,
         private val itemClick: (position: Int, row: TopHeadLinesItem) -> Unit
     ) : RecyclerView.ViewHolder(view) {
 
