@@ -13,10 +13,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/favoriteNewsFragment"
-        android:name="com.gradlevv.sources.ui.FavoriteNewsFragment">
+        android:id="@+id/newsSourcesFragment"
+        android:name="com.gradlevv.sources.ui.NewsSourcesFragment">
 
-        <deepLink app:uri="@string/favorite_news_fragment" />
+        <deepLink app:uri="@string/news_sources_fragment" />
 
     </fragment>
 
