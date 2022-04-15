@@ -4,7 +4,6 @@ import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ProgressBar
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,13 +36,13 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
     }
 
     private fun onItemClick(position: Int, topHeadLinesItem: TopHeadLinesItem) {
-
+        viewModel.navigateToNewsDetail(topHeadLinesItem)
     }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    override val viewModel: NewsListViewModel by navGraphViewModels(R.id.news_list_graph) { viewModelFactory }
+    override val viewModel: NewsListViewModel by navGraphViewModels(R.id.main_navigation) { viewModelFactory }
 
     override fun createUi(): View? {
         root = frameLayout {
@@ -64,7 +63,7 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
             addView(loading, matchWidthWrapHeight {
                 gravity = Gravity.CENTER
             })
-            addView(rvTopHeadLines, matchWidthAndHeight{
+            addView(rvTopHeadLines, matchWidthAndHeight {
                 rightMargin = 8.dp()
                 leftMargin = 8.dp()
             })

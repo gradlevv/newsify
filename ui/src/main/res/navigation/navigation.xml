@@ -1,31 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/newsListFragment"
-    android:id="@+id/main_navigation">
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/newsListFragment">
 
-    <navigation
-        android:id="@+id/news_list_graph"
-        app:startDestination="@string/news_list_fragment">
+    <fragment
+        android:id="@+id/newsListFragment"
+        android:name="com.gradlevv.list.ui.NewsListFragment">
 
-        <fragment
-            android:id="@+id/newsListFragment"
-            android:name="com.gradlevv.list.ui.NewsListFragment">
+        <deepLink app:uri="@string/news_list_fragment" />
 
-            <deepLink app:uri="@string/news_list_fragment" />
+    </fragment>
 
-        </fragment>
+    <fragment
+        android:id="@+id/newsDetailFragment"
+        android:name="com.gradlevv.list.ui.NewsDetailFragment">
 
+        <deepLink app:uri="@string/news_detail_fragment" />
 
-        <fragment
-            android:id="@+id/newsDetailFragment"
-            android:name="com.gradlevv.list.ui.NewsDetailFragment">
-
-            <deepLink app:uri="@string/news_list_fragment" />
-
-        </fragment>
-
-    </navigation>
+    </fragment>
 
     <fragment
         android:id="@+id/newsSourcesFragment"
