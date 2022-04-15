@@ -1,8 +1,6 @@
 package com.gradlevv.core.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.gradlevv.core.util.DateTimeHelper
-import com.gradlevv.core.util.DateTimeHelperImpl
 import com.gradlevv.core.util.IntentUtils
 import com.gradlevv.core.util.IntentUtilsImpl
 import dagger.Binds
@@ -17,7 +15,4 @@ abstract class BinderModule {
 
     @Binds
     abstract fun bindIntentUtils(intentUtilsImpl: IntentUtilsImpl): IntentUtils
-
-    @Binds
-    abstract fun bindDateTimerHelper(dateTimeHelperImpl: DateTimeHelperImpl): DateTimeHelper
 }

@@ -2,7 +2,6 @@ package com.gradlevv.core.di
 
 import android.app.Application
 import android.content.Context
-import com.gradlevv.core.util.DateTimeHelper
 import com.gradlevv.core.util.IntentUtils
 import dagger.BindsInstance
 import dagger.Component
@@ -18,7 +17,6 @@ interface CoreComponent {
 
     fun provideRetrofit(): Retrofit
     fun provideIntentUtils(): IntentUtils
-    fun provideDateTimeHelper(): DateTimeHelper
 
     @Component.Builder
     interface Builder {
