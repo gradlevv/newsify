@@ -1,11 +1,14 @@
 package com.gradlevv.newsify.ui
 
+import android.animation.Animator
 import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
+import android.view.animation.AccelerateInterpolator
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.NavOptions
@@ -13,6 +16,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.gradlevv.core.util.coreComponent
+import com.gradlevv.core.util.dpf
 import com.gradlevv.core.util.getSelectorDrawable
 import com.gradlevv.newsify.R
 import com.gradlevv.newsify.di.DaggerAppComponent
@@ -99,12 +103,32 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         navController.graph = navGraph
 
+        initBottomNavigationView()
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
+                R.id.newsListFragment -> {
+                    toggleBottomNavigationVisibility(isHide = false)
+                }
+
+                R.id.searchNewsFragment -> {
+                    toggleBottomNavigationVisibility(isHide = false)
+                }
+
+                R.id.newsSourcesFragment -> {
+                    toggleBottomNavigationVisibility(isHide = false)
+                }
+
+                R.id.settingFragment -> {
+                    toggleBottomNavigationVisibility(isHide = false)
+                }
+
+                else -> {
+                    toggleBottomNavigationVisibility(isHide = true)
+                }
             }
         }
 
-        initBottomNavigationView()
     }
 
     private fun initBottomNavigationView() {
@@ -167,4 +191,26 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.selectedItemId = Menus.HOME.id
     }
 
+    private fun toggleBottomNavigationVisibility(isHide: Boolean, animate: Boolean = true) {
+
+        bottomNavigationContainer.clearAnimation()
+
+        bottomNavigationContainer
+            .animate()
+            .setDuration(if (animate) 250 else 0)
+            .translationY(if (isHide) 76.dpf() else 0f)
+            .alpha(if (isHide) 0f else 1f)
+            .setInterpolator(AccelerateInterpolator())
+            .setListener(object : Animator.AnimatorListener {
+                override fun onAnimationRepeat(animation: Animator?) {
+                    bottomNavigationContainer.isGone = isHide
+                    bottomNavigationView.isGone = isHide
+                }
+
+                override fun onAnimationEnd(animation: Animator?) {}
+                override fun onAnimationCancel(animation: Animator?) {}
+                override fun onAnimationStart(animation: Animator?) {}
+            })
+            .start()
+    }
 }
