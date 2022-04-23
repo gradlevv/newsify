@@ -2,7 +2,7 @@ package com.gradlevv.sources.di
 
 import androidx.lifecycle.ViewModel
 import com.gradlevv.core.di.ViewModelKey
-import com.gradlevv.sources.data.SourcesRepositoryImpl
+import com.gradlevv.sources.data.source.SourcesRepositoryImpl
 import com.gradlevv.sources.domain.SourcesRepository
 import com.gradlevv.sources.ui.NewsSourcesViewModel
 import dagger.Binds
