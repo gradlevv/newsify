@@ -40,6 +40,7 @@ class NewsListViewModel @Inject constructor(
 
                 is Resource.Error -> {
                     _topHeadLinesList.value = TopHeadLinesState(isError = true)
+                    errorMessage.value = result.error
                 }
             }
 

@@ -52,6 +52,7 @@ class SearchNewsViewModel @Inject constructor(
 
                 is Resource.Error -> {
                     _searchNewsList.value = SearchNewsState(isError = true)
+                    errorMessage.value = result.error
                 }
             }
 

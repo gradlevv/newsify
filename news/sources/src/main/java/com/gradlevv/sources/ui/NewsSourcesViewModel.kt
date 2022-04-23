@@ -36,6 +36,7 @@ class NewsSourcesViewModel @Inject constructor(
 
                 is Resource.Error -> {
                     _sourceList.value = NewsSourceState(isError = true)
+                    errorMessage.value = result.error
                 }
             }
 
