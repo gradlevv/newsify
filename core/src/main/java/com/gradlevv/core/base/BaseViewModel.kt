@@ -15,6 +15,8 @@ abstract class BaseViewModel : ViewModel(){
     private val navigationCommands = SingleLiveEvent<NavigationCommand>()
     private val navigationUpEvent = MutableLiveData<Event<Boolean>>()
 
+    protected val errorMessage = SingleLiveEvent<String>()
+
     fun navigate(directions: NavDirections) {
         navigationCommands.postValue(NavigationCommand.To(directions))
     }
@@ -30,4 +32,6 @@ abstract class BaseViewModel : ViewModel(){
     }
 
     fun navigateUpEvent(): LiveData<Event<Boolean>> = navigationUpEvent
+
+    fun errorMessage(): LiveData<String> = errorMessage
 }
