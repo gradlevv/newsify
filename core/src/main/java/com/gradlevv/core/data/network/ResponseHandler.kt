@@ -21,7 +21,7 @@ abstract class ResponseHandler() {
             }
 
 
-            Resource.Error(response.message() ?: "Server Error")
+            Resource.Error(response.code().toString() )
         } catch (e: Exception) {
             Timber.e(e)
             return Resource.Error(e.localizedMessage)
