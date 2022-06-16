@@ -1,9 +1,11 @@
 package com.gradlevv.list.ui
 
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +19,10 @@ import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.ui.base.BaseFragment
 import com.gradlevv.ui.dsl.frameLayout
 import com.gradlevv.ui.dsl.recyclerView
+import com.gradlevv.ui.dsl.textView
+import com.gradlevv.ui.shape.materialShape
+import com.gradlevv.ui.utils.Colors
+import com.gradlevv.ui.utils.ThemeManager
 import com.gradlevv.ui.utils.matchWidthAndHeight
 import com.gradlevv.ui.utils.matchWidthWrapHeight
 import kotlinx.coroutines.flow.collect
@@ -28,6 +34,7 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
     private lateinit var rvTopHeadLines: RecyclerView
     private lateinit var gridLayoutManager: LinearLayoutManager
     private lateinit var loading: ProgressBar
+    private lateinit var tvToolbar: TextView
 
     private val topHeadLinesAdapter: TopHeadLinesAdapter by lazy {
         TopHeadLinesAdapter(
@@ -47,6 +54,17 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
     override fun createUi(): View? {
         root = frameLayout {
 
+            tvToolbar = textView {
+                setTextColor(ThemeManager.getColor(Colors.colorWhite))
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+                text = getString(R.string.top_head_lines_title)
+                gravity = Gravity.CENTER or Gravity.CENTER_HORIZONTAL
+                background = materialShape {
+                    fillColor = ThemeManager.getColorState(Colors.colorText)
+                }
+                setPadding(0, 12.dp(), 0, 12.dp())
+            }
+
             loading = ProgressBar(context).apply {
                 isIndeterminate = true
                 visibility = View.GONE
@@ -60,12 +78,18 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
                 adapter = topHeadLinesAdapter
                 setPadding(0, 0, 0, 80.dp())
             }
+
             addView(loading, matchWidthWrapHeight {
                 gravity = Gravity.CENTER
             })
             addView(rvTopHeadLines, matchWidthAndHeight {
+                gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
+                topMargin = 42.dp()
                 rightMargin = 8.dp()
                 leftMargin = 8.dp()
+            })
+            addView(tvToolbar, matchWidthWrapHeight {
+                gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
             })
         }
         return root
