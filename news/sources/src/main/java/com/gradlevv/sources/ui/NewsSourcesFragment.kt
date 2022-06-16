@@ -1,9 +1,11 @@
 package com.gradlevv.sources.ui
 
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,11 +14,16 @@ import com.gradlevv.core.di.ViewModelFactory
 import com.gradlevv.core.util.IntentUtils
 import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dp
+import com.gradlevv.sources.R
 import com.gradlevv.sources.di.DaggerNewsSourcesComponent
 import com.gradlevv.sources.domain.SourceItemDomainModel
 import com.gradlevv.ui.base.BaseFragment
 import com.gradlevv.ui.dsl.frameLayout
 import com.gradlevv.ui.dsl.recyclerView
+import com.gradlevv.ui.dsl.textView
+import com.gradlevv.ui.shape.materialShape
+import com.gradlevv.ui.utils.Colors
+import com.gradlevv.ui.utils.ThemeManager
 import com.gradlevv.ui.utils.matchWidthAndHeight
 import com.gradlevv.ui.utils.matchWidthWrapHeight
 import kotlinx.coroutines.flow.collect
@@ -28,6 +35,7 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
     private lateinit var rvSourceList: RecyclerView
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var loading: ProgressBar
+    private lateinit var tvToolbar: TextView
 
     private val newsSourcesAdapter: NewsSourcesAdapter by lazy {
         NewsSourcesAdapter(
@@ -60,6 +68,17 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
                 visibility = View.GONE
             }
 
+            tvToolbar = textView {
+                setTextColor(ThemeManager.getColor(Colors.colorWhite))
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+                text = getString(R.string.top_news_source_title)
+                gravity = Gravity.CENTER or Gravity.CENTER_HORIZONTAL
+                background = materialShape {
+                    fillColor = ThemeManager.getColorState(Colors.colorText)
+                }
+                setPadding(0, 12.dp(), 0, 12.dp())
+            }
+
             linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
             rvSourceList = recyclerView {
@@ -68,10 +87,17 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
                 adapter = newsSourcesAdapter
                 setPadding(0, 0, 0, 80.dp())
             }
+
+            addView(tvToolbar, matchWidthWrapHeight {
+                gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
+            })
+
             addView(loading, matchWidthWrapHeight {
                 gravity = Gravity.CENTER
             })
             addView(rvSourceList, matchWidthAndHeight {
+                gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
+                topMargin = 42.dp()
                 rightMargin = 8.dp()
                 leftMargin = 8.dp()
             })

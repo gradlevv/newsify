@@ -39,6 +39,7 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
     private lateinit var btnSearch: MaterialButton
     private lateinit var llSearch: LinearLayout
     private lateinit var tvNoResult: TextView
+    private lateinit var tvToolbar: TextView
 
     private val searchNewsAdapter: SearchNewsAdapter by lazy {
         SearchNewsAdapter(
@@ -58,6 +59,17 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
     override fun createUi(): View? {
 
         root = frameLayout {
+
+            tvToolbar = textView {
+                setTextColor(ThemeManager.getColor(Colors.colorWhite))
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+                text = getString(R.string.top_news_search_title)
+                gravity = Gravity.CENTER or Gravity.CENTER_HORIZONTAL
+                background = materialShape {
+                    fillColor = ThemeManager.getColorState(Colors.colorText)
+                }
+                setPadding(0, 12.dp(), 0, 12.dp())
+            }
 
             etSearch = editText {
                 gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
@@ -134,16 +146,21 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
                 adapter = searchNewsAdapter
                 setPadding(0, 0, 0, 80.dp())
             }
+
+            addView(tvToolbar, matchWidthWrapHeight {
+                gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
+            })
+
             addView(llSearch, matchWidthCustomHeight(48) {
                 gravity = Gravity.TOP
-                topMargin = 8.dp()
+                topMargin = 50.dp()
                 rightMargin = 32.dp()
                 leftMargin = 32.dp()
             })
 
             addView(rvTopHeadLines, matchWidthAndHeight {
                 gravity = Gravity.TOP
-                topMargin = 60.dp()
+                topMargin = 102.dp()
                 rightMargin = 8.dp()
                 leftMargin = 8.dp()
             })
