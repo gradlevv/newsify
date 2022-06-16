@@ -1,6 +1,7 @@
 package com.gradlevv.list.ui
 
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -19,6 +20,7 @@ import com.gradlevv.ui.dsl.imageView
 import com.gradlevv.ui.dsl.linearLayout
 import com.gradlevv.ui.dsl.normalButton
 import com.gradlevv.ui.dsl.textView
+import com.gradlevv.ui.shape.materialShape
 import com.gradlevv.ui.utils.*
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
@@ -31,6 +33,7 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
     private lateinit var tvNewsDate: TextView
     private lateinit var ivNewsImage: ImageView
     private lateinit var btnMoreInfo: MaterialButton
+    private lateinit var tvToolbar: TextView
 
     @Inject
     lateinit var intentUtils: IntentUtils
@@ -43,6 +46,17 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
     override fun createUi(): View? {
         root = linearLayout {
             orientation = LinearLayout.VERTICAL
+
+            tvToolbar = textView {
+                setTextColor(ThemeManager.getColor(Colors.colorWhite))
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+                text = getString(R.string.top_news_detail_title)
+                gravity = Gravity.CENTER or Gravity.CENTER_HORIZONTAL
+                background = materialShape {
+                    fillColor = ThemeManager.getColorState(Colors.colorText)
+                }
+                setPadding(0, 12.dp(), 0, 12.dp())
+            }
 
             tvTitle = textView {
                 setTextColor(ThemeManager.getColor(Colors.colorText))
@@ -75,9 +89,11 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
                     )
             }
 
-            addView(ivNewsImage, matchWidthAndCustomHeight(300) {
-                topMargin = 16.dp()
+            addView(tvToolbar, matchWidthWrapHeight {
+                gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
             })
+
+            addView(ivNewsImage, matchWidthAndCustomHeight(300))
 
             addView(tvTitle, matchWidthWrapHeight {
                 topMargin = 24.dp()

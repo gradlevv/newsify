@@ -2,4 +2,5 @@
 <resources>
     <string name="search">search</string>
     <string name="no_result_found">no result found</string>
+    <string name="top_news_search_title">Search</string>
 </resources>

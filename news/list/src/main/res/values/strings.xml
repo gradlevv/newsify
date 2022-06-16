@@ -2,4 +2,5 @@
 <resources>
     <string name="more_info">more info</string>
     <string name="top_head_lines_title">Top Headlines</string>
+    <string name="top_news_detail_title">Detail</string>
 </resources>
