@@ -41,13 +41,4 @@ dependencies {
     // navigation
     implementation navigationFragmentKtx
     implementation navigationUiKtx
-
-    //firebase
-    implementation firebaseCore
-    implementation firebaseMessaging
-    implementation firebaseInappmessaging
-    implementation firebaseAnalytics
-    implementation firebaseCrashlytics
-
-    implementation multidex
 }

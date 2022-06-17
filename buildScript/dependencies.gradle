@@ -51,15 +51,7 @@ ext {
     navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:$libraryVersion.navigationVersion"
     navigationUiKtx = "androidx.navigation:navigation-ui-ktx:$libraryVersion.navigationVersion"
 
-
-    //firebase
-    firebaseCore = "com.google.firebase:firebase-core:$libraryVersion.firebaseCore"
-    firebaseMessaging = "com.google.firebase:firebase-messaging:$libraryVersion.firebaseMessagingVersion"
-    firebaseInappmessaging = "com.google.firebase:firebase-inappmessaging-display:$libraryVersion.firebaseInappmessagingVersion"
-    firebaseAnalytics = "com.google.firebase:firebase-analytics:$libraryVersion.firebaseAnalyticsVersion"
-    firebaseCrashlytics = "com.google.firebase:firebase-crashlytics:$libraryVersion.firebaseCrashlyticsVersion"
-
-    multidex = "androidx.multidex:multidex:$libraryVersion.multidexVersion"
-
     constraintLayout = "androidx.constraintlayout:constraintlayout:$libraryVersion.constraintLayoutVersion"
+
+    paging = "androidx.paging:paging-runtime:$libraryVersion.paging"
 }
