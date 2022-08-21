@@ -1,8 +1,8 @@
 package com.gradlevv.search.domain
 
-import com.gradlevv.core.data.model.Resource
+import com.gradlevv.core.data.model.Result
 
 interface SearchNewsRepository {
 
-    suspend fun searchNews(request: SearchDomainModel): Resource<List<SearchNewsItem>>
+    suspend fun searchNews(request: SearchDomainModel): Result<List<SearchNewsItem>>
 }

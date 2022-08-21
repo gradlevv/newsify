@@ -5,7 +5,6 @@ import android.app.Activity
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.StateListDrawable
 import androidx.annotation.DrawableRes
-import androidx.fragment.app.Fragment
 
 fun Activity.getCompatDrawable(@DrawableRes id: Int): Drawable? {
     return applicationContext.getCompatDrawable(id)

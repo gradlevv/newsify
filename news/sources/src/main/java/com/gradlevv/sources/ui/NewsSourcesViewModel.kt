@@ -2,10 +2,9 @@ package com.gradlevv.sources.ui
 
 import androidx.lifecycle.viewModelScope
 import com.gradlevv.core.base.BaseViewModel
-import com.gradlevv.core.data.model.Resource
+import com.gradlevv.core.data.model.Result
 import com.gradlevv.sources.domain.GetSourceListUseCase
 import com.gradlevv.sources.ui.state.NewsSourceState
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -30,11 +29,11 @@ class NewsSourcesViewModel @Inject constructor(
 
             when(val result = getSourceListUseCase()){
 
-                is Resource.Success -> {
+                is Result.Success -> {
                     _sourceList.value = NewsSourceState(items = result.data ?: emptyList())
                 }
 
-                is Resource.Error -> {
+                is Result.Error -> {
                     _sourceList.value = NewsSourceState(isError = true)
                     errorMessage.value = result.error
                 }

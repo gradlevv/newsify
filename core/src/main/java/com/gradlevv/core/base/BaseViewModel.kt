@@ -6,26 +6,26 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
-import com.samcrow.core.util.Event
-import com.gradlevv.core.util.NavigationCommand
+import com.gradlevv.core.util.Event
+import com.gradlevv.core.util.NavigationModel
 import com.gradlevv.core.util.SingleLiveEvent
 
 abstract class BaseViewModel : ViewModel(){
 
-    private val navigationCommands = SingleLiveEvent<NavigationCommand>()
+    private val navigationCommands = SingleLiveEvent<NavigationModel>()
     private val navigationUpEvent = MutableLiveData<Event<Boolean>>()
 
     protected val errorMessage = SingleLiveEvent<String>()
 
     fun navigate(directions: NavDirections) {
-        navigationCommands.postValue(NavigationCommand.To(directions))
+        navigationCommands.postValue(NavigationModel.To(directions))
     }
 
     fun navigate(@StringRes deepLinkRes: Int, directions: NavOptions? = null) {
-        navigationCommands.postValue(NavigationCommand.ToDeppLink(deepLinkRes, directions))
+        navigationCommands.postValue(NavigationModel.ToDeppLink(deepLinkRes, directions))
     }
 
-    fun navigationCommand():LiveData<NavigationCommand> = navigationCommands
+    fun navigationCommand():LiveData<NavigationModel> = navigationCommands
 
     fun navigateUp(){
         navigationUpEvent.value = Event(true)

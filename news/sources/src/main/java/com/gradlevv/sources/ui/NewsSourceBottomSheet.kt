@@ -19,7 +19,7 @@ import com.gradlevv.ui.dsl.normalButton
 import com.gradlevv.ui.dsl.textView
 import com.gradlevv.ui.shape.materialShape
 import com.gradlevv.ui.utils.Colors
-import com.gradlevv.ui.utils.ThemeManager
+import com.gradlevv.ui.utils.ThemeHandler
 import com.gradlevv.ui.utils.matchWidthWrapHeight
 
 class NewsSourceBottomSheet(private val context: Context) {
@@ -47,18 +47,18 @@ class NewsSourceBottomSheet(private val context: Context) {
                 orientation = LinearLayout.VERTICAL
 
                 background = materialShape {
-                    fillColor = ThemeManager.getColorState(Colors.colorBackground)
+                    fillColor = ThemeHandler.getColorState(Colors.colorBackground)
                     setCornerSize(8.dpf())
                 }
 
                 tvTitle = textView {
-                    setTextColor(ThemeManager.getColor(Colors.colorText))
+                    setTextColor(ThemeHandler.getColor(Colors.colorText))
                     setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
                     gravity = Gravity.CENTER
                 }
 
                 tvDescription = textView {
-                    setTextColor(ThemeManager.getColor(Colors.colorText))
+                    setTextColor(ThemeHandler.getColor(Colors.colorText))
                     setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
                 }
 
@@ -66,11 +66,11 @@ class NewsSourceBottomSheet(private val context: Context) {
                     text = context.getString(R.string.got_to_website)
                     insetTop = 0
                     insetBottom = 0
-                    setTextColor(ThemeManager.getColor(Colors.colorBackground))
+                    setTextColor(ThemeHandler.getColor(Colors.colorBackground))
                     setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
                     cornerRadius = 14.dp()
                     backgroundTintList =
-                        ColorStateList.valueOf(ThemeManager.getColor(Colors.colorText))
+                        ColorStateList.valueOf(ThemeHandler.getColor(Colors.colorText))
                 }
 
                 addView(tvTitle, matchWidthWrapHeight {

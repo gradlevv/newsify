@@ -23,7 +23,7 @@ import com.gradlevv.ui.dsl.recyclerView
 import com.gradlevv.ui.dsl.textView
 import com.gradlevv.ui.shape.materialShape
 import com.gradlevv.ui.utils.Colors
-import com.gradlevv.ui.utils.ThemeManager
+import com.gradlevv.ui.utils.ThemeHandler
 import com.gradlevv.ui.utils.matchWidthAndHeight
 import com.gradlevv.ui.utils.matchWidthWrapHeight
 import kotlinx.coroutines.flow.collect
@@ -60,7 +60,7 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
 
     override val viewModel: NewsSourcesViewModel by viewModels { viewModelFactory }
 
-    override fun createUi(): View? {
+    override fun initLayout(): View? {
 
         root = frameLayout {
             loading = ProgressBar(context).apply {
@@ -69,12 +69,12 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
             }
 
             tvToolbar = textView {
-                setTextColor(ThemeManager.getColor(Colors.colorWhite))
+                setTextColor(ThemeHandler.getColor(Colors.colorWhite))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
                 text = getString(R.string.top_news_source_title)
                 gravity = Gravity.CENTER or Gravity.CENTER_HORIZONTAL
                 background = materialShape {
-                    fillColor = ThemeManager.getColorState(Colors.colorText)
+                    fillColor = ThemeHandler.getColorState(Colors.colorText)
                 }
                 setPadding(0, 12.dp(), 0, 12.dp())
             }
@@ -128,7 +128,7 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
 
     }
 
-    override fun daggerSetUp() {
+    override fun daggerConfiguration() {
         DaggerNewsSourcesComponent.factory().create(requireActivity().coreComponent()).inject(this)
     }
 }

@@ -43,31 +43,31 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
 
     override val viewModel: NewsListViewModel by navGraphViewModels(R.id.main_navigation) { viewModelFactory }
 
-    override fun createUi(): View? {
+    override fun initLayout(): View? {
         root = linearLayout {
             orientation = LinearLayout.VERTICAL
 
             tvToolbar = textView {
-                setTextColor(ThemeManager.getColor(Colors.colorWhite))
+                setTextColor(ThemeHandler.getColor(Colors.colorWhite))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
                 text = getString(R.string.top_news_detail_title)
                 gravity = Gravity.CENTER or Gravity.CENTER_HORIZONTAL
                 background = materialShape {
-                    fillColor = ThemeManager.getColorState(Colors.colorText)
+                    fillColor = ThemeHandler.getColorState(Colors.colorText)
                 }
                 setPadding(0, 12.dp(), 0, 12.dp())
             }
 
             tvTitle = textView {
-                setTextColor(ThemeManager.getColor(Colors.colorText))
+                setTextColor(ThemeHandler.getColor(Colors.colorText))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
             }
             tvContent = textView {
-                setTextColor(ThemeManager.getColor(Colors.colorText))
+                setTextColor(ThemeHandler.getColor(Colors.colorText))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
             }
             tvNewsDate = textView {
-                setTextColor(ThemeManager.getColor(Colors.colorText))
+                setTextColor(ThemeHandler.getColor(Colors.colorText))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
             }
             ivNewsImage = imageView {
@@ -78,12 +78,12 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
                 text = context.getString(R.string.more_info)
                 insetTop = 0
                 insetBottom = 0
-                setTextColor(ThemeManager.getColor(Colors.colorBackground))
+                setTextColor(ThemeHandler.getColor(Colors.colorBackground))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
                 cornerRadius = 14.dp()
                 backgroundTintList =
                     android.content.res.ColorStateList.valueOf(
-                        ThemeManager.getColor(
+                        ThemeHandler.getColor(
                             Colors.colorText
                         )
                     )
@@ -140,7 +140,7 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
         }
     }
 
-    override fun daggerSetUp() {
+    override fun daggerConfiguration() {
         DaggerNewsListComponent.factory()
             .create(requireActivity().coreComponent()).inject(this)
     }

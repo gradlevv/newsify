@@ -1,2 +1,5 @@
 /build
 .gradle
+.idea/
+/.idea/jarRepositories.xml
+/.idea/gradle.xml

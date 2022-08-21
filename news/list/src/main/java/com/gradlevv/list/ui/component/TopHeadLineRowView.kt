@@ -19,21 +19,21 @@ import com.gradlevv.ui.utils.*
 class TopHeadLineRowView(context: Context) : CardView(context) {
 
     private val tvTitle = textView {
-        setTextColor(ThemeManager.getColor(Colors.colorText))
+        setTextColor(ThemeHandler.getColor(Colors.colorText))
         setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
     }
 
     private val tvPublishDate = textView {
-        setTextColor(ThemeManager.getColor(Colors.colorText))
+        setTextColor(ThemeHandler.getColor(Colors.colorText))
         setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
     }
 
     private val tvAuthor = textView {
-        setTextColor(ThemeManager.getColor(Colors.colorWhite))
+        setTextColor(ThemeHandler.getColor(Colors.colorWhite))
         setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
         background = materialShape {
             setPadding(8.dp(),8.dp(),8.dp(),8.dp())
-            fillColor = ThemeManager.getColorStateWithAlpha(Colors.colorPrimary,15)
+            fillColor = ThemeHandler.getColorStateWithAlpha(Colors.colorPrimary,15)
         }
     }
 
@@ -50,7 +50,7 @@ class TopHeadLineRowView(context: Context) : CardView(context) {
         addView(linearLayout {
 
             background = materialShape {
-                fillColor = ThemeManager.getColorState(Colors.colorBackground)
+                fillColor = ThemeHandler.getColorState(Colors.colorBackground)
             }
 
             orientation = VERTICAL

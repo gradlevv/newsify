@@ -1,6 +1,5 @@
 package com.gradlevv.ui.base
 
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,16 +10,16 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.gradlevv.core.base.BaseViewModel
-import com.gradlevv.core.util.NavigationCommand
+import com.gradlevv.core.util.NavigationModel
 import com.gradlevv.ui.utils.Colors
-import com.gradlevv.ui.utils.ThemeManager
+import com.gradlevv.ui.utils.ThemeHandler
 
 abstract class BaseFragment<V : BaseViewModel> : Fragment() {
 
     protected abstract val viewModel: V
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        daggerSetUp()
+        daggerConfiguration()
         super.onCreate(savedInstanceState)
     }
 
@@ -29,11 +28,11 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return createUi()
+        return initLayout()
     }
 
-    abstract fun daggerSetUp()
-    abstract fun createUi(): View?
+    abstract fun daggerConfiguration()
+    abstract fun initLayout(): View?
     abstract fun setUpUi()
 
     protected open fun onThemeChanged() {}
@@ -46,17 +45,17 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
         viewModel.navigationCommand().observe(viewLifecycleOwner) {
             when(it){
 
-                is NavigationCommand.To -> {
+                is NavigationModel.To -> {
 
                 }
 
-                is NavigationCommand.ToDeppLink -> {
+                is NavigationModel.ToDeppLink -> {
                     findNavController().navigate(
                         Uri.parse(requireContext().getString(it.deepLink)),it.navOptions
                     )
                 }
 
-                is NavigationCommand.Back -> {
+                is NavigationModel.Back -> {
 
                 }
             }
@@ -79,8 +78,8 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
         val snackbar = Snackbar.make(requireView(), text, Snackbar.LENGTH_LONG)
         val textView =
             snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-        textView.setTextColor(ThemeManager.getColor(Colors.colorAccent))
-        snackbar.setBackgroundTint(ThemeManager.getColor(Colors.colorText))
+        textView.setTextColor(ThemeHandler.getColor(Colors.colorAccent))
+        snackbar.setBackgroundTint(ThemeHandler.getColor(Colors.colorText))
 
         snackbar.show()
     }

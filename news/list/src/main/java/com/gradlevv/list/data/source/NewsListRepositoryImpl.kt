@@ -1,6 +1,6 @@
 package com.gradlevv.list.data.source
 
-import com.gradlevv.core.data.model.Resource
+import com.gradlevv.core.data.model.Result
 import com.gradlevv.core.data.model.mapTo
 import com.gradlevv.core.data.network.ResponseHandler
 import com.gradlevv.core.util.IoDispatcher
@@ -18,7 +18,7 @@ class NewsListRepositoryImpl @Inject constructor(
     private val dispatcher: CoroutineDispatcher
 ) : ResponseHandler(), NewsListRepository {
 
-    override suspend fun getTopHeadLines(): Resource<List<TopHeadLinesItem>> {
+    override suspend fun getTopHeadLines(): Result<List<TopHeadLinesItem>> {
         return withContext(dispatcher) {
             return@withContext getResource { service.getTopHeadLines() }
                 .mapTo(mapper = topHeadLinesMapper)
