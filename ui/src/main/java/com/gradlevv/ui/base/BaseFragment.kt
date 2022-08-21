@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.gradlevv.core.base.BaseViewModel
-import com.gradlevv.core.util.NavigationCommand
+import com.gradlevv.core.util.NavigationModel
 import com.gradlevv.ui.utils.Colors
 import com.gradlevv.ui.utils.ThemeHandler
 
@@ -45,17 +45,17 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
         viewModel.navigationCommand().observe(viewLifecycleOwner) {
             when(it){
 
-                is NavigationCommand.To -> {
+                is NavigationModel.To -> {
 
                 }
 
-                is NavigationCommand.ToDeppLink -> {
+                is NavigationModel.ToDeppLink -> {
                     findNavController().navigate(
                         Uri.parse(requireContext().getString(it.deepLink)),it.navOptions
                     )
                 }
 
-                is NavigationCommand.Back -> {
+                is NavigationModel.Back -> {
 
                 }
             }
