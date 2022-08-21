@@ -2,7 +2,7 @@ package com.gradlevv.search.ui
 
 import androidx.lifecycle.viewModelScope
 import com.gradlevv.core.base.BaseViewModel
-import com.gradlevv.core.data.model.Resource
+import com.gradlevv.core.data.model.Result
 import com.gradlevv.core.util.Constants.DATE_FORMAT
 import com.gradlevv.core.util.Constants.SORT_BY
 import com.gradlevv.search.domain.SearchDomainModel
@@ -46,11 +46,11 @@ class SearchNewsViewModel @Inject constructor(
 
             when (val result = searchNewsUseCase(request = request)) {
 
-                is Resource.Success -> {
+                is Result.Success -> {
                     _searchNewsList.value = SearchNewsState(items = result.data ?: arrayListOf())
                 }
 
-                is Resource.Error -> {
+                is Result.Error -> {
                     _searchNewsList.value = SearchNewsState(isError = true)
                     errorMessage.value = result.error
                 }

@@ -53,5 +53,4 @@ ext {
 
     constraintLayout = "androidx.constraintlayout:constraintlayout:$libraryVersion.constraintLayoutVersion"
 
-    paging = "androidx.paging:paging-runtime:$libraryVersion.paging"
 }

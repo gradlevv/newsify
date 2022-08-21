@@ -1,6 +1,6 @@
 package com.gradlevv.search.data.source
 
-import com.gradlevv.core.data.model.Resource
+import com.gradlevv.core.data.model.Result
 import com.gradlevv.core.data.model.mapTo
 import com.gradlevv.core.data.network.ResponseHandler
 import com.gradlevv.core.util.IoDispatcher
@@ -19,7 +19,7 @@ class SearchNewsRepositoryImpl @Inject constructor(
     private val dispatcher: CoroutineDispatcher
 ) : ResponseHandler(), SearchNewsRepository {
 
-    override suspend fun searchNews(request: SearchDomainModel): Resource<List<SearchNewsItem>> {
+    override suspend fun searchNews(request: SearchDomainModel): Result<List<SearchNewsItem>> {
         return withContext(dispatcher) {
             return@withContext getResource {
                 searchNewsService.searchNews(

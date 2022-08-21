@@ -2,7 +2,7 @@ package com.gradlevv.list.ui
 
 import androidx.lifecycle.viewModelScope
 import com.gradlevv.core.base.BaseViewModel
-import com.gradlevv.core.data.model.Resource
+import com.gradlevv.core.data.model.Result
 import com.gradlevv.list.R
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.list.domain.usecase.GetTopHeadLinesUseCase
@@ -34,11 +34,11 @@ class NewsListViewModel @Inject constructor(
 
             when (val result = getTopHeadLinesUseCase()) {
 
-                is Resource.Success -> {
+                is Result.Success -> {
                     _topHeadLinesList.value = TopHeadLinesState(items = result.data ?: emptyList())
                 }
 
-                is Resource.Error -> {
+                is Result.Error -> {
                     _topHeadLinesList.value = TopHeadLinesState(isError = true)
                     errorMessage.value = result.error
                 }
