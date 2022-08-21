@@ -12,7 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.gradlevv.core.base.BaseViewModel
 import com.gradlevv.core.util.NavigationCommand
 import com.gradlevv.ui.utils.Colors
-import com.gradlevv.ui.utils.ThemeManager
+import com.gradlevv.ui.utils.ThemeHandler
 
 abstract class BaseFragment<V : BaseViewModel> : Fragment() {
 
@@ -78,8 +78,8 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
         val snackbar = Snackbar.make(requireView(), text, Snackbar.LENGTH_LONG)
         val textView =
             snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-        textView.setTextColor(ThemeManager.getColor(Colors.colorAccent))
-        snackbar.setBackgroundTint(ThemeManager.getColor(Colors.colorText))
+        textView.setTextColor(ThemeHandler.getColor(Colors.colorAccent))
+        snackbar.setBackgroundTint(ThemeHandler.getColor(Colors.colorText))
 
         snackbar.show()
     }

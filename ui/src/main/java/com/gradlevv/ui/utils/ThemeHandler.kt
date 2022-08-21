@@ -47,12 +47,11 @@ annotation class Colors {
 }
 
 
-object ThemeManager {
+object ThemeHandler {
 
     sealed class Theme(val value: String) {
         object Day : Theme("day")
         object Night : Theme("night")
-        object Amoled : Theme("amoled")
     }
 
     fun setTheme(theme: Theme) {
@@ -63,7 +62,7 @@ object ThemeManager {
     val themeObservable: LiveData<Theme> = theme
 
     val isDark: Boolean
-        get() = theme.value?.value == Theme.Night.value || theme.value?.value == Theme.Amoled.value
+        get() = theme.value?.value == Theme.Night.value
 
     private val dayColors: HashMap<String, Int> = hashMapOf(
         Colors.colorPrimary to Day.colorPrimary,
@@ -85,17 +84,6 @@ object ThemeManager {
         Colors.colorText to Night.colorText,
         Colors.colorIconTint to Night.colorIconTint,
         Colors.colorWhite to Night.colorWhite
-    )
-
-    private val amoledColors: HashMap<String, Int> = hashMapOf(
-        Colors.colorPrimary to Amoled.colorPrimary,
-        Colors.colorTransparent to Amoled.colorTransparent,
-        Colors.colorPrimaryDark to Amoled.colorPrimaryDark,
-        Colors.colorBackground to Amoled.colorBackground,
-        Colors.colorAccent to Amoled.colorAccent,
-        Colors.colorText to Amoled.colorText,
-        Colors.colorIconTint to Amoled.colorIconTint,
-        Colors.colorWhite to Amoled.colorWhite
     )
 
     private object Day {
@@ -153,32 +141,6 @@ object ThemeManager {
         val colorWhite = Color.parseColor("#FFFFFF")
     }
 
-    private object Amoled {
-
-        @ColorInt
-        val colorPrimary = Color.parseColor("#000000")
-
-        @ColorInt
-        val colorTransparent = Color.argb(0, 0, 0, 0)
-
-        @ColorInt
-        val colorPrimaryDark = Color.parseColor("#000000")
-
-        @ColorInt
-        val colorBackground  = Color.parseColor("#000000")
-
-        @ColorInt
-        val colorAccent = Color.parseColor("#E50379")
-
-        @ColorInt
-        val colorText = Color.parseColor("#fafafa")
-
-        @ColorInt
-        val colorIconTint = Color.parseColor("#A2A2A2")
-
-        @ColorInt
-        val colorWhite = Color.parseColor("#FFFFFF")
-    }
 
     @JvmStatic
     @ColorInt
@@ -189,9 +151,6 @@ object ThemeManager {
             }
             Theme.Night -> {
                 nightColors[key]!!
-            }
-            Theme.Amoled -> {
-                amoledColors[key]!!
             }
             null -> {
                 dayColors[key]!!
@@ -206,9 +165,6 @@ object ThemeManager {
             }
             Theme.Night -> {
                 ColorStateList.valueOf(nightColors[key]!!)
-            }
-            Theme.Amoled -> {
-                ColorStateList.valueOf(amoledColors[key]!!)
             }
             null -> {
                 ColorStateList.valueOf(dayColors[key]!!)

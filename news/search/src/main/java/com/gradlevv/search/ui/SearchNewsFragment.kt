@@ -61,12 +61,12 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
         root = frameLayout {
 
             tvToolbar = textView {
-                setTextColor(ThemeManager.getColor(Colors.colorWhite))
+                setTextColor(ThemeHandler.getColor(Colors.colorWhite))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
                 text = getString(R.string.top_news_search_title)
                 gravity = Gravity.CENTER or Gravity.CENTER_HORIZONTAL
                 background = materialShape {
-                    fillColor = ThemeManager.getColorState(Colors.colorText)
+                    fillColor = ThemeHandler.getColorState(Colors.colorText)
                 }
                 setPadding(0, 12.dp(), 0, 12.dp())
             }
@@ -86,7 +86,7 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
             }
 
             tvNoResult = textView {
-                setTextColor(ThemeManager.getColor(Colors.colorText))
+                setTextColor(ThemeHandler.getColor(Colors.colorText))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 24f)
                 visibility = View.GONE
                 text = getString(R.string.no_result_found)
@@ -96,9 +96,9 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
             btnSearch = normalButton {
                 insetTop = 0
                 insetBottom = 0
-                setTextColor(ThemeManager.getColor(Colors.colorBackground))
+                setTextColor(ThemeHandler.getColor(Colors.colorBackground))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-                backgroundTintList = ColorStateList.valueOf(ThemeManager.getColor(Colors.colorText))
+                backgroundTintList = ColorStateList.valueOf(ThemeHandler.getColor(Colors.colorText))
                 text = getString(R.string.search)
                 cornerRadius = 14.dp()
             }
@@ -106,7 +106,7 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
             flSearch = frameLayout {
 
                 background = materialShape {
-                    fillColor = ThemeManager.getColorState(Colors.colorText)
+                    fillColor = ThemeHandler.getColorState(Colors.colorText)
                     setCornerSize(14.dpf())
                 }
 
