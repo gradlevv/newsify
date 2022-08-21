@@ -60,7 +60,7 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
 
     override val viewModel: NewsSourcesViewModel by viewModels { viewModelFactory }
 
-    override fun createUi(): View? {
+    override fun initLayout(): View? {
 
         root = frameLayout {
             loading = ProgressBar(context).apply {
@@ -128,7 +128,7 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
 
     }
 
-    override fun daggerSetUp() {
+    override fun daggerConfiguration() {
         DaggerNewsSourcesComponent.factory().create(requireActivity().coreComponent()).inject(this)
     }
 }

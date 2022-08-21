@@ -26,7 +26,7 @@ class SettingFragment : BaseFragment<SettingViewModel>() {
 
     override val viewModel: SettingViewModel by viewModels { viewModelFactory }
 
-    override fun createUi(): View? {
+    override fun initLayout(): View? {
         root = linearLayout {
             orientation = LinearLayout.VERTICAL
 
@@ -48,7 +48,7 @@ class SettingFragment : BaseFragment<SettingViewModel>() {
 
     }
 
-    override fun daggerSetUp() {
+    override fun daggerConfiguration() {
         DaggerSettingComponent.factory().create(requireActivity().coreComponent()).inject(this)
     }
 }

@@ -43,7 +43,7 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
 
     override val viewModel: NewsListViewModel by navGraphViewModels(R.id.main_navigation) { viewModelFactory }
 
-    override fun createUi(): View? {
+    override fun initLayout(): View? {
         root = linearLayout {
             orientation = LinearLayout.VERTICAL
 
@@ -140,7 +140,7 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
         }
     }
 
-    override fun daggerSetUp() {
+    override fun daggerConfiguration() {
         DaggerNewsListComponent.factory()
             .create(requireActivity().coreComponent()).inject(this)
     }

@@ -1,6 +1,5 @@
 package com.gradlevv.ui.base
 
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,7 +19,7 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
     protected abstract val viewModel: V
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        daggerSetUp()
+        daggerConfiguration()
         super.onCreate(savedInstanceState)
     }
 
@@ -29,11 +28,11 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return createUi()
+        return initLayout()
     }
 
-    abstract fun daggerSetUp()
-    abstract fun createUi(): View?
+    abstract fun daggerConfiguration()
+    abstract fun initLayout(): View?
     abstract fun setUpUi()
 
     protected open fun onThemeChanged() {}

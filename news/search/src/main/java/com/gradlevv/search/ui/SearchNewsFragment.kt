@@ -56,7 +56,7 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
 
     override val viewModel: SearchNewsViewModel by viewModels { viewModelFactory }
 
-    override fun createUi(): View? {
+    override fun initLayout(): View? {
 
         root = frameLayout {
 
@@ -209,7 +209,7 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
         btnSearch.closeKeyboard()
     }
 
-    override fun daggerSetUp() {
+    override fun daggerConfiguration() {
         DaggerSearchNewsComponent.factory().create(requireActivity().coreComponent()).inject(this)
     }
 }
