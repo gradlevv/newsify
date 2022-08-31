@@ -19,7 +19,7 @@ class SearchNewsViewModel @Inject constructor(
     private val searchNewsUseCase: SearchNewsUseCase
 ) : BaseViewModel() {
 
-    private val _searchNewsList = MutableStateFlow(SearchNewsState())
+    private val _searchNewsList = MutableStateFlow(SearchNewsState.Empty)
     val searchNewsList = _searchNewsList.asStateFlow()
 
     var searchTag = "Android"

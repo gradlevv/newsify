@@ -8,6 +8,8 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +27,7 @@ import com.gradlevv.ui.dsl.*
 import com.gradlevv.ui.shape.materialShape
 import com.gradlevv.ui.utils.*
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
@@ -169,7 +172,7 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
                 gravity = Gravity.CENTER
             })
 
-            addView(tvNoResult,matchWidthWrapHeight {
+            addView(tvNoResult, matchWidthWrapHeight {
                 gravity = Gravity.CENTER
             })
         }
@@ -180,8 +183,12 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
 
         etSearch.requestFocus()
 
-        lifecycleScope.launchWhenCreated {
-            viewModel.searchNewsList.collect { searchList ->
+        viewLifecycleOwner.lifecycleScope.launch {
+
+            viewModel.searchNewsList.flowWithLifecycle(
+                lifecycle = viewLifecycleOwner.lifecycle,
+                minActiveState = Lifecycle.State.STARTED
+            ).collect { searchList ->
 
                 if (searchList.isLoading) {
                     loading.visibility = View.VISIBLE

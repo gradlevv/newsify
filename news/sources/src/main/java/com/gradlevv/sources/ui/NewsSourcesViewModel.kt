@@ -14,7 +14,7 @@ class NewsSourcesViewModel @Inject constructor(
     private val getSourceListUseCase: GetSourceListUseCase
 ) : BaseViewModel() {
 
-    private val _sourceList = MutableStateFlow(NewsSourceState())
+    private val _sourceList = MutableStateFlow(NewsSourceState.Empty)
     val sourceList = _sourceList.asStateFlow()
 
     init {
