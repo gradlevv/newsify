@@ -1,8 +1,8 @@
 ext {
 
     build = [
-            compiledSdkVersion: 30,
-            targetSdkVersion  : 30,
+            compiledSdkVersion: 31,
+            targetSdkVersion  : 31,
             minSdkVersion     : 21
     ]
 
