@@ -6,4 +6,8 @@ data class TopHeadLinesState(
     val isLoading: Boolean = false,
     val items: List<TopHeadLinesItem> = emptyList(),
     val isError: Boolean = false
-)
+) {
+    companion object {
+        val Empty = TopHeadLinesState()
+    }
+}

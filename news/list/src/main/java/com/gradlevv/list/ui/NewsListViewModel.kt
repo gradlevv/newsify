@@ -17,7 +17,7 @@ class NewsListViewModel @Inject constructor(
     private val getTopHeadLinesUseCase: GetTopHeadLinesUseCase
 ) : BaseViewModel() {
 
-    private val _topHeadLinesList = MutableStateFlow(TopHeadLinesState())
+    private val _topHeadLinesList = MutableStateFlow(TopHeadLinesState.Empty)
     val topHeadLinesList = _topHeadLinesList.asStateFlow()
 
     private val _newsDetailItem = MutableStateFlow<TopHeadLinesItem?>(null)
