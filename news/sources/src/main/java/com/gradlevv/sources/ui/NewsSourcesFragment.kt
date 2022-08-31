@@ -7,6 +7,8 @@ import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +29,7 @@ import com.gradlevv.ui.utils.ThemeHandler
 import com.gradlevv.ui.utils.matchWidthAndHeight
 import com.gradlevv.ui.utils.matchWidthWrapHeight
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
@@ -108,8 +111,12 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
 
     override fun setUpUi() {
 
-        lifecycleScope.launchWhenCreated {
-            viewModel.sourceList.collect { topHeadLinesState ->
+        viewLifecycleOwner.lifecycleScope.launch {
+
+            viewModel.sourceList.flowWithLifecycle(
+                lifecycle = viewLifecycleOwner.lifecycle,
+                minActiveState = Lifecycle.State.STARTED
+            ).collect { topHeadLinesState ->
 
                 if (topHeadLinesState.isLoading) {
                     loading.visibility = View.VISIBLE

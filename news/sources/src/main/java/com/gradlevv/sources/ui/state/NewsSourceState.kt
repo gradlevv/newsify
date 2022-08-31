@@ -6,4 +6,8 @@ data class NewsSourceState(
     val isLoading: Boolean = false,
     val items: List<SourceItemDomainModel> = emptyList(),
     val isError: Boolean = false
-)
+) {
+    companion object {
+        val Empty = NewsSourceState()
+    }
+}
