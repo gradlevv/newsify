@@ -32,6 +32,7 @@ class SettingFragment : BaseFragment<SettingViewModel>() {
     private lateinit var rbLightTheme: RadioButton
     private lateinit var rbDarkTheme: RadioButton
     private lateinit var tvToolbar: TextView
+    private lateinit var lineView: View
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -55,16 +56,16 @@ class SettingFragment : BaseFragment<SettingViewModel>() {
 
             rbLightTheme = radioButton {
                 text = getString(R.string.setting_light_theme)
-                setTextColor(ThemeHandler.getColor(Colors.colorAccent))
+                setTextColor(ThemeHandler.getColor(Colors.colorText))
             }
 
             rbDarkTheme = radioButton {
                 text = getString(R.string.setting_dark_theme_title)
-                setTextColor(ThemeHandler.getColor(Colors.colorAccent))
+                setTextColor(ThemeHandler.getColor(Colors.colorText))
             }
 
-            val lineView = View(context).apply {
-                setBackgroundColor(ThemeHandler.getColor(Colors.colorAccent))
+            lineView = View(context).apply {
+                setBackgroundColor(ThemeHandler.getColor(Colors.colorPrimary))
             }
 
             radioGroup = radioGroup {
