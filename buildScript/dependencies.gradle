@@ -41,6 +41,7 @@ ext {
     lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:$libraryVersion.archVersion"
     lifecycleViewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$libraryVersion.archVersion"
     lifecycleCommonJava8 = "androidx.lifecycle:lifecycle-common-java8:$libraryVersion.archVersion"
+    lifecycleruntimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:$libraryVersion.lifecycleRuntimeKtx"
 
     // timber logger
     timber = "com.jakewharton.timber:timber:$libraryVersion.timberVersion"

@@ -32,6 +32,7 @@ dependencies {
     implementation livedataKtx
     implementation lifecycleExtensions
     implementation lifecycleViewModelKtx
+    implementation lifecycleruntimeKtx
 
     // timber logger
     implementation timber
