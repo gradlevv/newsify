@@ -20,6 +20,7 @@ import com.gradlevv.sources.R
 import com.gradlevv.sources.di.DaggerNewsSourcesComponent
 import com.gradlevv.sources.domain.SourceItemDomainModel
 import com.gradlevv.ui.base.BaseFragment
+import com.gradlevv.ui.component.CustomTextView
 import com.gradlevv.ui.dsl.frameLayout
 import com.gradlevv.ui.dsl.recyclerView
 import com.gradlevv.ui.dsl.textView
@@ -38,7 +39,7 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
     private lateinit var rvSourceList: RecyclerView
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var loading: ProgressBar
-    private lateinit var tvToolbar: TextView
+    private lateinit var tvToolbar: CustomTextView
 
     private val newsSourcesAdapter: NewsSourcesAdapter by lazy {
         NewsSourcesAdapter(
@@ -133,6 +134,10 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
             }
         }
 
+    }
+
+    override fun onThemeChanged() {
+        tvToolbar.onThemeChange()
     }
 
     override fun daggerConfiguration() {

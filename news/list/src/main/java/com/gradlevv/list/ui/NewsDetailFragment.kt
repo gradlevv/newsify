@@ -16,6 +16,7 @@ import com.gradlevv.core.util.dp
 import com.gradlevv.list.R
 import com.gradlevv.list.di.DaggerNewsListComponent
 import com.gradlevv.ui.base.BaseFragment
+import com.gradlevv.ui.component.CustomTextView
 import com.gradlevv.ui.dsl.imageView
 import com.gradlevv.ui.dsl.linearLayout
 import com.gradlevv.ui.dsl.normalButton
@@ -28,12 +29,12 @@ import javax.inject.Inject
 class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
 
     private lateinit var root: LinearLayout
-    private lateinit var tvTitle: TextView
-    private lateinit var tvContent: TextView
-    private lateinit var tvNewsDate: TextView
+    private lateinit var tvTitle: CustomTextView
+    private lateinit var tvContent: CustomTextView
+    private lateinit var tvNewsDate: CustomTextView
     private lateinit var ivNewsImage: ImageView
     private lateinit var btnMoreInfo: MaterialButton
-    private lateinit var tvToolbar: TextView
+    private lateinit var tvToolbar: CustomTextView
 
     @Inject
     lateinit var intentUtils: IntentUtils
@@ -138,6 +139,13 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
                 }
             }
         }
+    }
+
+    override fun onThemeChanged() {
+        tvTitle.onThemeChange()
+        tvContent.onThemeChange()
+        tvNewsDate.onThemeChange()
+        tvToolbar.onThemeChange()
     }
 
     override fun daggerConfiguration() {

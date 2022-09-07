@@ -5,11 +5,9 @@ import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +18,7 @@ import com.gradlevv.list.R
 import com.gradlevv.list.di.DaggerNewsListComponent
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.ui.base.BaseFragment
+import com.gradlevv.ui.component.CustomTextView
 import com.gradlevv.ui.dsl.frameLayout
 import com.gradlevv.ui.dsl.recyclerView
 import com.gradlevv.ui.dsl.textView
@@ -38,7 +37,7 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
     private lateinit var rvTopHeadLines: RecyclerView
     private lateinit var gridLayoutManager: LinearLayoutManager
     private lateinit var loading: ProgressBar
-    private lateinit var tvToolbar: TextView
+    private lateinit var tvToolbar: CustomTextView
 
     private val topHeadLinesAdapter: TopHeadLinesAdapter by lazy {
         TopHeadLinesAdapter(
@@ -122,6 +121,10 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
                 }
             }
         }
+    }
+
+    override fun onThemeChanged() {
+        tvToolbar.onThemeChange()
     }
 
     override fun daggerConfiguration() {

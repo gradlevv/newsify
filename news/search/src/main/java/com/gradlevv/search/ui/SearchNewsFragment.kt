@@ -23,6 +23,8 @@ import com.gradlevv.search.R
 import com.gradlevv.search.di.DaggerSearchNewsComponent
 import com.gradlevv.search.domain.SearchNewsItem
 import com.gradlevv.ui.base.BaseFragment
+import com.gradlevv.ui.component.CustomEditText
+import com.gradlevv.ui.component.CustomTextView
 import com.gradlevv.ui.dsl.*
 import com.gradlevv.ui.shape.materialShape
 import com.gradlevv.ui.utils.*
@@ -36,13 +38,13 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
     private lateinit var rvTopHeadLines: RecyclerView
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var loading: ProgressBar
-    private lateinit var etSearch: EditText
+    private lateinit var etSearch: CustomEditText
     private lateinit var flSearch: FrameLayout
     private lateinit var ivSearch: ImageView
     private lateinit var btnSearch: MaterialButton
     private lateinit var llSearch: LinearLayout
-    private lateinit var tvNoResult: TextView
-    private lateinit var tvToolbar: TextView
+    private lateinit var tvNoResult: CustomTextView
+    private lateinit var tvToolbar: CustomTextView
 
     private val searchNewsAdapter: SearchNewsAdapter by lazy {
         SearchNewsAdapter(
@@ -214,6 +216,12 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
         viewModel.searchTag = etSearch.text.toString()
         viewModel.searchNews()
         btnSearch.closeKeyboard()
+    }
+
+    override fun onThemeChanged() {
+        tvNoResult.onThemeChange()
+        tvToolbar.onThemeChange()
+        etSearch.onThemeChange()
     }
 
     override fun daggerConfiguration() {

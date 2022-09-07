@@ -14,6 +14,7 @@ import com.gradlevv.core.util.dp
 import com.gradlevv.core.util.dpf
 import com.gradlevv.sources.R
 import com.gradlevv.sources.domain.SourceItemDomainModel
+import com.gradlevv.ui.component.CustomTextView
 import com.gradlevv.ui.dsl.linearLayout
 import com.gradlevv.ui.dsl.normalButton
 import com.gradlevv.ui.dsl.textView
@@ -24,8 +25,8 @@ import com.gradlevv.ui.utils.matchWidthWrapHeight
 
 class NewsSourceBottomSheet(private val context: Context) {
 
-    private lateinit var tvTitle: TextView
-    private lateinit var tvDescription: TextView
+    private lateinit var tvTitle: CustomTextView
+    private lateinit var tvDescription: CustomTextView
     private lateinit var btnGoToWebSite: MaterialButton
 
     private var mBottomSheetDialog: BottomSheetDialog? = null
