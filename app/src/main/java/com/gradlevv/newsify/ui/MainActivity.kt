@@ -164,6 +164,7 @@ class MainActivity : AppCompatActivity() {
                 navigationBarColor = ThemeHandler.getColor(Colors.colorStatusBar)
             )
         }
+        window.decorView.setBackgroundColor(ThemeHandler.getColor(Colors.colorStatusBar))
     }
 
     private enum class Menus(val id: Int) {
