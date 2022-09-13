@@ -1,15 +1,13 @@
 package com.gradlevv.list.ui
 
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,32 +16,41 @@ import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dp
 import com.gradlevv.list.R
 import com.gradlevv.list.di.DaggerNewsListComponent
+import com.gradlevv.list.domain.CategoryItem
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.ui.base.BaseFragment
-import com.gradlevv.ui.dsl.frameLayout
-import com.gradlevv.ui.dsl.recyclerView
-import com.gradlevv.ui.dsl.textView
-import com.gradlevv.ui.shape.materialShape
-import com.gradlevv.ui.utils.Colors
-import com.gradlevv.ui.utils.ThemeHandler
-import com.gradlevv.ui.utils.matchWidthAndHeight
-import com.gradlevv.ui.utils.matchWidthWrapHeight
+import com.gradlevv.ui.dsl.*
+import com.gradlevv.ui.utils.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class NewsListFragment : BaseFragment<NewsListViewModel>() {
 
-    private lateinit var root: FrameLayout
+    private lateinit var root: LinearLayout
     private lateinit var rvTopHeadLines: RecyclerView
+    private lateinit var rvCategories: RecyclerView
     private lateinit var gridLayoutManager: LinearLayoutManager
+    private lateinit var horizontalLayoutManager: LinearLayoutManager
     private lateinit var loading: ProgressBar
-    private lateinit var tvToolbar: TextView
+    private lateinit var ivLogo: ImageView
+    private lateinit var tvCategories: TextView
+    private lateinit var tvTopNews: TextView
 
     private val topHeadLinesAdapter: TopHeadLinesAdapter by lazy {
         TopHeadLinesAdapter(
             ::onItemClick
         )
+    }
+
+    private val categoriesAdapter: CategoriesAdapter by lazy {
+        CategoriesAdapter(
+            ::onCategoryClick
+        )
+    }
+
+    private fun onCategoryClick(position: Int, categoryItem: CategoryItem) {
+
     }
 
     private fun onItemClick(position: Int, topHeadLinesItem: TopHeadLinesItem) {
@@ -56,17 +63,13 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
     override val viewModel: NewsListViewModel by navGraphViewModels(R.id.main_navigation) { viewModelFactory }
 
     override fun initLayout(): View? {
-        root = frameLayout {
 
-            tvToolbar = textView {
-                setTextColor(ThemeHandler.getColor(Colors.colorWhite))
-                setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
-                text = getString(R.string.top_head_lines_title)
-                gravity = Gravity.CENTER or Gravity.CENTER_HORIZONTAL
-                background = materialShape {
-                    fillColor = ThemeHandler.getColorState(Colors.colorText)
-                }
-                setPadding(0, 12.dp(), 0, 12.dp())
+        root = linearLayout {
+
+            orientation = LinearLayout.VERTICAL
+
+            ivLogo = imageView {
+                setCompatDrawable(R.drawable.ic_newsify)
             }
 
             loading = ProgressBar(context).apply {
@@ -74,7 +77,28 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
                 visibility = View.GONE
             }
 
+            tvCategories = textView {
+                setTextColor(ThemeHandler.getColor(Colors.colorOnBackground))
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+                text = getString(R.string.news_list_categories)
+                gravity = Gravity.LEFT or Gravity.CENTER_HORIZONTAL
+            }
+
+            tvTopNews = textView {
+                setTextColor(ThemeHandler.getColor(Colors.colorOnBackground))
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+                text = getString(R.string.news_list_lines_title)
+                gravity = Gravity.LEFT or Gravity.CENTER_HORIZONTAL
+            }
+
             gridLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            horizontalLayoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+            rvCategories = recyclerView {
+                layoutManager = horizontalLayoutManager
+                adapter = categoriesAdapter
+            }
 
             rvTopHeadLines = recyclerView {
                 layoutManager = gridLayoutManager
@@ -83,17 +107,36 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
                 setPadding(0, 0, 0, 80.dp())
             }
 
+            addView(ivLogo, matchWidthWrapHeight {
+                topMargin = 32.dp()
+            })
+
             addView(loading, matchWidthWrapHeight {
                 gravity = Gravity.CENTER
             })
-            addView(rvTopHeadLines, matchWidthAndHeight {
-                gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
-                topMargin = 42.dp()
+
+            addView(tvCategories, matchWidthWrapHeight {
+                topMargin = 48.dp()
+                rightMargin = 16.dp()
+                leftMargin = 16.dp()
+            })
+
+            addView(rvCategories, matchWidthWrapHeight {
+                topMargin = 8.dp()
+                leftMargin = 8.dp()
+                rightMargin = 8.dp()
+            })
+
+            addView(tvTopNews, matchWidthWrapHeight {
+                topMargin = 32.dp()
+                rightMargin = 12.dp()
+                leftMargin = 12.dp()
+            })
+
+            addView(rvTopHeadLines, matchWidthHeight {
+                topMargin = 12.dp()
                 rightMargin = 8.dp()
                 leftMargin = 8.dp()
-            })
-            addView(tvToolbar, matchWidthWrapHeight {
-                gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
             })
         }
         return root
@@ -122,6 +165,20 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
                 }
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.categoryList.flowWithLifecycle(
+                lifecycle = viewLifecycleOwner.lifecycle,
+                minActiveState = Lifecycle.State.STARTED
+            ).collect {
+                Log.d("TAG", "setUpUi: ${it.size}")
+                categoriesAdapter.submitList(it)
+            }
+
+        }
+    }
+
+    override fun onThemeChanged() {
     }
 
     override fun daggerConfiguration() {
