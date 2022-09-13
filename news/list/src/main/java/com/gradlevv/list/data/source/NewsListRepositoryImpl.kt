@@ -5,6 +5,8 @@ import com.gradlevv.core.data.model.mapTo
 import com.gradlevv.core.data.network.ResponseHandler
 import com.gradlevv.core.util.IoDispatcher
 import com.gradlevv.list.data.TopHeadLinesMapper
+import com.gradlevv.list.data.model.CategoryType
+import com.gradlevv.list.domain.CategoryItem
 import com.gradlevv.list.domain.NewsListRepository
 import com.gradlevv.list.domain.TopHeadLinesItem
 import kotlinx.coroutines.CoroutineDispatcher
@@ -23,5 +25,24 @@ class NewsListRepositoryImpl @Inject constructor(
             return@withContext getResource { service.getTopHeadLines() }
                 .mapTo(mapper = topHeadLinesMapper)
         }
+    }
+
+    override fun getCategoryList(): List<CategoryItem> {
+        val categoryList = listOf(
+            CategoryType.Business,
+            CategoryType.Entertainment,
+            CategoryType.General,
+            CategoryType.Health,
+            CategoryType.Science,
+            CategoryType.Sports,
+            CategoryType.Technology
+        ).map { categoryType ->
+            CategoryItem(
+                type = categoryType.type,
+                categoryName = categoryType.categoryName,
+                icon = categoryType.icon
+            )
+        }
+        return categoryList
     }
 }
