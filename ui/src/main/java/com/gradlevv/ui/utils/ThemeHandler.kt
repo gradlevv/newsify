@@ -25,14 +25,17 @@ import androidx.lifecycle.MutableLiveData
     Colors.colorBackground,
     Colors.colorText,
     Colors.colorIconTint,
-    Colors.colorWhite
+    Colors.colorWhite,
+    Colors.colorTransparent,
+    Colors.colorStatusBar,
+    Colors.colorNavBar
 )
 annotation class Colors {
     companion object {
 
         const val colorPrimary = "colorPrimary"
         const val colorPrimaryDark = "colorPrimaryDark"
-        const val colorBackground  = "colorBackground"
+        const val colorBackground = "colorBackground"
 
         const val colorAccent = "colorAccent"
 
@@ -43,6 +46,8 @@ annotation class Colors {
 
         const val colorTransparent = "colorTransparent"
 
+        const val colorStatusBar = "colorStatusBar"
+        const val colorNavBar = "colorNavBar"
     }
 }
 
@@ -72,8 +77,10 @@ object ThemeHandler {
         Colors.colorAccent to Day.colorAccent,
         Colors.colorText to Day.colorText,
         Colors.colorIconTint to Day.colorIconTint,
-        Colors.colorWhite to Day.colorWhite
-        )
+        Colors.colorWhite to Day.colorWhite,
+        Colors.colorStatusBar to Day.colorStatusBar,
+        Colors.colorNavBar to Day.colorNavBar
+    )
 
     private val nightColors: HashMap<String, Int> = hashMapOf(
         Colors.colorPrimary to Night.colorPrimary,
@@ -83,13 +90,15 @@ object ThemeHandler {
         Colors.colorAccent to Night.colorAccent,
         Colors.colorText to Night.colorText,
         Colors.colorIconTint to Night.colorIconTint,
-        Colors.colorWhite to Night.colorWhite
+        Colors.colorWhite to Night.colorWhite,
+        Colors.colorStatusBar to Night.colorStatusBar,
+        Colors.colorNavBar to Night.colorNavBar
     )
 
     private object Day {
 
         @ColorInt
-        val colorPrimary = Color.parseColor("#141414")
+        val colorPrimary = Color.parseColor("#2E74E5")
 
         @ColorInt
         val colorTransparent = Color.argb(0, 0, 0, 0)
@@ -98,7 +107,7 @@ object ThemeHandler {
         val colorPrimaryDark = Color.parseColor("#141414")
 
         @ColorInt
-        val colorBackground  = Color.parseColor("#ffffff")
+        val colorBackground = Color.parseColor("#ffffff")
 
         @ColorInt
         val colorAccent = Color.parseColor("#03DAC5")
@@ -112,12 +121,17 @@ object ThemeHandler {
         @ColorInt
         val colorWhite = Color.parseColor("#FFFFFF")
 
+        @ColorInt
+        val colorStatusBar = Color.parseColor("#F7F7FC")
+
+        @ColorInt
+        val colorNavBar = Color.parseColor("#F7F8FD")
     }
 
     private object Night {
 
         @ColorInt
-        val colorPrimary = Color.parseColor("#141414")
+        val colorPrimary = Color.parseColor("#2E74E5")
 
         @ColorInt
         val colorTransparent = Color.argb(0, 0, 0, 0)
@@ -126,7 +140,7 @@ object ThemeHandler {
         val colorPrimaryDark = Color.parseColor("#141414")
 
         @ColorInt
-        val colorBackground  = Color.parseColor("#141414")
+        val colorBackground = Color.parseColor("#141414")
 
         @ColorInt
         val colorAccent = Color.parseColor("#03DAC5")
@@ -139,6 +153,12 @@ object ThemeHandler {
 
         @ColorInt
         val colorWhite = Color.parseColor("#FFFFFF")
+
+        @ColorInt
+        val colorStatusBar = Color.parseColor("#F7F7FC")
+
+        @ColorInt
+        val colorNavBar = Color.parseColor("#F7F8FD")
     }
 
 

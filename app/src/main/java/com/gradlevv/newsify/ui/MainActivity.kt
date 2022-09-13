@@ -18,11 +18,10 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dpf
 import com.gradlevv.core.util.getSelectorDrawable
+import com.gradlevv.core.util.setSystemBarsColor
 import com.gradlevv.newsify.R
 import com.gradlevv.newsify.di.DaggerAppComponent
-import com.gradlevv.ui.utils.frameLayout
-import com.gradlevv.ui.utils.matchWidthCustomHeight
-import com.gradlevv.ui.utils.matchWidthWrapHeight
+import com.gradlevv.ui.utils.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -103,6 +102,8 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         navController.graph = navGraph
 
+        initTheme()
+
         initBottomNavigationView()
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -136,6 +137,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView = BottomNavigationView(this).apply {
             labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_UNLABELED
             setOnNavigationItemSelectedListener(navigationItemClickListener)
+            setBackgroundColor(ThemeHandler.getColor(Colors.colorStatusBar))
         }
 
         bottomNavigationContainer = frameLayout {
@@ -153,6 +155,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         bottomNavigationView.setOnNavigationItemReselectedListener {}
+    }
+
+    private fun initTheme() {
+        ThemeHandler.themeObservable.observe(this) {
+            setSystemBarsColor(
+                statusBarColor = ThemeHandler.getColor(Colors.colorStatusBar),
+                navigationBarColor = ThemeHandler.getColor(Colors.colorStatusBar)
+            )
+        }
     }
 
     private enum class Menus(val id: Int) {
