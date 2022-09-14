@@ -83,24 +83,23 @@ class TopHeadLineRowView(context: Context) : CardView(context) {
             })
 
             addView(frameLayout {
-                gravity = Gravity.CENTER_VERTICAL or Gravity.CENTER
 
                 addView(ivDate, wrapWidthAndHeight {
-                    gravity = Gravity.LEFT or Gravity.BOTTOM
+                    gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
                 })
 
                 addView(tvPublishDate, matchWidthWrapHeight {
-                    gravity = Gravity.LEFT or Gravity.BOTTOM
+                    gravity = Gravity.LEFT or Gravity.CENTER
                     leftMargin = 24.dp()
                 })
 
                 addView(tvReadMore, matchWidthWrapHeight {
                     rightMargin = 24.dp()
-                    gravity = Gravity.RIGHT or Gravity.BOTTOM
+                    gravity = Gravity.RIGHT or Gravity.CENTER_VERTICAL
                 })
 
                 addView(ivReadMore, wrapWidthAndHeight {
-                    gravity = Gravity.RIGHT or Gravity.BOTTOM
+                    gravity = Gravity.RIGHT or Gravity.CENTER_VERTICAL
                 })
 
             }, matchWidthWrapHeight {
