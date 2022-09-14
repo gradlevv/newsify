@@ -28,7 +28,10 @@ import androidx.lifecycle.MutableLiveData
     Colors.colorWhite,
     Colors.colorTransparent,
     Colors.colorStatusBar,
-    Colors.colorNavBar
+    Colors.colorNavBar,
+    Colors.colorOnBackground100,
+    Colors.colorOnBackground70,
+    Colors.colorOnBackground50
 )
 annotation class Colors {
     companion object {
@@ -48,6 +51,10 @@ annotation class Colors {
 
         const val colorStatusBar = "colorStatusBar"
         const val colorNavBar = "colorNavBar"
+
+        const val colorOnBackground100 = "colorOnBackground100"
+        const val colorOnBackground70 = "colorOnBackground70"
+        const val colorOnBackground50 = "colorOnBackground50"
     }
 }
 
@@ -79,7 +86,10 @@ object ThemeHandler {
         Colors.colorIconTint to Day.colorIconTint,
         Colors.colorWhite to Day.colorWhite,
         Colors.colorStatusBar to Day.colorStatusBar,
-        Colors.colorNavBar to Day.colorNavBar
+        Colors.colorNavBar to Day.colorNavBar,
+        Colors.colorOnBackground100 to Day.colorOnBackground100,
+        Colors.colorOnBackground70 to Day.colorOnBackground70,
+        Colors.colorOnBackground50 to Day.colorOnBackground50
     )
 
     private val nightColors: HashMap<String, Int> = hashMapOf(
@@ -92,7 +102,10 @@ object ThemeHandler {
         Colors.colorIconTint to Night.colorIconTint,
         Colors.colorWhite to Night.colorWhite,
         Colors.colorStatusBar to Night.colorStatusBar,
-        Colors.colorNavBar to Night.colorNavBar
+        Colors.colorNavBar to Night.colorNavBar,
+        Colors.colorOnBackground100 to Night.colorOnBackground100,
+        Colors.colorOnBackground70 to Night.colorOnBackground70,
+        Colors.colorOnBackground50 to Night.colorOnBackground50
     )
 
     private object Day {
@@ -108,6 +121,15 @@ object ThemeHandler {
 
         @ColorInt
         val colorBackground = Color.parseColor("#ffffff")
+
+        @ColorInt
+        val colorOnBackground100 = Color.parseColor("#2D354A")
+
+        @ColorInt
+        val colorOnBackground70 = Color.parseColor("#7683A6")
+
+        @ColorInt
+        val colorOnBackground50 = Color.parseColor("#A7B0C9")
 
         @ColorInt
         val colorAccent = Color.parseColor("#03DAC5")
@@ -159,6 +181,15 @@ object ThemeHandler {
 
         @ColorInt
         val colorNavBar = Color.parseColor("#F7F8FD")
+
+        @ColorInt
+        val colorOnBackground100 = Color.parseColor("#2D354A")
+
+        @ColorInt
+        val colorOnBackground70 = Color.parseColor("#7683A6")
+
+        @ColorInt
+        val colorOnBackground50 = Color.parseColor("#A7B0C9")
     }
 
 
