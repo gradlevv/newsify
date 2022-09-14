@@ -19,5 +19,6 @@
     <string name="news_list_science_name">Science</string>
     <string name="news_list_sports_name">Sports</string>
     <string name="news_list_technology_name">Technology</string>
+    <string name="news_list_read_more">Read More</string>
 
 </resources>

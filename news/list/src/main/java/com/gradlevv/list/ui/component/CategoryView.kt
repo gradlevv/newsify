@@ -17,7 +17,7 @@ import com.gradlevv.ui.utils.*
 class CategoryView(context: Context) : LinearLayout(context) {
 
     private var tvCategory: TextView = textView {
-        setTextColor(ThemeHandler.getColor(Colors.colorOnBackground))
+        setTextColor(ThemeHandler.getColor(Colors.colorOnBackground70))
         setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
         gravity = Gravity.CENTER or Gravity.CENTER_VERTICAL
     }
