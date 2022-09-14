@@ -1,6 +1,8 @@
 package com.gradlevv.newsify.ui
 
 import android.animation.Animator
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
@@ -135,7 +137,7 @@ class MainActivity : AppCompatActivity() {
     private fun initBottomNavigationView() {
 
         bottomNavigationView = BottomNavigationView(this).apply {
-            labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_UNLABELED
+            labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_SELECTED
             setOnNavigationItemSelectedListener(navigationItemClickListener)
             setBackgroundColor(ThemeHandler.getColor(Colors.colorStatusBar))
         }
@@ -176,30 +178,51 @@ class MainActivity : AppCompatActivity() {
 
     private fun addMenuItems() {
 
-        bottomNavigationView.menu.add(Menu.NONE, Menus.HOME.id, Menu.NONE, "")
+        bottomNavigationView.menu.add(Menu.NONE, Menus.HOME.id, Menu.NONE, "Home")
             .setChecked(true).icon = getSelectorDrawable(
             R.drawable.ic_home_fill,
             R.drawable.ic_home_stroke
-        )
+        ).apply {
+            colorFilter = PorterDuffColorFilter(
+                ThemeHandler.getColor(Colors.colorPrimary),
+                PorterDuff.Mode.SRC_IN
+            )
+        }
 
-        bottomNavigationView.menu.add(Menu.NONE, Menus.FAVORITE.id, Menu.NONE, "")
+        bottomNavigationView.menu.add(Menu.NONE, Menus.FAVORITE.id, Menu.NONE, "Sources")
             .setChecked(false).icon = getSelectorDrawable(
-            R.drawable.ic_favorite_fill,
-            R.drawable.ic_favorite_stroke
-        )
+            R.drawable.ic_global_fill,
+            R.drawable.ic_global_stroke
+        ).apply {
+            colorFilter = PorterDuffColorFilter(
+                ThemeHandler.getColor(Colors.colorPrimary),
+                PorterDuff.Mode.SRC_IN
+            )
+        }
 
-        bottomNavigationView.menu.add(Menu.NONE, Menus.SEARCH.id, Menu.NONE, "")
+        bottomNavigationView.menu.add(Menu.NONE, Menus.SEARCH.id, Menu.NONE, "Search")
             .setChecked(false).icon = getSelectorDrawable(
             R.drawable.ic_search_fill,
-            R.drawable.ic_search_fill
-        )
+            R.drawable.ic_search_stroke
+        ).apply {
+            colorFilter = PorterDuffColorFilter(
+                ThemeHandler.getColor(Colors.colorPrimary),
+                PorterDuff.Mode.SRC_IN
+            )
+        }
 
-        bottomNavigationView.menu.add(Menu.NONE, Menus.SETTING.id, Menu.NONE, "")
+        bottomNavigationView.menu.add(Menu.NONE, Menus.SETTING.id, Menu.NONE, "Setting")
             .setChecked(false).icon = getSelectorDrawable(
             R.drawable.ic_settings_fill,
             R.drawable.ic_settings_stroke
-        )
+        ).apply {
+            colorFilter = PorterDuffColorFilter(
+                ThemeHandler.getColor(Colors.colorPrimary),
+                PorterDuff.Mode.SRC_IN
+            )
+        }
 
+        bottomNavigationView.itemTextColor = ThemeHandler.getColorState(Colors.colorPrimary)
         bottomNavigationView.selectedItemId = Menus.HOME.id
     }
 
