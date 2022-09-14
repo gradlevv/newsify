@@ -29,13 +29,13 @@ class NewsListRepositoryImpl @Inject constructor(
 
     override fun getCategoryList(): List<CategoryItem> {
         val categoryList = listOf(
+            CategoryType.General,
             CategoryType.Business,
             CategoryType.Entertainment,
-            CategoryType.General,
-            CategoryType.Health,
-            CategoryType.Science,
             CategoryType.Sports,
-            CategoryType.Technology
+            CategoryType.Technology,
+            CategoryType.Science,
+            CategoryType.Health
         ).map { categoryType ->
             CategoryItem(
                 type = categoryType.type,
