@@ -110,37 +110,43 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
                 topMargin = 32.dp()
             })
 
-            addView(loading, matchWidthWrapHeight {
-                gravity = Gravity.CENTER
+            addView(ScrollView(context).apply {
+
+                addView(linearLayout {
+
+                    orientation = LinearLayout.VERTICAL
+
+                    addView(tvCategories, matchWidthWrapHeight {
+                        topMargin = 48.dp()
+                        leftMargin = 16.dp()
+                    })
+
+                    addView(rvCategories, matchWidthWrapHeight {
+                        topMargin = 8.dp()
+                        leftMargin = 8.dp()
+                        rightMargin = 8.dp()
+                    })
+
+                    addView(tvTopNews, matchWidthWrapHeight {
+                        topMargin = 32.dp()
+                        rightMargin = 16.dp()
+                        leftMargin = 16.dp()
+                    })
+
+                    addView(frameLayout {
+                        addView(loading, matchWidthWrapHeight())
+                        addView(rvTopHeadLines, matchWidthHeight())
+                    }, matchWidthHeight {
+                        topMargin = 12.dp()
+                        rightMargin = 16.dp()
+                        leftMargin = 16.dp()
+                    })
+                }, matchWidthHeight())
+
             })
 
-            addView(tvCategories, matchWidthWrapHeight {
-                topMargin = 48.dp()
-                rightMargin = 16.dp()
-                leftMargin = 16.dp()
-            })
-
-            addView(rvCategories, matchWidthWrapHeight {
-                topMargin = 8.dp()
-                leftMargin = 8.dp()
-                rightMargin = 8.dp()
-            })
-
-            addView(tvTopNews, matchWidthWrapHeight {
-                topMargin = 32.dp()
-                rightMargin = 16.dp()
-                leftMargin = 16.dp()
-            })
-
-            addView(rvTopHeadLines, matchWidthHeight {
-                topMargin = 12.dp()
-                rightMargin = 16.dp()
-                leftMargin = 16.dp()
-            })
         }
-        return ScrollView(context).apply {
-            addView(root)
-        }
+        return root
     }
 
     override fun setUpUi() {
