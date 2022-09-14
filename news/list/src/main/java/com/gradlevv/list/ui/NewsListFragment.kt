@@ -1,6 +1,5 @@
 package com.gradlevv.list.ui
 
-import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -50,7 +49,7 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
     }
 
     private fun onCategoryClick(position: Int, categoryItem: CategoryItem) {
-
+        viewModel.categoryChangeClick(getString(categoryItem.type))
     }
 
     private fun onItemClick(position: Int, topHeadLinesItem: TopHeadLinesItem) {
@@ -78,14 +77,14 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
             }
 
             tvCategories = textView {
-                setTextColor(ThemeHandler.getColor(Colors.colorOnBackground))
+                setTextColor(ThemeHandler.getColor(Colors.colorOnBackground100))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
                 text = getString(R.string.news_list_categories)
                 gravity = Gravity.LEFT or Gravity.CENTER_HORIZONTAL
             }
 
             tvTopNews = textView {
-                setTextColor(ThemeHandler.getColor(Colors.colorOnBackground))
+                setTextColor(ThemeHandler.getColor(Colors.colorOnBackground100))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
                 text = getString(R.string.news_list_lines_title)
                 gravity = Gravity.LEFT or Gravity.CENTER_HORIZONTAL
@@ -129,17 +128,19 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
 
             addView(tvTopNews, matchWidthWrapHeight {
                 topMargin = 32.dp()
-                rightMargin = 12.dp()
-                leftMargin = 12.dp()
+                rightMargin = 16.dp()
+                leftMargin = 16.dp()
             })
 
             addView(rvTopHeadLines, matchWidthHeight {
                 topMargin = 12.dp()
-                rightMargin = 8.dp()
-                leftMargin = 8.dp()
+                rightMargin = 16.dp()
+                leftMargin = 16.dp()
             })
         }
-        return root
+        return ScrollView(context).apply {
+            addView(root)
+        }
     }
 
     override fun setUpUi() {
@@ -153,6 +154,12 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
 
                 if (topHeadLinesState.isLoading) {
                     loading.visibility = View.VISIBLE
+                    return@collect
+                }
+
+                if (topHeadLinesState.isError) {
+                    loading.visibility = View.GONE
+                    return@collect
                 }
 
                 if (topHeadLinesState.items.isNotEmpty()) {
@@ -160,9 +167,6 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
                     topHeadLinesAdapter.submitList(topHeadLinesState.items)
                 }
 
-                if (topHeadLinesState.isError) {
-                    loading.visibility = View.GONE
-                }
             }
         }
 
@@ -171,7 +175,6 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
                 lifecycle = viewLifecycleOwner.lifecycle,
                 minActiveState = Lifecycle.State.STARTED
             ).collect {
-                Log.d("TAG", "setUpUi: ${it.size}")
                 categoriesAdapter.submitList(it)
             }
 

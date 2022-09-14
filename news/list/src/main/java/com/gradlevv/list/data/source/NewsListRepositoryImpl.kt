@@ -20,9 +20,9 @@ class NewsListRepositoryImpl @Inject constructor(
     private val dispatcher: CoroutineDispatcher
 ) : ResponseHandler(), NewsListRepository {
 
-    override suspend fun getTopHeadLines(): Result<List<TopHeadLinesItem>> {
+    override suspend fun getTopHeadLines(category: String): Result<List<TopHeadLinesItem>> {
         return withContext(dispatcher) {
-            return@withContext getResource { service.getTopHeadLines() }
+            return@withContext getResource { service.getTopHeadLines(category) }
                 .mapTo(mapper = topHeadLinesMapper)
         }
     }
