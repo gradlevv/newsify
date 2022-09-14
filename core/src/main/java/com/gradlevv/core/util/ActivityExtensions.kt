@@ -1,6 +1,5 @@
 package com.gradlevv.core.util
 
-import android.R
 import android.app.Activity
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.StateListDrawable
@@ -16,11 +15,11 @@ fun Activity.getSelectorDrawable(
 ): Drawable {
     val drawable = StateListDrawable()
     drawable.addState(
-        intArrayOf(R.attr.state_checked),
+        intArrayOf(android.R.attr.state_checked),
         getCompatDrawable(checkedDrawableRes)
     )
     drawable.addState(
-        intArrayOf(-R.attr.state_checked),
+        intArrayOf(-android.R.attr.state_checked),
         getCompatDrawable(unCheckedDrawableRes)
     )
 

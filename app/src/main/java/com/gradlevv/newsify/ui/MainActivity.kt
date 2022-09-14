@@ -1,6 +1,8 @@
 package com.gradlevv.newsify.ui
 
+import android.R.color
 import android.animation.Animator
+import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.net.Uri
@@ -182,45 +184,38 @@ class MainActivity : AppCompatActivity() {
             .setChecked(true).icon = getSelectorDrawable(
             R.drawable.ic_home_fill,
             R.drawable.ic_home_stroke
-        ).apply {
-            colorFilter = PorterDuffColorFilter(
-                ThemeHandler.getColor(Colors.colorPrimary),
-                PorterDuff.Mode.SRC_IN
-            )
-        }
+        )
 
         bottomNavigationView.menu.add(Menu.NONE, Menus.FAVORITE.id, Menu.NONE, "Sources")
             .setChecked(false).icon = getSelectorDrawable(
             R.drawable.ic_global_fill,
             R.drawable.ic_global_stroke
-        ).apply {
-            colorFilter = PorterDuffColorFilter(
-                ThemeHandler.getColor(Colors.colorPrimary),
-                PorterDuff.Mode.SRC_IN
-            )
-        }
+        )
 
         bottomNavigationView.menu.add(Menu.NONE, Menus.SEARCH.id, Menu.NONE, "Search")
             .setChecked(false).icon = getSelectorDrawable(
             R.drawable.ic_search_fill,
             R.drawable.ic_search_stroke
-        ).apply {
-            colorFilter = PorterDuffColorFilter(
-                ThemeHandler.getColor(Colors.colorPrimary),
-                PorterDuff.Mode.SRC_IN
-            )
-        }
+        )
 
         bottomNavigationView.menu.add(Menu.NONE, Menus.SETTING.id, Menu.NONE, "Setting")
             .setChecked(false).icon = getSelectorDrawable(
             R.drawable.ic_settings_fill,
             R.drawable.ic_settings_stroke
-        ).apply {
-            colorFilter = PorterDuffColorFilter(
-                ThemeHandler.getColor(Colors.colorPrimary),
-                PorterDuff.Mode.SRC_IN
-            )
-        }
+        )
+
+        val states = arrayOf(
+            intArrayOf(android.R.attr.state_checked),
+            intArrayOf(-android.R.attr.state_checked)
+        )
+        val colors = intArrayOf(
+            ThemeHandler.getColor(Colors.colorPrimary),
+            ThemeHandler.getColor(Colors.colorOnBackground50)
+        )
+
+        val colorList = ColorStateList(states, colors)
+
+        bottomNavigationView.itemIconTintList = colorList
 
         bottomNavigationView.itemTextColor = ThemeHandler.getColorState(Colors.colorPrimary)
         bottomNavigationView.selectedItemId = Menus.HOME.id
