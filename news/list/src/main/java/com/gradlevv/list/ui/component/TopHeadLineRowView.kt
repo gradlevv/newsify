@@ -9,6 +9,7 @@ import androidx.cardview.widget.CardView
 import com.gradlevv.core.util.dp
 import com.gradlevv.core.util.dpf
 import com.gradlevv.list.domain.TopHeadLinesItem
+import com.gradlevv.ui.R
 import com.gradlevv.ui.dsl.frameLayout
 import com.gradlevv.ui.dsl.imageView
 import com.gradlevv.ui.dsl.linearLayout
@@ -19,66 +20,96 @@ import com.gradlevv.ui.utils.*
 class TopHeadLineRowView(context: Context) : CardView(context) {
 
     private val tvTitle = textView {
-        setTextColor(ThemeHandler.getColor(Colors.colorText))
-        setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+        setTextColor(ThemeHandler.getColor(Colors.colorOnBackground70))
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
     }
 
     private val tvPublishDate = textView {
-        setTextColor(ThemeHandler.getColor(Colors.colorText))
-        setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
+        setTextColor(ThemeHandler.getColor(Colors.colorOnBackground50))
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
     }
 
     private val tvAuthor = textView {
-        setTextColor(ThemeHandler.getColor(Colors.colorWhite))
-        setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
-        background = materialShape {
-            setPadding(8.dp(),8.dp(),8.dp(),8.dp())
-            fillColor = ThemeHandler.getColorStateWithAlpha(Colors.colorPrimary,15)
-        }
+        setTextColor(ThemeHandler.getColor(Colors.colorOnBackground100))
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
     }
 
     private val ivNews = imageView {
         scaleType = ImageView.ScaleType.CENTER_CROP
+    }
 
+    private val ivReadMore = imageView {
+        scaleType = ImageView.ScaleType.CENTER_CROP
+        setCompatDrawable(R.drawable.ic_arrow_right)
+    }
+
+    private val tvReadMore = textView {
+        setTextColor(ThemeHandler.getColor(Colors.colorPrimary))
+        gravity = Gravity.RIGHT
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+        text = context.getString(com.gradlevv.list.R.string.news_list_read_more)
+    }
+
+    private val ivDate = imageView {
+        scaleType = ImageView.ScaleType.CENTER_CROP
+        setCompatDrawable(R.drawable.ic_clock)
     }
 
     init {
 
-        radius = 12.dpf()
-        elevation = 2.dpf()
+        radius = 16.dpf()
+        elevation = 0f
 
         addView(linearLayout {
 
             background = materialShape {
-                fillColor = ThemeHandler.getColorState(Colors.colorBackground)
+                fillColor = ThemeHandler.getColorState(Colors.colorWhite)
             }
 
             orientation = VERTICAL
 
-            addView(frameLayout {
+            addView(ivNews, matchWidthCustomHeight(180))
 
-                addView(ivNews, matchWidthCustomHeight(180))
-
-                addView(tvAuthor, matchWidthWrapHeight {
-                    gravity = Gravity.BOTTOM or Gravity.LEFT
-                })
-
-            },matchWidthAndWrapHeight())
+            addView(tvAuthor, matchWidthWrapHeight {
+                topMargin = 16.dp()
+                rightMargin = 16.dp()
+                leftMargin = 16.dp()
+            })
 
             addView(tvTitle, matchWidthWrapHeight {
-                topMargin = 16.dp()
+                topMargin = 12.dp()
                 rightMargin = 16.dp()
                 leftMargin = 16.dp()
             })
 
-            addView(tvPublishDate, matchWidthWrapHeight {
-                topMargin = 16.dp()
+            addView(frameLayout {
+
+                addView(ivDate, wrapWidthAndHeight {
+                    gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
+                })
+
+                addView(tvPublishDate, matchWidthWrapHeight {
+                    gravity = Gravity.LEFT or Gravity.CENTER
+                    leftMargin = 24.dp()
+                })
+
+                addView(tvReadMore, matchWidthWrapHeight {
+                    rightMargin = 24.dp()
+                    gravity = Gravity.RIGHT or Gravity.CENTER_VERTICAL
+                })
+
+                addView(ivReadMore, wrapWidthAndHeight {
+                    gravity = Gravity.RIGHT or Gravity.CENTER_VERTICAL
+                })
+
+            }, matchWidthWrapHeight {
+                topMargin = 32.dp()
                 rightMargin = 16.dp()
                 leftMargin = 16.dp()
-                bottomMargin = 16.dp()
+                bottomMargin = 24.dp()
             })
 
-        },matchWidthWrapHeight())
+        }, matchWidthWrapHeight())
 
     }
 

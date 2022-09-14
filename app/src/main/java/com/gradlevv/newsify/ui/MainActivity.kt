@@ -1,6 +1,10 @@
 package com.gradlevv.newsify.ui
 
+import android.R.color
 import android.animation.Animator
+import android.content.res.ColorStateList
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
@@ -18,11 +22,10 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dpf
 import com.gradlevv.core.util.getSelectorDrawable
+import com.gradlevv.core.util.setSystemBarsColor
 import com.gradlevv.newsify.R
 import com.gradlevv.newsify.di.DaggerAppComponent
-import com.gradlevv.ui.utils.frameLayout
-import com.gradlevv.ui.utils.matchWidthCustomHeight
-import com.gradlevv.ui.utils.matchWidthWrapHeight
+import com.gradlevv.ui.utils.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -103,6 +106,8 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         navController.graph = navGraph
 
+        initTheme()
+
         initBottomNavigationView()
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -134,8 +139,9 @@ class MainActivity : AppCompatActivity() {
     private fun initBottomNavigationView() {
 
         bottomNavigationView = BottomNavigationView(this).apply {
-            labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_UNLABELED
+            labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_SELECTED
             setOnNavigationItemSelectedListener(navigationItemClickListener)
+            setBackgroundColor(ThemeHandler.getColor(Colors.colorStatusBar))
         }
 
         bottomNavigationContainer = frameLayout {
@@ -155,6 +161,16 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemReselectedListener {}
     }
 
+    private fun initTheme() {
+        ThemeHandler.themeObservable.observe(this) {
+            setSystemBarsColor(
+                statusBarColor = ThemeHandler.getColor(Colors.colorStatusBar),
+                navigationBarColor = ThemeHandler.getColor(Colors.colorStatusBar)
+            )
+        }
+        window.decorView.setBackgroundColor(ThemeHandler.getColor(Colors.colorStatusBar))
+    }
+
     private enum class Menus(val id: Int) {
         HOME(1),
         FAVORITE(2),
@@ -164,30 +180,44 @@ class MainActivity : AppCompatActivity() {
 
     private fun addMenuItems() {
 
-        bottomNavigationView.menu.add(Menu.NONE, Menus.HOME.id, Menu.NONE, "")
+        bottomNavigationView.menu.add(Menu.NONE, Menus.HOME.id, Menu.NONE, "Home")
             .setChecked(true).icon = getSelectorDrawable(
             R.drawable.ic_home_fill,
             R.drawable.ic_home_stroke
         )
 
-        bottomNavigationView.menu.add(Menu.NONE, Menus.FAVORITE.id, Menu.NONE, "")
+        bottomNavigationView.menu.add(Menu.NONE, Menus.FAVORITE.id, Menu.NONE, "Sources")
             .setChecked(false).icon = getSelectorDrawable(
-            R.drawable.ic_favorite_fill,
-            R.drawable.ic_favorite_stroke
+            R.drawable.ic_global_fill,
+            R.drawable.ic_global_stroke
         )
 
-        bottomNavigationView.menu.add(Menu.NONE, Menus.SEARCH.id, Menu.NONE, "")
+        bottomNavigationView.menu.add(Menu.NONE, Menus.SEARCH.id, Menu.NONE, "Search")
             .setChecked(false).icon = getSelectorDrawable(
             R.drawable.ic_search_fill,
-            R.drawable.ic_search_fill
+            R.drawable.ic_search_stroke
         )
 
-        bottomNavigationView.menu.add(Menu.NONE, Menus.SETTING.id, Menu.NONE, "")
+        bottomNavigationView.menu.add(Menu.NONE, Menus.SETTING.id, Menu.NONE, "Setting")
             .setChecked(false).icon = getSelectorDrawable(
             R.drawable.ic_settings_fill,
             R.drawable.ic_settings_stroke
         )
 
+        val states = arrayOf(
+            intArrayOf(android.R.attr.state_checked),
+            intArrayOf(-android.R.attr.state_checked)
+        )
+        val colors = intArrayOf(
+            ThemeHandler.getColor(Colors.colorPrimary),
+            ThemeHandler.getColor(Colors.colorOnBackground50)
+        )
+
+        val colorList = ColorStateList(states, colors)
+
+        bottomNavigationView.itemIconTintList = colorList
+
+        bottomNavigationView.itemTextColor = ThemeHandler.getColorState(Colors.colorPrimary)
         bottomNavigationView.selectedItemId = Menus.HOME.id
     }
 

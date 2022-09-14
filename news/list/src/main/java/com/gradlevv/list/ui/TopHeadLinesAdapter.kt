@@ -10,8 +10,7 @@ import com.gradlevv.list.ui.component.TopHeadLineRowView
 
 class TopHeadLinesAdapter(
     private val itemClick: (position: Int, row: TopHeadLinesItem) -> Unit
-) :
-    ListAdapter<TopHeadLinesItem, TopHeadLinesAdapter.TopHeadLinesViewHolder>(DIFF_UTIL) {
+) : ListAdapter<TopHeadLinesItem, TopHeadLinesAdapter.TopHeadLinesViewHolder>(DIFF_UTIL) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopHeadLinesViewHolder {
         val view = TopHeadLineRowView(parent.context)
@@ -20,8 +19,6 @@ class TopHeadLinesAdapter(
             RecyclerView.LayoutParams.WRAP_CONTENT
         ).apply {
             topMargin = 8.dp()
-            rightMargin = 8.dp()
-            leftMargin = 8.dp()
         }
         return TopHeadLinesViewHolder(view, itemClick)
     }
@@ -34,7 +31,6 @@ class TopHeadLinesAdapter(
         private val view: TopHeadLineRowView,
         private val itemClick: (position: Int, row: TopHeadLinesItem) -> Unit
     ) : RecyclerView.ViewHolder(view) {
-
 
         fun bind(row: TopHeadLinesItem) {
             view.bind(row)

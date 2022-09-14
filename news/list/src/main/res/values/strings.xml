@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="more_info">more info</string>
-    <string name="top_head_lines_title">Top Headlines</string>
+    <string name="news_list_lines_title">Top News</string>
     <string name="top_news_detail_title">Detail</string>
+    <string name="news_list_title">Newsify</string>
+    <string name="news_list_categories">Categories</string>
+    <string name="news_list_business_type">business</string>
+    <string name="news_list_entertainment_type">entertainment</string>
+    <string name="news_list_general_type">general</string>
+    <string name="news_list_health_type">health</string>
+    <string name="news_list_science_type">science</string>
+    <string name="news_list_sports_type">sports</string>
+    <string name="news_list_technology_type">technology</string>
+    <string name="news_list_business_name">Business</string>
+    <string name="news_list_entertainment_name">Entertainment</string>
+    <string name="news_list_general_name">General</string>
+    <string name="news_list_health_name">Health</string>
+    <string name="news_list_science_name">Science</string>
+    <string name="news_list_sports_name">Sports</string>
+    <string name="news_list_technology_name">Technology</string>
+    <string name="news_list_read_more">Read More</string>
+
 </resources>

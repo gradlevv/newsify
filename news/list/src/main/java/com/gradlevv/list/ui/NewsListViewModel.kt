@@ -4,7 +4,9 @@ import androidx.lifecycle.viewModelScope
 import com.gradlevv.core.base.BaseViewModel
 import com.gradlevv.core.data.model.Result
 import com.gradlevv.list.R
+import com.gradlevv.list.domain.CategoryItem
 import com.gradlevv.list.domain.TopHeadLinesItem
+import com.gradlevv.list.domain.usecase.GetCategoryTypeUseCase
 import com.gradlevv.list.domain.usecase.GetTopHeadLinesUseCase
 import com.gradlevv.list.ui.state.TopHeadLinesState
 import com.gradlevv.ui.utils.navOptions
@@ -14,7 +16,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class NewsListViewModel @Inject constructor(
-    private val getTopHeadLinesUseCase: GetTopHeadLinesUseCase
+    private val getTopHeadLinesUseCase: GetTopHeadLinesUseCase,
+    private val getCategoryTypeUseCase: GetCategoryTypeUseCase
 ) : BaseViewModel() {
 
     private val _topHeadLinesList = MutableStateFlow(TopHeadLinesState.Empty)
@@ -23,7 +26,14 @@ class NewsListViewModel @Inject constructor(
     private val _newsDetailItem = MutableStateFlow<TopHeadLinesItem?>(null)
     val newsDetailItem = _newsDetailItem.asStateFlow()
 
+    private val _categoryList = MutableStateFlow<List<CategoryItem>>(listOf())
+    val categoryList = _categoryList.asStateFlow()
+
+    private var category = "general"
+
+
     init {
+        _categoryList.value = getCategoryTypeUseCase()
         getTopHeadlines()
     }
 
@@ -32,7 +42,7 @@ class NewsListViewModel @Inject constructor(
         _topHeadLinesList.value = TopHeadLinesState(isLoading = true)
         viewModelScope.launch {
 
-            when (val result = getTopHeadLinesUseCase()) {
+            when (val result = getTopHeadLinesUseCase(category)) {
 
                 is Result.Success -> {
                     _topHeadLinesList.value = TopHeadLinesState(items = result.data ?: emptyList())
@@ -51,5 +61,10 @@ class NewsListViewModel @Inject constructor(
     fun navigateToNewsDetail(topHeadLinesItem: TopHeadLinesItem) {
         _newsDetailItem.value = topHeadLinesItem
         navigate(R.string.news_detail_fragment, navOptions)
+    }
+
+    fun categoryChangeClick(selectedCategory: String) {
+        category = selectedCategory
+        getTopHeadlines()
     }
 }

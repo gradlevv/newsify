@@ -137,6 +137,13 @@ fun LinearLayout.matchWidthWrapHeight(initLayout: LinearLayout.LayoutParams.() -
     ).apply(initLayout)
 }
 
+fun LinearLayout.matchWidthHeight(initLayout: LinearLayout.LayoutParams.() -> Unit = {}): LinearLayout.LayoutParams {
+    return LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.MATCH_PARENT,
+        LinearLayout.LayoutParams.MATCH_PARENT
+    ).apply(initLayout)
+}
+
 fun FrameLayout.matchWidthWrapHeight(initLayout: FrameLayout.LayoutParams.() -> Unit = {}): FrameLayout.LayoutParams {
     return FrameLayout.LayoutParams(
         FrameLayout.LayoutParams.MATCH_PARENT,
