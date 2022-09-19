@@ -5,7 +5,7 @@ import com.gradlevv.core.mapper.BaseDataMapper
 
 sealed class Result<out T> {
     data class Success<T>(val data: T?) : Result<T>()
-    data class Error<T>(val error: String?) : Result<T>()
+    data class Error<T>(val error: ApiError?) : Result<T>()
 }
 
 fun <From, To> Result<From>.mapTo(mapper: BaseDataMapper<From, To>): Result<To> {
