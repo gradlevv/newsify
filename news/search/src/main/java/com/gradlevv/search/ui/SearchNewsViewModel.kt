@@ -8,8 +8,8 @@ import com.gradlevv.core.util.Constants.SORT_BY
 import com.gradlevv.search.domain.SearchDomainModel
 import com.gradlevv.search.domain.usecase.SearchNewsUseCase
 import com.gradlevv.search.ui.state.SearchNewsState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,41 +22,58 @@ class SearchNewsViewModel @Inject constructor(
     private val _searchNewsList = MutableStateFlow(SearchNewsState.Empty)
     val searchNewsList = _searchNewsList.asStateFlow()
 
-    var searchTag = "Android"
+    private val searchQuery = MutableStateFlow("")
 
     init {
         searchNews()
     }
 
-    fun searchNews() {
-
-        _searchNewsList.value = SearchNewsState(isLoading = true)
-
+    @OptIn(FlowPreview::class)
+    private fun searchNews() {
         viewModelScope.launch {
+            searchQuery.debounce(500)
+                .onEach { search ->
+                    val job = launch {
 
-            val simpleDateFormat = SimpleDateFormat(DATE_FORMAT, Locale.US)
-            val date = Date()
+                        _searchNewsList.value = SearchNewsState(isLoading = true)
 
-            val request = SearchDomainModel(
-                tag = searchTag,
-                from = simpleDateFormat.format(date),
-                to = simpleDateFormat.format(date),
-                sortedBy = SORT_BY
-            )
+                        val simpleDateFormat = SimpleDateFormat(DATE_FORMAT, Locale.US)
+                        val date = Date()
 
-            when (val result = searchNewsUseCase(request = request)) {
+                        val request = SearchDomainModel(
+                            tag = search.ifEmpty { SEARCH_TAG },
+                            from = simpleDateFormat.format(date),
+                            to = simpleDateFormat.format(date),
+                            sortedBy = SORT_BY
+                        )
 
-                is Result.Success -> {
-                    _searchNewsList.value = SearchNewsState(items = result.data ?: arrayListOf())
-                }
+                        when (val result = searchNewsUseCase(request = request)) {
 
-                is Result.Error -> {
-                    _searchNewsList.value = SearchNewsState(isError = true)
-                    errorMessage.value = result.error
-                }
-            }
+                            is Result.Success -> {
+                                _searchNewsList.value =
+                                    SearchNewsState(items = result.data.orEmpty())
+                            }
 
+                            is Result.Error -> {
+                                _searchNewsList.value = SearchNewsState(isError = true)
+                                errorMessage.value = result.error
+                            }
+                        }
+                    }
+
+                    job.join()
+
+                }.collect()
         }
+    }
 
+    fun setSearchValue(search: String?) {
+
+        searchQuery.value = search ?: return
+
+    }
+
+    companion object {
+        const val SEARCH_TAG = "Android"
     }
 }
