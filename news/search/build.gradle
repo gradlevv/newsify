@@ -4,6 +4,10 @@ apply plugin: 'kotlin-kapt'
 
 apply from: "$rootDir/buildScript/shared_dependencies.gradle"
 
+android {
+    resourcePrefix "search_"
+}
+
 dependencies {
     implementation project(':core')
     implementation project(':ui')
