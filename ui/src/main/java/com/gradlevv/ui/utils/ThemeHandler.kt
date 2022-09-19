@@ -31,7 +31,8 @@ import androidx.lifecycle.MutableLiveData
     Colors.colorNavBar,
     Colors.colorOnBackground100,
     Colors.colorOnBackground70,
-    Colors.colorOnBackground50
+    Colors.colorOnBackground50,
+    Colors.colorControllerVariant
 )
 annotation class Colors {
     companion object {
@@ -55,6 +56,9 @@ annotation class Colors {
         const val colorOnBackground100 = "colorOnBackground100"
         const val colorOnBackground70 = "colorOnBackground70"
         const val colorOnBackground50 = "colorOnBackground50"
+
+        const val colorControllerVariant = "colorControllerVariant"
+
     }
 }
 
@@ -89,7 +93,8 @@ object ThemeHandler {
         Colors.colorNavBar to Day.colorNavBar,
         Colors.colorOnBackground100 to Day.colorOnBackground100,
         Colors.colorOnBackground70 to Day.colorOnBackground70,
-        Colors.colorOnBackground50 to Day.colorOnBackground50
+        Colors.colorOnBackground50 to Day.colorOnBackground50,
+        Colors.colorControllerVariant to Day.colorControllerVariant
     )
 
     private val nightColors: HashMap<String, Int> = hashMapOf(
@@ -105,7 +110,8 @@ object ThemeHandler {
         Colors.colorNavBar to Night.colorNavBar,
         Colors.colorOnBackground100 to Night.colorOnBackground100,
         Colors.colorOnBackground70 to Night.colorOnBackground70,
-        Colors.colorOnBackground50 to Night.colorOnBackground50
+        Colors.colorOnBackground50 to Night.colorOnBackground50,
+        Colors.colorControllerVariant to Night.colorControllerVariant
     )
 
     private object Day {
@@ -148,6 +154,9 @@ object ThemeHandler {
 
         @ColorInt
         val colorNavBar = Color.parseColor("#F7F8FD")
+
+        @ColorInt
+        val colorControllerVariant = Color.parseColor("#EDF2F7")
     }
 
     private object Night {
@@ -190,6 +199,9 @@ object ThemeHandler {
 
         @ColorInt
         val colorOnBackground50 = Color.parseColor("#A7B0C9")
+
+        @ColorInt
+        val colorControllerVariant = Color.parseColor("#EDF2F7")
     }
 
 
