@@ -34,7 +34,7 @@ import javax.inject.Inject
 class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
 
     private lateinit var root: LinearLayout
-    private lateinit var rvTopHeadLines: RecyclerView
+    private lateinit var rvSearchNews: RecyclerView
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var loading: ProgressBar
     private lateinit var etSearch: EditText
@@ -144,7 +144,7 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
 
             gridLayoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
 
-            rvTopHeadLines = recyclerView {
+            rvSearchNews = recyclerView {
                 layoutManager = gridLayoutManager
                 clipToPadding = false
                 adapter = searchNewsAdapter
@@ -167,16 +167,16 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
                     topMargin = 64.dp()
                 })
 
-                addView(rvTopHeadLines, matchWidthHeight {
-                    rightMargin = 16.dp()
-                    leftMargin = 16.dp()
+                addView(rvSearchNews, matchWidthHeight {
+                    rightMargin = 8.dp()
+                    leftMargin = 8.dp()
                 })
 
                 addView(loading, matchWidthWrapHeight {
                     topMargin = 64.dp()
                 })
             }, matchWidthWrapHeight {
-                topMargin = 16.dp()
+                topMargin = 8.dp()
             })
 
         }

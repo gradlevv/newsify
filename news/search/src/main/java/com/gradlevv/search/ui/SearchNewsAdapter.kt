@@ -20,8 +20,8 @@ class SearchNewsAdapter(
             RecyclerView.LayoutParams.WRAP_CONTENT
         ).apply {
             topMargin = 8.dp()
-            rightMargin = 8.dp()
-            leftMargin = 8.dp()
+            rightMargin = 4.dp()
+            leftMargin = 4.dp()
         }
         return SearchNewsViewHolder(view, itemClick)
     }
@@ -31,7 +31,7 @@ class SearchNewsAdapter(
     }
 
     class SearchNewsViewHolder(
-        val view: SearchNewsRowView,
+        private val view: SearchNewsRowView,
         private val itemClick: (position: Int, row: SearchNewsItem) -> Unit
     ) : RecyclerView.ViewHolder(view) {
 
