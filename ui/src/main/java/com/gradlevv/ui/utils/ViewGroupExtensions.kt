@@ -120,6 +120,16 @@ fun LinearLayout.wrapWidthAndHeight(initLayout: LinearLayout.LayoutParams.() -> 
     ).apply(initLayout)
 }
 
+fun LinearLayout.wrapWidthCustomHeight(
+    hInDp: Int,
+    initLayout: LinearLayout.LayoutParams.() -> Unit = {}
+): LinearLayout.LayoutParams {
+    return LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.WRAP_CONTENT,
+        hInDp.dp()
+    ).apply(initLayout)
+}
+
 fun LinearLayout.matchWidthAndCustomHeight(
     hInDp: Int,
     initLayout: LinearLayout.LayoutParams.() -> Unit = {}
@@ -159,7 +169,7 @@ fun FrameLayout.matchWidthAndHeight(initLayout: FrameLayout.LayoutParams.() -> U
 }
 
 fun FrameLayout.matchWidthCustomHeight(
-    hInDp:Int, initLayout: FrameLayout.LayoutParams.() -> Unit = {}
+    hInDp: Int, initLayout: FrameLayout.LayoutParams.() -> Unit = {}
 ): FrameLayout.LayoutParams {
     return FrameLayout.LayoutParams(
         FrameLayout.LayoutParams.MATCH_PARENT,
@@ -168,7 +178,7 @@ fun FrameLayout.matchWidthCustomHeight(
 }
 
 fun FrameLayout.customWithAndHeight(
-    hInDp:Int, wInDp:Int
+    hInDp: Int, wInDp: Int
 ): FrameLayout.LayoutParams {
     return FrameLayout.LayoutParams(
         wInDp.dp(),

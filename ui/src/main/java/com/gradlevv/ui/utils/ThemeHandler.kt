@@ -32,12 +32,15 @@ import androidx.lifecycle.MutableLiveData
     Colors.colorOnBackground100,
     Colors.colorOnBackground70,
     Colors.colorOnBackground50,
-    Colors.colorControllerVariant
+    Colors.colorControllerVariant,
+    Colors.colorPrimaryBackground
 )
 annotation class Colors {
     companion object {
 
         const val colorPrimary = "colorPrimary"
+        const val colorPrimaryBackground = "colorPrimaryBackground"
+
         const val colorPrimaryDark = "colorPrimaryDark"
         const val colorBackground = "colorBackground"
 
@@ -94,7 +97,8 @@ object ThemeHandler {
         Colors.colorOnBackground100 to Day.colorOnBackground100,
         Colors.colorOnBackground70 to Day.colorOnBackground70,
         Colors.colorOnBackground50 to Day.colorOnBackground50,
-        Colors.colorControllerVariant to Day.colorControllerVariant
+        Colors.colorControllerVariant to Day.colorControllerVariant,
+        Colors.colorPrimaryBackground to Day.colorPrimaryBackground
     )
 
     private val nightColors: HashMap<String, Int> = hashMapOf(
@@ -111,7 +115,8 @@ object ThemeHandler {
         Colors.colorOnBackground100 to Night.colorOnBackground100,
         Colors.colorOnBackground70 to Night.colorOnBackground70,
         Colors.colorOnBackground50 to Night.colorOnBackground50,
-        Colors.colorControllerVariant to Night.colorControllerVariant
+        Colors.colorControllerVariant to Night.colorControllerVariant,
+        Colors.colorPrimaryBackground to Night.colorPrimaryBackground
     )
 
     private object Day {
@@ -126,7 +131,7 @@ object ThemeHandler {
         val colorPrimaryDark = Color.parseColor("#141414")
 
         @ColorInt
-        val colorBackground = Color.parseColor("#ffffff")
+        val colorBackground = Color.parseColor("#F7F7FC")
 
         @ColorInt
         val colorOnBackground100 = Color.parseColor("#2D354A")
@@ -157,6 +162,9 @@ object ThemeHandler {
 
         @ColorInt
         val colorControllerVariant = Color.parseColor("#EDF2F7")
+
+        @ColorInt
+        val colorPrimaryBackground = Color.parseColor("#E6EEFC")
     }
 
     private object Night {
@@ -171,7 +179,7 @@ object ThemeHandler {
         val colorPrimaryDark = Color.parseColor("#141414")
 
         @ColorInt
-        val colorBackground = Color.parseColor("#141414")
+        val colorBackground = Color.parseColor("#F7F7FC")
 
         @ColorInt
         val colorAccent = Color.parseColor("#03DAC5")
@@ -202,6 +210,9 @@ object ThemeHandler {
 
         @ColorInt
         val colorControllerVariant = Color.parseColor("#EDF2F7")
+
+        @ColorInt
+        val colorPrimaryBackground = Color.parseColor("#E6EEFC")
     }
 
 
