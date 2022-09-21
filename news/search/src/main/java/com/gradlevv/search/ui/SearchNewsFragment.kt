@@ -8,10 +8,10 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -51,14 +51,14 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
         )
     }
 
-    private fun onItemClick(position: Int, topHeadLinesItem: SearchNewsItem) {
-
+    private fun onItemClick(position: Int, item: SearchNewsItem) {
+        viewModel.navigateToDetailFragment(item)
     }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    override val viewModel: SearchNewsViewModel by viewModels { viewModelFactory }
+    override val viewModel: SearchNewsViewModel by navGraphViewModels(R.id.main_navigation) { viewModelFactory }
 
     override fun initLayout(): View? {
 

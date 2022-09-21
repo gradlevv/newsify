@@ -5,5 +5,6 @@
     <string name="news_detail_fragment" translatable="false">app://newsDetailFragment</string>
     <string name="news_sources_fragment" translatable="false">app://newsSourcesFragment</string>
     <string name="search_news_fragment" translatable="false">app://searchNewsFragment</string>
+    <string name="search_news_detail_fragment" translatable="false">app://searchNewsDetailFragment</string>
     <string name="setting_fragment" translatable="false">app://settingFragment</string>
 </resources>

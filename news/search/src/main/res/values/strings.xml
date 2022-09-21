@@ -6,4 +6,5 @@
     <string name="top_news_search_title">Search</string>
     <string name="search_hint">Search</string>
     <string name="search_read_more">Read More</string>
+    <string name="search_read_full_article">Read Full Article</string>
 </resources>

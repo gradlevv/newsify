@@ -2,6 +2,7 @@ package com.gradlevv.search.di
 
 import com.gradlevv.core.di.AppScope
 import com.gradlevv.core.di.CoreComponent
+import com.gradlevv.search.ui.NewsDetailFragment
 import com.gradlevv.search.ui.SearchNewsFragment
 import dagger.Component
 
@@ -13,6 +14,7 @@ import dagger.Component
 interface SearchNewsComponent {
 
     fun inject(fragment: SearchNewsFragment)
+    fun inject(fragment: NewsDetailFragment)
 
    @Component.Factory
    interface Builder{

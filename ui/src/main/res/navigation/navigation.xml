@@ -37,6 +37,15 @@
     </fragment>
 
     <fragment
+        android:id="@+id/searchNewsDetailFragment"
+        android:name="com.gradlevv.search.ui.NewsDetailFragment">
+
+        <deepLink app:uri="@string/search_news_detail_fragment" />
+
+    </fragment>
+
+
+    <fragment
         android:id="@+id/settingFragment"
         android:name="com.gradlevv.setting.ui.SettingFragment">
 

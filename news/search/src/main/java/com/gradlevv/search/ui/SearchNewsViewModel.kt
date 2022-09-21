@@ -1,13 +1,17 @@
 package com.gradlevv.search.ui
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.gradlevv.core.base.BaseViewModel
 import com.gradlevv.core.data.model.Result
 import com.gradlevv.core.util.Constants.DATE_FORMAT
 import com.gradlevv.core.util.Constants.SORT_BY
+import com.gradlevv.search.R
 import com.gradlevv.search.domain.SearchDomainModel
+import com.gradlevv.search.domain.SearchNewsItem
 import com.gradlevv.search.domain.usecase.SearchNewsUseCase
 import com.gradlevv.search.ui.state.SearchNewsState
+import com.gradlevv.ui.utils.navOptions
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -22,10 +26,14 @@ class SearchNewsViewModel @Inject constructor(
     private val _searchNewsList = MutableStateFlow(SearchNewsState.Empty)
     val searchNewsList = _searchNewsList.asStateFlow()
 
+    private val _newsDetailItem = MutableStateFlow<SearchNewsItem?>(null)
+    val newsDetailItem = _newsDetailItem.asStateFlow()
+
     private val searchQuery = MutableStateFlow("")
 
     init {
         searchNews()
+        Log.d("TAG", "init")
     }
 
     @OptIn(FlowPreview::class)
@@ -71,6 +79,11 @@ class SearchNewsViewModel @Inject constructor(
 
         searchQuery.value = search ?: return
 
+    }
+
+    fun navigateToDetailFragment(item: SearchNewsItem) {
+        _newsDetailItem.value = item
+        navigate(R.string.search_news_detail_fragment, navOptions)
     }
 
     companion object {
