@@ -33,6 +33,7 @@ class NewsDetailFragment : BaseFragment<SearchNewsViewModel>() {
     private lateinit var ivNewsImage: ImageView
     private lateinit var btnMoreInfo: TextView
     private lateinit var ivLogo: ImageView
+    private lateinit var ivBack: ImageView
     private lateinit var ivDate: ImageView
     private lateinit var tvDate: TextView
     private lateinit var tvAuthor: TextView
@@ -53,6 +54,11 @@ class NewsDetailFragment : BaseFragment<SearchNewsViewModel>() {
             ivDate = imageView {
                 scaleType = ImageView.ScaleType.CENTER_CROP
                 setCompatDrawable(com.gradlevv.ui.R.drawable.ic_clock)
+            }
+
+            ivBack = imageView {
+                scaleType = ImageView.ScaleType.CENTER_CROP
+                setCompatDrawable(com.gradlevv.ui.R.drawable.ic_back)
             }
 
             tvAuthor = textView {
@@ -101,8 +107,14 @@ class NewsDetailFragment : BaseFragment<SearchNewsViewModel>() {
                     )
             }
 
-            addView(ivLogo, matchWidthWrapHeight {
-                topMargin = 16.dp()
+            addView(frameLayout {
+                addView(ivLogo, matchWidthWrapHeight {
+                    topMargin = 16.dp()
+                })
+                addView(ivBack, wrapWidthAndHeight {
+                    gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
+                    leftMargin = 16.dp()
+                })
             })
 
             addView(CardView(context).apply {
