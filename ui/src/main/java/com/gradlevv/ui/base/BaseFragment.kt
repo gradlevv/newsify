@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.gradlevv.core.base.BaseViewModel
+import com.gradlevv.core.data.model.ApiError
 import com.gradlevv.core.util.NavigationModel
+import com.gradlevv.ui.R
 import com.gradlevv.ui.utils.Colors
 import com.gradlevv.ui.utils.ThemeHandler
 
@@ -68,8 +70,18 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
         }
 
         viewModel.errorMessage().observe(viewLifecycleOwner){
-            it?.let {
-                showSnackbar(it)
+            when(it){
+                is ApiError.ServiceError -> {
+                    showSnackbar(it.message)
+                }
+
+                is ApiError.RateLimitError -> {
+                    showSnackbar(getString(R.string.rate_limit_error))
+                }
+
+                is ApiError.Unavailable -> {
+                    showSnackbar(getString(R.string.service_unavailable))
+                }
             }
         }
     }

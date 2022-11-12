@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ui</string>
+    <string name="service_unavailable">Service Unavailable</string>
+    <string name="rate_limit_error">Service is unavailable, try again later</string>
 </resources>

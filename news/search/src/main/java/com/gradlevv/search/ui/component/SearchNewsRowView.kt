@@ -1,6 +1,7 @@
 package com.gradlevv.search.ui.component
 
 import android.content.Context
+import android.text.TextUtils
 import android.util.TypedValue
 import android.view.Gravity
 import android.widget.ImageView
@@ -9,6 +10,7 @@ import androidx.cardview.widget.CardView
 import com.gradlevv.core.util.dp
 import com.gradlevv.core.util.dpf
 import com.gradlevv.search.domain.SearchNewsItem
+import com.gradlevv.ui.R
 import com.gradlevv.ui.dsl.frameLayout
 import com.gradlevv.ui.dsl.imageView
 import com.gradlevv.ui.dsl.linearLayout
@@ -19,22 +21,17 @@ import com.gradlevv.ui.utils.*
 class SearchNewsRowView(context: Context) : CardView(context) {
 
     private val tvTitle = textView {
-        setTextColor(ThemeHandler.getColor(Colors.colorText))
-        setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
-    }
-
-    private val tvPublishDate = textView {
-        setTextColor(ThemeHandler.getColor(Colors.colorText))
-        setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
-    }
-
-    private val tvAuthor = textView {
-        setTextColor(ThemeHandler.getColor(Colors.colorWhite))
+        setTextColor(ThemeHandler.getColor(Colors.colorOnBackground100))
         setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
-        background = materialShape {
-            setPadding(8.dp(),8.dp(),8.dp(),8.dp())
-            fillColor = ThemeHandler.getColorStateWithAlpha(Colors.colorPrimary,15)
-        }
+        maxLines = 1
+        ellipsize = TextUtils.TruncateAt.END
+    }
+
+    private val tvDescription = textView {
+        setTextColor(ThemeHandler.getColor(Colors.colorOnBackground70))
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+        maxLines = 3
+        ellipsize = TextUtils.TruncateAt.END
     }
 
     private val ivNews = imageView {
@@ -42,51 +39,73 @@ class SearchNewsRowView(context: Context) : CardView(context) {
 
     }
 
+    private val ivReadMore = imageView {
+        scaleType = ImageView.ScaleType.CENTER_CROP
+        setCompatDrawable(R.drawable.ic_arrow_right)
+    }
+
+    private val tvReadMore = textView {
+        setTextColor(ThemeHandler.getColor(Colors.colorPrimary))
+        gravity = Gravity.RIGHT
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+        text = context.getString(com.gradlevv.search.R.string.search_read_more)
+    }
+
     init {
 
-        radius = 12.dpf()
-        elevation = 2.dpf()
-
-        background = materialShape {
-            fillColor = ThemeHandler.getColorState(Colors.colorBackground)
-        }
+        radius = 16.dpf()
+        elevation = 0f
 
         addView(linearLayout {
 
+            background = materialShape {
+                fillColor = ThemeHandler.getColorState(Colors.colorBackground)
+            }
+
             orientation = VERTICAL
 
-            addView(frameLayout {
+            background = materialShape {
+                fillColor = ThemeHandler.getColorState(Colors.colorWhite)
+            }
 
-                addView(ivNews, matchWidthCustomHeight(180))
-
-                addView(tvAuthor, matchWidthWrapHeight {
-                    gravity = Gravity.BOTTOM or Gravity.LEFT
-                })
-
-            },matchWidthAndWrapHeight())
+            addView(ivNews, matchWidthCustomHeight(128))
 
             addView(tvTitle, matchWidthWrapHeight {
-                topMargin = 16.dp()
-                rightMargin = 16.dp()
-                leftMargin = 16.dp()
+                topMargin = 8.dp()
+                rightMargin = 8.dp()
+                leftMargin = 8.dp()
             })
 
-            addView(tvPublishDate, matchWidthWrapHeight {
-                topMargin = 16.dp()
-                rightMargin = 16.dp()
-                leftMargin = 16.dp()
-                bottomMargin = 16.dp()
+            addView(tvDescription, matchWidthWrapHeight {
+                rightMargin = 8.dp()
+                leftMargin = 8.dp()
             })
 
-        },matchWidthAndHeight())
+
+            addView(frameLayout {
+                addView(tvReadMore, matchWidthWrapHeight {
+                    rightMargin = 24.dp()
+                    gravity = Gravity.RIGHT or Gravity.CENTER_VERTICAL
+                })
+
+                addView(ivReadMore, wrapWidthAndHeight {
+                    gravity = Gravity.RIGHT or Gravity.CENTER_VERTICAL
+                })
+            }, matchWidthWrapHeight {
+                rightMargin = 8.dp()
+                leftMargin = 8.dp()
+                topMargin = 28.dp()
+                bottomMargin = 20.dp()
+            })
+
+        }, matchWidthAndHeight())
 
     }
 
     fun bind(item: SearchNewsItem) {
 
         tvTitle.text = item.title
-        tvPublishDate.text = item.publishedAt
-        tvAuthor.text = item.author
+        tvDescription.text = item.description
 
         ivNews.loadImage(item.imageUrl)
     }

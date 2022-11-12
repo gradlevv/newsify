@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
+import com.gradlevv.core.data.model.ApiError
 import com.gradlevv.core.util.Event
 import com.gradlevv.core.util.NavigationModel
 import com.gradlevv.core.util.SingleLiveEvent
@@ -15,7 +16,7 @@ abstract class BaseViewModel : ViewModel(){
     private val navigationCommands = SingleLiveEvent<NavigationModel>()
     private val navigationUpEvent = MutableLiveData<Event<Boolean>>()
 
-    protected val errorMessage = SingleLiveEvent<String>()
+    protected val errorMessage = SingleLiveEvent<ApiError>()
 
     fun navigate(directions: NavDirections) {
         navigationCommands.postValue(NavigationModel.To(directions))
@@ -33,5 +34,5 @@ abstract class BaseViewModel : ViewModel(){
 
     fun navigateUpEvent(): LiveData<Event<Boolean>> = navigationUpEvent
 
-    fun errorMessage(): LiveData<String> = errorMessage
+    fun errorMessage(): LiveData<ApiError> = errorMessage
 }
