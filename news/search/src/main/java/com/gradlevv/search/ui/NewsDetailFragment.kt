@@ -125,7 +125,7 @@ class NewsDetailFragment : BaseFragment<SearchNewsViewModel>() {
                 addView(linearLayout {
 
                     background = materialShape {
-                        fillColor = ThemeHandler.getColorState(Colors.colorBackground)
+                        fillColor = ThemeHandler.getColorState(Colors.colorSurface)
                     }
 
                     orientation = LinearLayout.VERTICAL
@@ -155,7 +155,7 @@ class NewsDetailFragment : BaseFragment<SearchNewsViewModel>() {
 
                     addView(View(context).apply {
                         setBackgroundColor(ThemeHandler.getColor(Colors.colorBackground))
-                    }, matchWidthAndCustomHeight(2) {
+                    }, matchWidthAndCustomHeight(1) {
                         topMargin = 32.dp()
                         rightMargin = 16.dp()
                         leftMargin = 16.dp()
@@ -178,11 +178,12 @@ class NewsDetailFragment : BaseFragment<SearchNewsViewModel>() {
 
                     }, matchWidthWrapHeight {
                         topMargin = 16.dp()
+                        bottomMargin = 16.dp()
                     })
 
                 }, matchWidthHeight())
 
-            }, matchWidthHeight {
+            }, matchWidthWrapHeight {
                 topMargin = 24.dp()
             })
 

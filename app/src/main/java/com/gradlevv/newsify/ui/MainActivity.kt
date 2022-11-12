@@ -1,10 +1,7 @@
 package com.gradlevv.newsify.ui
 
-import android.R.color
 import android.animation.Animator
 import android.content.res.ColorStateList
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
@@ -218,7 +215,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.itemIconTintList = colorList
 
         bottomNavigationView.itemTextColor = ThemeHandler.getColorState(Colors.colorPrimary)
-        bottomNavigationView.selectedItemId = Menus.HOME.id
+        bottomNavigationView.selectedItemId = Menus.SEARCH.id
     }
 
     private fun toggleBottomNavigationVisibility(isHide: Boolean, animate: Boolean = true) {
