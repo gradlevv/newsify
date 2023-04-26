@@ -45,3 +45,57 @@ data class RippleDrawableBuilder(
         )
     }
 }
+
+inline fun View.checkableDrawable(init: CheckableRippleDrawableBuilder.() -> Unit): Drawable {
+    val builder = CheckableRippleDrawableBuilder().apply(init)
+    return builder.build()
+}
+
+data class CheckableRippleDrawableBuilder(
+    @ColorInt
+    var rippleColor: Int = 0x20000000,
+    var backCornerRadius: Float = 0f,
+    var drawable: Drawable? = null,
+    @ColorInt
+    var normalStrokeColor: Int = 0,
+    var strokeWidth: Float = 0f,
+    @ColorInt
+    var checkedStrokeColor: Int = 0,
+    @ColorInt
+    var checkedColor: Int = 0,
+    @ColorInt
+    var normalColor: Int = 0
+) {
+
+    fun build(): Drawable {
+        return RippleDrawable(
+            ColorStateList(
+                arrayOf(intArrayOf()),
+                intArrayOf(rippleColor)
+            ), MaterialShapeDrawable().apply {
+
+                val states = arrayOf(
+                    intArrayOf(-android.R.attr.state_checked),
+                    intArrayOf(android.R.attr.state_checked)
+                )
+
+                val colors = intArrayOf(
+                    normalColor,
+                    checkedColor
+                )
+
+                val strokeColors = intArrayOf(
+                    normalStrokeColor,
+                    checkedStrokeColor
+                )
+
+                tintList = ColorStateList(states, colors)
+                strokeWidth = this@CheckableRippleDrawableBuilder.strokeWidth
+                strokeColor = ColorStateList(states, strokeColors)
+                setCornerSize(backCornerRadius)
+
+            }, drawable
+        )
+    }
+
+}

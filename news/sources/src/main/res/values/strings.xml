@@ -1,5 +1,19 @@
 <resources>
 
     <string name="got_to_website">go to website</string>
-    <string name="top_news_source_title">News Agencies</string>
+    <string name="top_news_source_title">Sources</string>
+    <string name="sources_general_type">general</string>
+    <string name="sources_health_type">health</string>
+    <string name="sources_science_type">science</string>
+    <string name="sources_sports_type">sports</string>
+    <string name="sources_technology_type">technology</string>
+    <string name="sources_technology_name">Technology</string>
+    <string name="sources_business_name">Business</string>
+    <string name="sources_business_type">business</string>
+    <string name="sources_entertainment_name">Entertainment</string>
+    <string name="sources_entertainment_type">entertainment</string>
+    <string name="sources_general_name">General</string>
+    <string name="sources_health_name">Health</string>
+    <string name="sources_science_name">Science</string>
+    <string name="sources_sports_name">Sports</string>
 </resources>

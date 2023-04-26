@@ -4,4 +4,5 @@ import com.gradlevv.core.data.model.Result
 
 interface SourcesRepository {
     suspend fun getSourceList(): Result<List<SourceItemDomainModel>>
+    fun getCategoryList(): List<CategoryItem>
 }

@@ -4,14 +4,15 @@ import android.content.Context
 import android.util.TypedValue
 import android.view.Gravity
 import android.widget.FrameLayout
+import android.widget.ImageView
 import com.gradlevv.core.util.dp
 import com.gradlevv.core.util.dpf
+import com.gradlevv.sources.R
 import com.gradlevv.sources.domain.SourceItemDomainModel
+import com.gradlevv.ui.dsl.imageView
 import com.gradlevv.ui.dsl.textView
 import com.gradlevv.ui.shape.materialShape
-import com.gradlevv.ui.utils.Colors
-import com.gradlevv.ui.utils.ThemeHandler
-import com.gradlevv.ui.utils.wrapWidthAndHeight
+import com.gradlevv.ui.utils.*
 
 class NewsSourceItemView(context: Context) : FrameLayout(context) {
 
@@ -20,33 +21,42 @@ class NewsSourceItemView(context: Context) : FrameLayout(context) {
         setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
     }
 
-    private val tvType = textView {
-        setTextColor(ThemeHandler.getColor(Colors.colorText))
-        setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
+    private val ivArrow = imageView {
+        scaleType = ImageView.ScaleType.CENTER_INSIDE
+        setCompatDrawable(R.drawable.ic_arrow_right)
+    }
+
+    private val ivLogo = imageView {
+        scaleType = ImageView.ScaleType.CENTER_INSIDE
+        setCompatDrawable(R.drawable.ic_global_stroke)
+        setColorFilter(ThemeHandler.getColor(Colors.colorOnBackground50))
     }
 
     init {
 
         background = materialShape {
-            fillColor = ThemeHandler.getColorState(Colors.colorBackground)
+            fillColor = ThemeHandler.getColorState(Colors.colorSurface)
             setCornerSize(8.dpf())
-            strokeColor = ThemeHandler.getColorState(Colors.colorText)
-            strokeWidth = 1.dpf()
         }
+
+
+        addView(ivLogo,customWithAndHeight(24,24){
+            gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
+            leftMargin = 16.dp()
+        })
 
         addView(tvTitle, wrapWidthAndHeight {
             gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
-            leftMargin = 8.dp()
+            leftMargin = 52.dp()
         })
 
-        addView(tvType, wrapWidthAndHeight {
+        addView(ivArrow, customWithAndHeight(24,24) {
             gravity = Gravity.RIGHT or Gravity.CENTER_VERTICAL
-            rightMargin = 8.dp()
+            rightMargin = 16.dp()
         })
     }
 
     fun setValues(item: SourceItemDomainModel) {
         tvTitle.text = item.name
-        tvType.text = item.category
     }
 }

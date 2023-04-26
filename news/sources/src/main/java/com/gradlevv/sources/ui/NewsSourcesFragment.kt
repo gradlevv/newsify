@@ -1,11 +1,10 @@
 package com.gradlevv.sources.ui
 
+import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -18,32 +17,40 @@ import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dp
 import com.gradlevv.sources.R
 import com.gradlevv.sources.di.DaggerNewsSourcesComponent
+import com.gradlevv.sources.domain.CategoryItem
 import com.gradlevv.sources.domain.SourceItemDomainModel
 import com.gradlevv.ui.base.BaseFragment
-import com.gradlevv.ui.dsl.frameLayout
-import com.gradlevv.ui.dsl.recyclerView
-import com.gradlevv.ui.dsl.textView
-import com.gradlevv.ui.shape.materialShape
-import com.gradlevv.ui.utils.Colors
-import com.gradlevv.ui.utils.ThemeHandler
-import com.gradlevv.ui.utils.matchWidthAndHeight
-import com.gradlevv.ui.utils.matchWidthWrapHeight
+import com.gradlevv.ui.dsl.*
+import com.gradlevv.ui.utils.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
 
-    private lateinit var root: FrameLayout
+    private lateinit var root: LinearLayout
     private lateinit var rvSourceList: RecyclerView
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var loading: ProgressBar
     private lateinit var tvToolbar: TextView
+    private lateinit var rvCategories: RecyclerView
+    private lateinit var horizontalLayoutManager: LinearLayoutManager
+    private lateinit var ivLogo: ImageView
 
     private val newsSourcesAdapter: NewsSourcesAdapter by lazy {
         NewsSourcesAdapter(
             ::onItemClick
         )
+    }
+
+    private val categoriesAdapter: CategoriesAdapter by lazy {
+        CategoriesAdapter(
+            ::onCategoryClick
+        )
+    }
+
+    private fun onCategoryClick(position: Int, categoryItem: CategoryItem) {
+//        viewModel.categoryChangeClick(getString(categoryItem.type))
     }
 
     private fun onItemClick(position: Int, item: SourceItemDomainModel) {
@@ -65,21 +72,25 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
 
     override fun initLayout(): View? {
 
-        root = frameLayout {
+        root = linearLayout {
+
+            orientation = LinearLayout.VERTICAL
+
             loading = ProgressBar(context).apply {
                 isIndeterminate = true
                 visibility = View.GONE
             }
 
+            ivLogo = imageView {
+                setCompatDrawable(R.drawable.ic_newsify)
+            }
+
             tvToolbar = textView {
-                setTextColor(ThemeHandler.getColor(Colors.colorWhite))
-                setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+                setTextColor(ThemeHandler.getColor(Colors.colorOnBackground100))
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 24f)
+                typeface = Typeface.DEFAULT_BOLD
                 text = getString(R.string.top_news_source_title)
-                gravity = Gravity.CENTER or Gravity.CENTER_HORIZONTAL
-                background = materialShape {
-                    fillColor = ThemeHandler.getColorState(Colors.colorText)
-                }
-                setPadding(0, 12.dp(), 0, 12.dp())
+                gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
             }
 
             linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -91,18 +102,51 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
                 setPadding(0, 0, 0, 80.dp())
             }
 
-            addView(tvToolbar, matchWidthWrapHeight {
-                gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
+            horizontalLayoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+            rvCategories = recyclerView {
+                layoutManager = horizontalLayoutManager
+                adapter = categoriesAdapter
+            }
+
+            ivLogo = imageView {
+                setCompatDrawable(R.drawable.ic_newsify)
+            }
+
+
+            addView(ivLogo, matchWidthWrapHeight {
+                topMargin = 32.dp()
             })
 
-            addView(loading, matchWidthWrapHeight {
-                gravity = Gravity.CENTER
-            })
-            addView(rvSourceList, matchWidthAndHeight {
-                gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
-                topMargin = 42.dp()
-                rightMargin = 8.dp()
-                leftMargin = 8.dp()
+            addView(ScrollView(context).apply {
+
+                addView(linearLayout {
+
+                    orientation = LinearLayout.VERTICAL
+
+                    addView(tvToolbar, matchWidthWrapHeight {
+                        topMargin = 24.dp()
+                        rightMargin = 16.dp()
+                        leftMargin = 16.dp()
+                    })
+
+                    addView(rvCategories, matchWidthWrapHeight {
+                        topMargin = 8.dp()
+                        leftMargin = 8.dp()
+                    })
+
+                    addView(loading, matchWidthWrapHeight {
+
+                    })
+                    addView(rvSourceList, matchWidthAndHeight {
+                        topMargin = 16.dp()
+                        rightMargin = 8.dp()
+                        leftMargin = 8.dp()
+                    })
+
+                }, matchWidthHeight())
+
             })
         }
 
@@ -120,17 +164,29 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
 
                 if (topHeadLinesState.isLoading) {
                     loading.visibility = View.VISIBLE
-                }
-
-                if (topHeadLinesState.items.isNotEmpty()) {
-                    loading.visibility = View.GONE
-                    newsSourcesAdapter.submitList(topHeadLinesState.items)
+                    return@collect
                 }
 
                 if (topHeadLinesState.isError) {
                     loading.visibility = View.GONE
+                    return@collect
                 }
+
+                loading.visibility = View.GONE
+                newsSourcesAdapter.submitList(topHeadLinesState.items)
+                return@collect
+
             }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.categoryList.flowWithLifecycle(
+                lifecycle = viewLifecycleOwner.lifecycle,
+                minActiveState = Lifecycle.State.STARTED
+            ).collect {
+                categoriesAdapter.submitList(it)
+            }
+
         }
 
     }

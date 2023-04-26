@@ -18,7 +18,7 @@ class NewsSourcesAdapter(
         val view = NewsSourceItemView(context = parent.context)
         view.layoutParams = RecyclerView.LayoutParams(
             RecyclerView.LayoutParams.MATCH_PARENT,
-            48.dp()
+            64.dp()
         ).apply {
             topMargin = 8.dp()
         }

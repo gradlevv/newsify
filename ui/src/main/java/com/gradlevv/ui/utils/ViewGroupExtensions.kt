@@ -178,12 +178,13 @@ fun FrameLayout.matchWidthCustomHeight(
 }
 
 fun FrameLayout.customWithAndHeight(
-    hInDp: Int, wInDp: Int
+    hInDp: Int, wInDp: Int,
+    initLayout: FrameLayout.LayoutParams.() -> Unit = {}
 ): FrameLayout.LayoutParams {
     return FrameLayout.LayoutParams(
         wInDp.dp(),
         hInDp.dp()
-    )
+    ).apply(initLayout)
 }
 
 fun FrameLayout.wrapWidthAndHeight(initLayout: FrameLayout.LayoutParams.() -> Unit = {}): FrameLayout.LayoutParams {

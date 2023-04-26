@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
-                Menus.FAVORITE.id -> {
+                Menus.SOURCES.id -> {
                     navController.navigate(
                         Uri.parse(applicationContext.getString(R.string.news_sources_fragment)),
                         NavOptions.Builder()
@@ -170,7 +170,7 @@ class MainActivity : AppCompatActivity() {
 
     private enum class Menus(val id: Int) {
         HOME(1),
-        FAVORITE(2),
+        SOURCES(2),
         SEARCH(3),
         SETTING(4)
     }
@@ -183,7 +183,7 @@ class MainActivity : AppCompatActivity() {
             R.drawable.ic_home_stroke
         )
 
-        bottomNavigationView.menu.add(Menu.NONE, Menus.FAVORITE.id, Menu.NONE, "Sources")
+        bottomNavigationView.menu.add(Menu.NONE, Menus.SOURCES.id, Menu.NONE, "Sources")
             .setChecked(false).icon = getSelectorDrawable(
             R.drawable.ic_global_fill,
             R.drawable.ic_global_stroke
@@ -215,7 +215,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.itemIconTintList = colorList
 
         bottomNavigationView.itemTextColor = ThemeHandler.getColorState(Colors.colorPrimary)
-        bottomNavigationView.selectedItemId = Menus.SEARCH.id
+        bottomNavigationView.selectedItemId = Menus.SOURCES.id
     }
 
     private fun toggleBottomNavigationVisibility(isHide: Boolean, animate: Boolean = true) {
