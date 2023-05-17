@@ -15,8 +15,8 @@ ext {
     app = [
             versionName: "${versionning.major}.${versionning.minor}.${versionning.patch}",
             versionCode: (versionning.major * 1000) + (versionning.minor * 100) + versionning.patch,
-            gradle     : "4.1.1",
-            kotlin     : "1.5.10"
+            gradle     : "7.4.2",
+            kotlin     : "1.6.21"
     ]
 
     libraryVersion = [
@@ -38,7 +38,7 @@ ext {
             navigationVersion            : '2.3.5',
             okHttpVersion                : '3.12.10',
             retrofitVersion              : '2.6.0',
-            dagger2Version               : '2.34',
+            dagger2Version               : '2.40.5',
             glideVersion                 : '4.11.0',
             vectordrawableVersion        : '1.1.0',
             androidxLegacy               : '1.0.0',
