@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gradlevv.core.util.dp
 import com.gradlevv.sources.domain.CategoryItem
-import com.gradlevv.sources.ui.component.RadioThumb
+import com.gradlevv.sources.ui.component.CategoryItemView
 
 
 class CategoriesAdapter(
@@ -14,13 +14,14 @@ class CategoriesAdapter(
 ) : ListAdapter<CategoryItem, CategoriesAdapter.CategoryViewHolder>(DIFF_UTIL) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        val view = RadioThumb(parent.context)
-        view.layoutParams = RecyclerView.LayoutParams(
-            RecyclerView.LayoutParams.WRAP_CONTENT,
-            RecyclerView.LayoutParams.WRAP_CONTENT
-        ).apply {
-            rightMargin = 4.dp()
-            leftMargin = 4.dp()
+        val view = CategoryItemView(parent.context).apply {
+            layoutParams = RecyclerView.LayoutParams(
+                RecyclerView.LayoutParams.WRAP_CONTENT,
+                RecyclerView.LayoutParams.WRAP_CONTENT
+            ).apply {
+                rightMargin = 4.dp()
+                leftMargin = 4.dp()
+            }
         }
         return CategoryViewHolder(view, itemClick)
     }
@@ -30,7 +31,7 @@ class CategoriesAdapter(
     }
 
     class CategoryViewHolder(
-        private val view: RadioThumb,
+        private val view: CategoryItemView,
         private val itemClick: (position: Int, row: CategoryItem) -> Unit
     ) : RecyclerView.ViewHolder(view) {
 
