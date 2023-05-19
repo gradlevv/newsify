@@ -6,16 +6,24 @@ import com.gradlevv.sources.domain.SourceItemDomainModel
 import javax.inject.Inject
 
 class SourcesItemMapper @Inject constructor() :
-    BaseDataMapper<SourcesResponse.SourceItem, SourceItemDomainModel> {
+    BaseDataMapper<SourcesResponse.SourceItem, SourceItemDomainModel?> {
 
-    override fun mapTo(from: SourcesResponse.SourceItem): SourceItemDomainModel {
+    override fun mapTo(from: SourcesResponse.SourceItem): SourceItemDomainModel? {
+        if (from.name.isNullOrEmpty() ||
+            from.description.isNullOrEmpty() ||
+            from.url.isNullOrEmpty() ||
+            from.category.isNullOrEmpty() ||
+            from.language.isNullOrEmpty() ||
+            from.country.isNullOrEmpty()
+        ) return null
+
         return SourceItemDomainModel(
-            name = from.name ?: "",
-            description = from.description ?: "",
-            url = from.url ?: "https://www.google.com",
-            category = from.category ?: "",
-            language = from.language ?: "",
-            country = from.country ?: ""
+            name = from.name,
+            description = from.description,
+            url = from.url,
+            category = from.category,
+            language = from.language,
+            country = from.country
         )
     }
 }

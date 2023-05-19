@@ -6,11 +6,10 @@ import com.gradlevv.sources.domain.SourceItemDomainModel
 import javax.inject.Inject
 
 class SourcesMapper @Inject constructor(
-  private val mapper: SourcesItemMapper
+    private val mapper: SourcesItemMapper
 ) : BaseDataMapper<SourcesResponse, List<SourceItemDomainModel>> {
 
     override fun mapTo(from: SourcesResponse): List<SourceItemDomainModel> {
-        from.sourceList ?: return emptyList()
-        return from.sourceList.map(mapper::mapTo)
+        return from.sourceList?.mapNotNull(mapper::mapTo).orEmpty()
     }
 }

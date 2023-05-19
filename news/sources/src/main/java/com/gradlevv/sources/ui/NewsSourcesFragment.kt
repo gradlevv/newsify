@@ -4,11 +4,15 @@ import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
-import android.widget.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.ScrollView
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gradlevv.core.di.ViewModelFactory
@@ -20,8 +24,16 @@ import com.gradlevv.sources.di.DaggerNewsSourcesComponent
 import com.gradlevv.sources.domain.CategoryItem
 import com.gradlevv.sources.domain.SourceItemDomainModel
 import com.gradlevv.ui.base.BaseFragment
-import com.gradlevv.ui.dsl.*
-import com.gradlevv.ui.utils.*
+import com.gradlevv.ui.dsl.imageView
+import com.gradlevv.ui.dsl.linearLayout
+import com.gradlevv.ui.dsl.recyclerView
+import com.gradlevv.ui.dsl.textView
+import com.gradlevv.ui.utils.Colors
+import com.gradlevv.ui.utils.ThemeHandler
+import com.gradlevv.ui.utils.matchWidthAndHeight
+import com.gradlevv.ui.utils.matchWidthHeight
+import com.gradlevv.ui.utils.matchWidthWrapHeight
+import com.gradlevv.ui.utils.setCompatDrawable
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -50,7 +62,7 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
     }
 
     private fun onCategoryClick(position: Int, categoryItem: CategoryItem) {
-//        viewModel.categoryChangeClick(getString(categoryItem.type))
+        viewModel.categoryChangeClick(getString(categoryItem.type))
     }
 
     private fun onItemClick(position: Int, item: SourceItemDomainModel) {
@@ -114,7 +126,6 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
                 setCompatDrawable(R.drawable.ic_newsify)
             }
 
-
             addView(ivLogo, matchWidthWrapHeight {
                 topMargin = 32.dp()
             })
@@ -157,34 +168,33 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
 
         viewLifecycleOwner.lifecycleScope.launch {
 
-            viewModel.sourceList.flowWithLifecycle(
-                lifecycle = viewLifecycleOwner.lifecycle,
-                minActiveState = Lifecycle.State.STARTED
-            ).collect { topHeadLinesState ->
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
 
-                if (topHeadLinesState.isLoading) {
-                    loading.visibility = View.VISIBLE
-                    return@collect
+                launch {
+                    viewModel.sourceList.collect { topHeadLinesState ->
+
+                        if (topHeadLinesState.isLoading) {
+                            loading.visibility = View.VISIBLE
+                            return@collect
+                        }
+
+                        if (topHeadLinesState.isError) {
+                            loading.visibility = View.GONE
+                            return@collect
+                        }
+
+                        loading.visibility = View.GONE
+                        newsSourcesAdapter.submitList(topHeadLinesState.items)
+                        return@collect
+
+                    }
                 }
 
-                if (topHeadLinesState.isError) {
-                    loading.visibility = View.GONE
-                    return@collect
+                launch {
+                    viewModel.categoryList.collect {
+                        categoriesAdapter.submitList(it)
+                    }
                 }
-
-                loading.visibility = View.GONE
-                newsSourcesAdapter.submitList(topHeadLinesState.items)
-                return@collect
-
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.categoryList.flowWithLifecycle(
-                lifecycle = viewLifecycleOwner.lifecycle,
-                minActiveState = Lifecycle.State.STARTED
-            ).collect {
-                categoriesAdapter.submitList(it)
             }
 
         }
