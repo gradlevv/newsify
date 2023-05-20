@@ -8,7 +8,7 @@ import android.widget.ImageView
 import com.gradlevv.core.util.dp
 import com.gradlevv.core.util.dpf
 import com.gradlevv.sources.R
-import com.gradlevv.sources.domain.SourceItemDomainModel
+import com.gradlevv.sources.domain.model.SourceItemDomainModel
 import com.gradlevv.ui.dsl.imageView
 import com.gradlevv.ui.dsl.textView
 import com.gradlevv.ui.shape.materialShape

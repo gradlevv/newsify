@@ -1,6 +1,6 @@
 package com.gradlevv.sources.ui.state
 
-import com.gradlevv.sources.domain.SourceItemDomainModel
+import com.gradlevv.sources.domain.model.SourceItemDomainModel
 
 data class NewsSourceState(
     val isLoading: Boolean = false,

@@ -1,5 +1,7 @@
-package com.gradlevv.sources.domain
+package com.gradlevv.sources.domain.usecase
 
+import com.gradlevv.sources.domain.repository.SourcesRepository
+import com.gradlevv.sources.domain.model.CategoryItem
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

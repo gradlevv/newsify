@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gradlevv.core.util.dp
-import com.gradlevv.sources.domain.CategoryItem
+import com.gradlevv.sources.domain.model.CategoryItem
 import com.gradlevv.sources.ui.component.CategoryItemView
 
 

@@ -1,4 +1,4 @@
-package com.gradlevv.sources.domain
+package com.gradlevv.sources.domain.model
 
 data class SourceItemDomainModel(
     val name: String,

@@ -21,8 +21,8 @@ import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dp
 import com.gradlevv.sources.R
 import com.gradlevv.sources.di.DaggerNewsSourcesComponent
-import com.gradlevv.sources.domain.CategoryItem
-import com.gradlevv.sources.domain.SourceItemDomainModel
+import com.gradlevv.sources.domain.model.CategoryItem
+import com.gradlevv.sources.domain.model.SourceItemDomainModel
 import com.gradlevv.ui.base.BaseFragment
 import com.gradlevv.ui.dsl.imageView
 import com.gradlevv.ui.dsl.linearLayout

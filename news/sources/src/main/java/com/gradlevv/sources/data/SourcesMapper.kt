@@ -2,7 +2,7 @@ package com.gradlevv.sources.data
 
 import com.gradlevv.core.mapper.BaseDataMapper
 import com.gradlevv.sources.data.model.SourcesResponse
-import com.gradlevv.sources.domain.SourceItemDomainModel
+import com.gradlevv.sources.domain.model.SourceItemDomainModel
 import javax.inject.Inject
 
 class SourcesMapper @Inject constructor(
