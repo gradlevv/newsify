@@ -13,7 +13,7 @@ import com.google.android.material.button.MaterialButton
 import com.gradlevv.core.util.dp
 import com.gradlevv.core.util.dpf
 import com.gradlevv.sources.R
-import com.gradlevv.sources.domain.model.SourceItemDomainModel
+import com.gradlevv.sources.domain.model.SourceItem
 import com.gradlevv.ui.dsl.linearLayout
 import com.gradlevv.ui.dsl.normalButton
 import com.gradlevv.ui.dsl.textView
@@ -113,7 +113,7 @@ class NewsSourceBottomSheet(private val context: Context) {
         mBottomSheetDialog?.show()
     }
 
-    fun setValues(item: SourceItemDomainModel): NewsSourceBottomSheet {
+    fun setValues(item: SourceItem): NewsSourceBottomSheet {
         tvTitle.text = item.name
         tvDescription.text = item.description
 

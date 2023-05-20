@@ -22,7 +22,7 @@ import com.gradlevv.core.util.dp
 import com.gradlevv.sources.R
 import com.gradlevv.sources.di.DaggerNewsSourcesComponent
 import com.gradlevv.sources.domain.model.CategoryItem
-import com.gradlevv.sources.domain.model.SourceItemDomainModel
+import com.gradlevv.sources.domain.model.SourceItem
 import com.gradlevv.ui.base.BaseFragment
 import com.gradlevv.ui.dsl.imageView
 import com.gradlevv.ui.dsl.linearLayout
@@ -65,7 +65,7 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
         viewModel.categoryChangeClick(getString(categoryItem.type))
     }
 
-    private fun onItemClick(position: Int, item: SourceItemDomainModel) {
+    private fun onItemClick(position: Int, item: SourceItem) {
 
         NewsSourceBottomSheet(requireContext())
             .setOnSubmitClickListener {
