@@ -16,8 +16,8 @@ class CategoriesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view = CategoryItemView(parent.context).apply {
             layoutParams = RecyclerView.LayoutParams(
-                RecyclerView.LayoutParams.WRAP_CONTENT,
-                RecyclerView.LayoutParams.WRAP_CONTENT
+                64.dp(),
+                64.dp()
             ).apply {
                 rightMargin = 4.dp()
                 leftMargin = 4.dp()

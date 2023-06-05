@@ -31,7 +31,7 @@ class CategoryItemView(context: Context) : AppCompatTextView(context), Checkable
             normalStrokeColor = ThemeHandler.getColor(Colors.colorTransparent)
             checkedStrokeColor = ThemeHandler.getColor(Colors.colorPrimary)
             checkedColor = ThemeHandler.getColor(Colors.colorPrimary)
-            normalColor = ThemeHandler.getColor(Colors.colorOnBackground70)
+            normalColor = ThemeHandler.getColor(Colors.colorStatusBar)
             drawable = materialShape {
                 setCornerSize(16.dpf())
             }
@@ -43,8 +43,8 @@ class CategoryItemView(context: Context) : AppCompatTextView(context), Checkable
         )
 
         val colors = intArrayOf(
-            ThemeHandler.getColor(Colors.colorBackground),
-            ThemeHandler.getColor(Colors.colorOnBackground70)
+            ThemeHandler.getColor(Colors.colorOnBackground70),
+            ThemeHandler.getColor(Colors.colorSurface)
         )
 
         setTextColor(ColorStateList(states, colors))
