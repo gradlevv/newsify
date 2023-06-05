@@ -10,12 +10,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class NewsSourcesViewModel @Inject constructor(
     private val getSourceListUseCase: GetSourceListUseCase,
-    private val getCategoryTypeUseCase: GetCategoryTypeUseCase
+    getCategoryTypeUseCase: GetCategoryTypeUseCase
 ) : BaseViewModel() {
 
     private val _sourceList = MutableStateFlow(NewsSourceState.Empty)
@@ -39,7 +40,7 @@ class NewsSourcesViewModel @Inject constructor(
 
         viewModelScope.launch {
 
-            when (val result = getSourceListUseCase()) {
+            when (val result = getSourceListUseCase("")) {
 
                 is Result.Success -> {
                     _sourceList.value = NewsSourceState(items = result.data ?: emptyList())
@@ -55,7 +56,24 @@ class NewsSourcesViewModel @Inject constructor(
 
     }
 
-    fun categoryChangeClick(string: String) {
+    fun categoryChangeClick(type: String) {
 
+        _sourceList.update { it.copy(isLoading = true) }
+
+        viewModelScope.launch {
+
+            when (val result = getSourceListUseCase(type = type)) {
+
+                is Result.Success -> {
+                    _sourceList.update { NewsSourceState(items = result.data.orEmpty()) }
+                }
+
+                is Result.Error -> {
+                    _sourceList.update { it.copy(isError = true) }
+                    errorMessage.value = result.error
+                }
+            }
+
+        }
     }
 }

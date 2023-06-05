@@ -17,8 +17,8 @@ class SourcesRepositoryImpl @Inject constructor(
     private val mapper: SourcesMapper
 ) : ResponseHandler(), SourcesRepository {
 
-    override suspend fun getSourceList(): Result<List<SourceItem>> {
-        return getResource { service.getSourceList() }.mapTo(mapper)
+    override suspend fun getSourceList(type: String?): Result<List<SourceItem>> {
+        return getResource { service.getSourceList(type) }.mapTo(mapper)
     }
 
     override fun getCategoryList(): Flow<List<CategoryItem>> {

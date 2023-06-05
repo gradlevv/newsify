@@ -6,6 +6,6 @@ import com.gradlevv.sources.domain.model.SourceItem
 import kotlinx.coroutines.flow.Flow
 
 interface SourcesRepository {
-    suspend fun getSourceList(): Result<List<SourceItem>>
+    suspend fun getSourceList(type: String?): Result<List<SourceItem>>
     fun getCategoryList(): Flow<List<CategoryItem>>
 }
