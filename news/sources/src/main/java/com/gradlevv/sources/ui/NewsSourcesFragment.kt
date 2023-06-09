@@ -4,11 +4,13 @@ import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.core.view.isGone
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -24,6 +26,7 @@ import com.gradlevv.sources.di.DaggerNewsSourcesComponent
 import com.gradlevv.sources.domain.model.CategoryItem
 import com.gradlevv.sources.domain.model.SourceItem
 import com.gradlevv.ui.base.BaseFragment
+import com.gradlevv.ui.dsl.frameLayout
 import com.gradlevv.ui.dsl.imageView
 import com.gradlevv.ui.dsl.linearLayout
 import com.gradlevv.ui.dsl.recyclerView
@@ -31,7 +34,6 @@ import com.gradlevv.ui.dsl.textView
 import com.gradlevv.ui.utils.Colors
 import com.gradlevv.ui.utils.ThemeHandler
 import com.gradlevv.ui.utils.matchWidthAndHeight
-import com.gradlevv.ui.utils.matchWidthHeight
 import com.gradlevv.ui.utils.matchWidthWrapHeight
 import com.gradlevv.ui.utils.setCompatDrawable
 import kotlinx.coroutines.flow.collect
@@ -40,7 +42,7 @@ import javax.inject.Inject
 
 class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
 
-    private lateinit var root: LinearLayout
+    private lateinit var root: FrameLayout
     private lateinit var rvSourceList: RecyclerView
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var loading: ProgressBar
@@ -84,13 +86,10 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
 
     override fun initLayout(): View? {
 
-        root = linearLayout {
-
-            orientation = LinearLayout.VERTICAL
+        root = frameLayout {
 
             loading = ProgressBar(context).apply {
-                isIndeterminate = true
-                visibility = View.GONE
+                isGone = true
             }
 
             ivLogo = imageView {
@@ -126,15 +125,18 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
                 setCompatDrawable(R.drawable.ic_newsify)
             }
 
-            addView(ivLogo, matchWidthWrapHeight {
-                topMargin = 32.dp()
+            addView(loading, matchWidthWrapHeight {
+                gravity = Gravity.CENTER
             })
-
             addView(ScrollView(context).apply {
 
                 addView(linearLayout {
 
                     orientation = LinearLayout.VERTICAL
+
+                    addView(ivLogo, matchWidthWrapHeight {
+                        topMargin = 24.dp()
+                    })
 
                     addView(tvToolbar, matchWidthWrapHeight {
                         topMargin = 24.dp()
@@ -146,17 +148,13 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
                         topMargin = 8.dp()
                         leftMargin = 8.dp()
                     })
-
-                    addView(loading, matchWidthWrapHeight {
-
-                    })
                     addView(rvSourceList, matchWidthAndHeight {
-                        topMargin = 16.dp()
+                        topMargin = 8.dp()
                         rightMargin = 8.dp()
                         leftMargin = 8.dp()
                     })
 
-                }, matchWidthHeight())
+                }, matchWidthAndHeight())
 
             })
         }

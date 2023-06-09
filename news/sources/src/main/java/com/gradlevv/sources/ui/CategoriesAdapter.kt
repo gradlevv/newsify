@@ -16,8 +16,8 @@ class CategoriesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view = CategoryItemView(parent.context).apply {
             layoutParams = RecyclerView.LayoutParams(
-                64.dp(),
-                64.dp()
+                RecyclerView.LayoutParams.WRAP_CONTENT,
+                RecyclerView.LayoutParams.WRAP_CONTENT
             ).apply {
                 rightMargin = 4.dp()
                 leftMargin = 4.dp()
@@ -35,12 +35,11 @@ class CategoriesAdapter(
         private val itemClick: (position: Int, row: CategoryItem) -> Unit
     ) : RecyclerView.ViewHolder(view) {
 
-        fun bind(categoryItem: CategoryItem) {
+        fun bind(item: CategoryItem) {
 
-            view.isChecked = categoryItem.isChecked
-
+            view.setValue(item)
             view.setOnClickListener {
-                itemClick(adapterPosition, categoryItem)
+                itemClick(adapterPosition, item)
             }
         }
     }

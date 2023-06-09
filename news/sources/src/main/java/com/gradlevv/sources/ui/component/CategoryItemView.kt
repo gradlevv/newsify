@@ -1,67 +1,49 @@
 package com.gradlevv.sources.ui.component
 
 import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.Color
+import android.graphics.Typeface
+import android.util.TypedValue
 import android.view.Gravity
 import android.widget.Checkable
-import androidx.appcompat.widget.AppCompatTextView
+import android.widget.LinearLayout
 import com.gradlevv.core.util.dp
 import com.gradlevv.core.util.dpf
+import com.gradlevv.sources.domain.model.CategoryItem
+import com.gradlevv.ui.dsl.textView
 import com.gradlevv.ui.shape.checkableDrawable
 import com.gradlevv.ui.shape.materialShape
 import com.gradlevv.ui.utils.Colors
 import com.gradlevv.ui.utils.ThemeHandler
+import com.gradlevv.ui.utils.matchWidthWrapHeight
 
-class CategoryItemView(context: Context) : AppCompatTextView(context), Checkable {
+class CategoryItemView(context: Context) : LinearLayout(context), Checkable {
 
-    private val mWidth = 100.dp()
-    private val mHeight = 48.dp()
+    private val tvTitle = textView {
+        setTextColor(ThemeHandler.getColor(Colors.colorOnBackground70))
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+        typeface = Typeface.DEFAULT_BOLD
+        gravity = Gravity.CENTER or Gravity.CENTER_VERTICAL
+    }
     private var checked = false
-
 
     init {
 
         gravity = Gravity.CENTER
+        orientation = VERTICAL
+        minimumHeight = 56.dp()
 
-        setBackgroundColor(Color.BLACK)
+        addView(tvTitle, matchWidthWrapHeight())
+        setPadding(8.dp(), 0, 8.dp(), 0)
         background = checkableDrawable {
             rippleColor = ThemeHandler.getColorWithAlpha(Colors.colorOnBackground70, 10)
             backCornerRadius = 16.dpf()
             normalStrokeColor = ThemeHandler.getColor(Colors.colorTransparent)
             checkedStrokeColor = ThemeHandler.getColor(Colors.colorPrimary)
             checkedColor = ThemeHandler.getColor(Colors.colorPrimary)
-            normalColor = ThemeHandler.getColor(Colors.colorStatusBar)
+            normalColor = ThemeHandler.getColor(Colors.colorBackground)
             drawable = materialShape {
                 setCornerSize(16.dpf())
             }
-        }
-
-        val states = arrayOf(
-            intArrayOf(-android.R.attr.state_checked),
-            intArrayOf(android.R.attr.state_checked)
-        )
-
-        val colors = intArrayOf(
-            ThemeHandler.getColor(Colors.colorOnBackground70),
-            ThemeHandler.getColor(Colors.colorSurface)
-        )
-
-        setTextColor(ColorStateList(states, colors))
-        refreshDrawableState()
-    }
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.AT_MOST) {
-            super.onMeasure(
-                MeasureSpec.makeMeasureSpec(mWidth, MeasureSpec.EXACTLY),
-                MeasureSpec.makeMeasureSpec(mHeight, MeasureSpec.EXACTLY)
-            )
-        } else {
-            super.onMeasure(
-                widthMeasureSpec,
-                MeasureSpec.makeMeasureSpec(mHeight, MeasureSpec.EXACTLY)
-            )
         }
     }
 
@@ -78,6 +60,12 @@ class CategoryItemView(context: Context) : AppCompatTextView(context), Checkable
             this.checked = checked
             refreshDrawableState()
         }
+
+        if (isChecked) {
+            tvTitle.setTextColor(ThemeHandler.getColor(Colors.colorBackground))
+        } else {
+            tvTitle.setTextColor(ThemeHandler.getColor(Colors.colorOnBackground70))
+        }
     }
 
     override fun isChecked(): Boolean {
@@ -86,5 +74,10 @@ class CategoryItemView(context: Context) : AppCompatTextView(context), Checkable
 
     override fun toggle() {
         isChecked = isChecked.not()
+    }
+
+    fun setValue(item: CategoryItem) {
+        tvTitle.text = context.getString(item.categoryName)
+        isChecked = item.isChecked
     }
 }
