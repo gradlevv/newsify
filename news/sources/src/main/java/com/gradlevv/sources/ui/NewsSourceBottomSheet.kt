@@ -52,13 +52,13 @@ class NewsSourceBottomSheet(private val context: Context) {
                 }
 
                 tvTitle = textView {
-                    setTextColor(ThemeHandler.getColor(Colors.colorText))
-                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+                    setTextColor(ThemeHandler.getColor(Colors.colorPrimary))
+                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
                     gravity = Gravity.CENTER
                 }
 
                 tvDescription = textView {
-                    setTextColor(ThemeHandler.getColor(Colors.colorText))
+                    setTextColor(ThemeHandler.getColor(Colors.colorOnBackground100))
                     setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
                 }
 
@@ -66,11 +66,11 @@ class NewsSourceBottomSheet(private val context: Context) {
                     text = context.getString(R.string.got_to_website)
                     insetTop = 0
                     insetBottom = 0
-                    setTextColor(ThemeHandler.getColor(Colors.colorBackground))
-                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+                    setTextColor(ThemeHandler.getColor(Colors.colorPrimary))
+                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
                     cornerRadius = 14.dp()
                     backgroundTintList =
-                        ColorStateList.valueOf(ThemeHandler.getColor(Colors.colorText))
+                        ColorStateList.valueOf(ThemeHandler.getColor(Colors.colorPrimaryBackground))
                 }
 
                 addView(tvTitle, matchWidthWrapHeight {
