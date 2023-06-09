@@ -22,21 +22,23 @@ class SourcesRepositoryImpl @Inject constructor(
     }
 
     override fun getCategoryList(): Flow<List<CategoryItem>> {
-        val categoryList = listOf(
-            CategoryType.General,
-            CategoryType.Business,
-            CategoryType.Entertainment,
-            CategoryType.Sports,
-            CategoryType.Technology,
-            CategoryType.Science,
-            CategoryType.Health
-        ).map { categoryType ->
-            CategoryItem(
-                type = categoryType.type,
-                categoryName = categoryType.categoryName,
+        return flow {
+            emit(
+                listOf(
+                    CategoryType.General,
+                    CategoryType.Business,
+                    CategoryType.Entertainment,
+                    CategoryType.Sports,
+                    CategoryType.Technology,
+                    CategoryType.Science,
+                    CategoryType.Health
+                ).map { categoryType ->
+                    CategoryItem(
+                        type = categoryType.type,
+                        categoryName = categoryType.categoryName,
+                    )
+                }
             )
         }
-
-        return flow { emit(categoryList) }
     }
 }
