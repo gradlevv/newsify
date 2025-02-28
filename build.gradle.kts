@@ -1,6 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    apply(from = "$rootDir/buildScript/libraryVersions.gradle")
 
     repositories {
         google()
@@ -14,7 +13,6 @@ buildscript {
 }
 
 allprojects {
-    apply(from = "$rootDir/buildScript/dependencies.gradle")
     repositories {
         maven { url = uri("https://maven.google.com") }
         google()

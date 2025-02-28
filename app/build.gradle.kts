@@ -4,8 +4,6 @@ plugins {
     kotlin("kapt")
 }
 
-apply(from = "$rootDir/buildScript/shared_dependencies.gradle")
-
 android {
     compileSdk = project.extra["build.compiledSdkVersion"] as Int
 
