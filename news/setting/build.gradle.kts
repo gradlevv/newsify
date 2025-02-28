@@ -6,10 +6,7 @@ plugins {
 
 dependencies {
     implementation(project(":core"))
+    implementation(project(":ui"))
 
-    // Constraint Layout
-    api(constraintLayout)
-
-    api(glide)
-    kapt(glideCompiler)
+    kapt(daggerCompiler)
 }

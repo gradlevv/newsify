@@ -4,12 +4,13 @@ plugins {
     id("kotlin-kapt")
 }
 
+android {
+    resourcePrefix = "search_"
+}
+
 dependencies {
     implementation(project(":core"))
+    implementation(project(":ui"))
 
-    // Constraint Layout
-    api(constraintLayout)
-
-    api(glide)
-    kapt(glideCompiler)
+    kapt(daggerCompiler)
 }
