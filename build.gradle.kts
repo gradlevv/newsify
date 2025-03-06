@@ -1,3 +1,14 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle:8.2.2")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22")
+    }
+}
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     alias(libs.plugins.android.application) apply false
@@ -20,10 +31,4 @@ tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
 
-apply(from = "$rootDir/buildScript/subModules.gradle")
-
-dependencies {
-    implementation(libs.kotlinStd8)
-    implementation(libs.material)
-    // ... other dependencies
-} 
+apply(from = "$rootDir/buildScript/subModules.gradle") 
