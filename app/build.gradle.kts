@@ -7,14 +7,14 @@ plugins {
 }
 
 android {
-    compileSdk = project.extra["build.compiledSdkVersion"] as Int
+    compileSdk = libs.versions.compiledSdkVersion.get().toInt()
 
     defaultConfig {
         applicationId = "com.gradlevv.newsify"
-        minSdk = project.extra["build.minSdkVersion"] as Int
-        targetSdk = project.extra["build.targetSdkVersion"] as Int
-        versionCode = project.extra["build.versionCode"] as Int
-        versionName = project.extra["build.versionName"] as String
+        minSdk = libs.versions.minSdkVersion.get().toInt()
+        targetSdk = libs.versions.targetSdkVersion.get().toInt()
+        versionCode = libs.versions.patch.get().toInt()
+        versionName = "${libs.versions.major.get()}.${libs.versions.minor.get()}.${libs.versions.patch.get()}"
 
         multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
