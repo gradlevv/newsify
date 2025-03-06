@@ -1,13 +1,13 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("kotlin-kapt")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
-
 dependencies {
-    kapt(daggerCompiler)
+    kapt(libs.daggerCompiler)
 
-    api(coroutineCore)
-    api(coroutineAndroid)
+    api(libs.coroutineCore)
+    api(libs.coroutineAndroid)
 }
