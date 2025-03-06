@@ -7,9 +7,9 @@ include(":news:search")
 include(":news:setting")
 
 dependencyResolutionManagement {
-    versionCatalogs {
-        create("libs") {
-            from(files("gradle/libs.versions.toml"))
-        }
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
     }
 } 
