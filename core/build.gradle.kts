@@ -4,7 +4,6 @@ plugins {
     id("kotlin-kapt")
 }
 
-apply(from = "$rootDir/buildScript/libraryVersions.gradle.kts")
 
 dependencies {
     kapt(daggerCompiler)
