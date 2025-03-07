@@ -11,12 +11,12 @@ gradlePlugin {
     plugins {
         create("androidApplication") {
             id = "newsify.android.application"
-            implementationClass = "NewsifyAndroidApplicationPlugin"
+            implementationClass = "AndroidApplicationPlugin"
             description = "Android Application plugin for Newsify"
         }
         create("androidLibrary") {
             id = "newsify.android.library"
-            implementationClass = "NewsifyAndroidLibraryPlugin"
+            implementationClass = "AndroidLibraryPlugin"
             description = "Android Library plugin for Newsify"
         }
     }
