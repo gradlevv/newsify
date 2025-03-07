@@ -12,5 +12,5 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":ui"))
 
-    kapt(daggerCompiler)
+
 }
