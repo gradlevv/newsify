@@ -7,6 +7,7 @@ plugins {
 }
 
 android {
+    namespace = "com.gradlevv.newsify.news.list"
     resourcePrefix = "news_list_"
 }
 

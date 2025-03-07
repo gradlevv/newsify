@@ -5,6 +5,10 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
 }
 
+android {
+    namespace = "com.gradlevv.newsify.ui"
+}
+
 dependencies {
     implementation(project(":core"))
 

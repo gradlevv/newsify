@@ -5,6 +5,7 @@ plugins {
 }
 
 android {
+    namespace = "com.gradlevv.newsify.news.search"
     resourcePrefix = "search_"
 }
 

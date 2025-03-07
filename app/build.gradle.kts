@@ -7,6 +7,7 @@ plugins {
 }
 
 android {
+    namespace = "com.gradlevv.newsify"
     compileSdk = libs.versions.compiledSdkVersion.get().toInt()
 
     defaultConfig {
