@@ -31,6 +31,10 @@ androidxLegacy = "1.0.0"
 paging = "3.2.1"
 
 [libraries]
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "gradle" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+navigation-safeargs = { group = "androidx.navigation", name = "navigation-safe-args-gradle-plugin", version.ref = "navigationVersion" }
+
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 coreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "androidXCoreKtx" }
 androidXAnnotations = { group = "androidx.annotation", name = "annotation", version.ref = "androidXAnnotations" }
