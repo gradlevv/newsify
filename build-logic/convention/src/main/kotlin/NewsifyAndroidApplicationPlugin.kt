@@ -1,24 +1,27 @@
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
-import com.android.build.gradle.LibraryExtension
+import com.android.build.api.dsl.ApplicationExtension
+import org.gradle.api.JavaVersion
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
+import org.gradle.api.plugins.ExtensionAware
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 
-class AndroidLibraryPlugin : Plugin<Project> {
+class NewsifyAndroidApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
-                apply("com.android.library")
+                apply("com.android.application")
+                apply("org.jetbrains.kotlin.android")
                 apply("androidx.navigation.safeargs.kotlin")
             }
 
-            extensions.configure<LibraryExtension>("android") {
-                compileSdk = 34 // Replace with your build.compiledSdkVersion
+            extensions.configure<ApplicationExtension> {
+                compileSdk = 34
 
                 defaultConfig {
-                    targetSdk = 34 // Replace with your build.targetSdkVersion
-                    minSdk = 24 // Replace with your build.minSdkVersion
-                    versionCode = 1 // Replace with your app.versionCode
-                    versionName = "1.0" // Replace with your app.versionName
+                    minSdk = 24
+                    targetSdk = 34
                     vectorDrawables.useSupportLibrary = true
                 }
 
@@ -35,10 +38,10 @@ class AndroidLibraryPlugin : Plugin<Project> {
                     sourceCompatibility = JavaVersion.VERSION_1_8
                     targetCompatibility = JavaVersion.VERSION_1_8
                 }
+            }
 
-                kotlinOptions {
-                    jvmTarget = "1.8"
-                }
+            extensions.configure<KotlinAndroidProjectExtension> {
+                jvmToolchain(8)
             }
         }
     }

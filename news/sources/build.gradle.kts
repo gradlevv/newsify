@@ -1,7 +1,6 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("kotlin-kapt")
+    id("newsify.android.library")
+    alias(libs.plugins.kotlin.kapt)
 }
 
 android {

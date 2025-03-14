@@ -5,18 +5,19 @@ plugins {
 dependencies {
     implementation(libs.android.gradlePlugin)
     implementation(libs.kotlin.gradlePlugin)
+    implementation(libs.navigation.safeargs)
 }
 
 gradlePlugin {
     plugins {
         create("androidApplication") {
             id = "newsify.android.application"
-            implementationClass = "AndroidApplicationPlugin"
+            implementationClass = "NewsifyAndroidApplicationPlugin"
             description = "Android Application plugin for Newsify"
         }
         create("androidLibrary") {
             id = "newsify.android.library"
-            implementationClass = "AndroidLibraryPlugin"
+            implementationClass = "NewsifyAndroidLibraryPlugin"
             description = "Android Library plugin for Newsify"
         }
     }
