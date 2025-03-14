@@ -1,7 +1,7 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("kotlin-kapt")
+    id("newsify.android.library")
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
@@ -11,6 +11,4 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(project(":ui"))
-
-
 }
