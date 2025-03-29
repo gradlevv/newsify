@@ -13,6 +13,7 @@ dependencies {
 
     // Constraint Layout
     api(libs.constraintLayout)
+    api(libs.material)
 
     api(libs.glide)
     kapt(libs.glideCompiler)
