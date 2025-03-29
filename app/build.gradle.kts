@@ -55,5 +55,7 @@ dependencies {
     implementation(project(":news:search"))
     implementation(project(":news:setting"))
 
+    implementation(libs.navigationFragmentKtx)
+    implementation(libs.navigationUiKtx)
     kapt(libs.daggerCompiler)
 } 
