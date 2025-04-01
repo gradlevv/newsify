@@ -2,6 +2,7 @@ plugins {
     id("newsify.android.library")
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -10,6 +11,9 @@ android {
 
 dependencies {
     kapt(libs.daggerCompiler)
+
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 
     api(libs.coroutineCore)
     api(libs.coroutineAndroid)

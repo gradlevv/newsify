@@ -12,7 +12,6 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
 import com.gradlevv.core.CoreComponentProvider
-import com.gradlevv.core.di.CoreComponent
 
 
 @ColorInt
@@ -29,14 +28,6 @@ fun Context.getCompatDrawable(@DrawableRes id: Int): Drawable? {
         null
     }
 }
-
-fun Context.coreComponent(): CoreComponent =
-    if (applicationContext is CoreComponentProvider) {
-        (applicationContext as CoreComponentProvider).coreComponent()
-    } else {
-        throw IllegalArgumentException("Application class must implement CoreComponentProvider")
-    }
-
 
 fun Activity.setSystemBarsColor(
     @ColorInt statusBarColor: Int,
