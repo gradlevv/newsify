@@ -1,10 +1,10 @@
 package com.gradlevv.newsify
 
-import com.gradlevv.core.CoreApp
+import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class MainApp : CoreApp(){
+class MainApp : Application(){
 
     override fun onCreate() {
         super.onCreate()
