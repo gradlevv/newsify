@@ -11,8 +11,6 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
-import com.gradlevv.core.CoreComponentProvider
-
 
 @ColorInt
 fun Context.getColorInt(@ColorRes color: Int): Int {

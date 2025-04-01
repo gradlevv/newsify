@@ -17,4 +17,13 @@ dependencies {
 
     api(libs.coroutineCore)
     api(libs.coroutineAndroid)
+
+    implementation(libs.retrofit)
+    implementation(libs.retrofitGson)
+    implementation(libs.okhttp)
+    implementation(libs.interceptor)
+
+    implementation(libs.appcompat)
+
+    implementation(libs.timber)
 }
