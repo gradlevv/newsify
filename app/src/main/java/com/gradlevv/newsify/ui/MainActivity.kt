@@ -16,15 +16,15 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
-import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dpf
 import com.gradlevv.core.util.getSelectorDrawable
 import com.gradlevv.core.util.setSystemBarsColor
 import com.gradlevv.newsify.R
-import com.gradlevv.newsify.di.DaggerAppComponent
 import com.gradlevv.ui.utils.*
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var root: FrameLayout
@@ -73,6 +73,7 @@ class MainActivity : AppCompatActivity() {
                     )
                     true
                 }
+
                 else -> {
                     true
                 }
@@ -82,13 +83,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        daggerSetUp()
         setContentView(R.layout.activity_main)
         setUpView()
-    }
-
-    private fun daggerSetUp() {
-        DaggerAppComponent.factory().create(coreComponent()).inject(this)
     }
 
     private fun setUpView() {

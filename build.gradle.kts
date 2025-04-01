@@ -17,6 +17,7 @@ plugins {
     alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.kotlin.parcelize) apply false
     alias(libs.plugins.navigation.safe.args) apply false
+    id("com.google.dagger.hilt.android") version "2.52" apply false
 }
 
 allprojects {
