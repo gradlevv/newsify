@@ -58,4 +58,17 @@ dependencies {
     implementation(libs.navigationFragmentKtx)
     implementation(libs.navigationUiKtx)
     kapt(libs.daggerCompiler)
-} 
+    implementation(libs.dagger)
+
+    implementation(libs.glide)
+    implementation(libs.navigationUiKtx)
+    implementation(libs.navigationFragmentKtx)
+    implementation(libs.fragmentKtx)
+    implementation(libs.lifecycleruntimeKtx)
+    implementation(libs.lifecycleViewModelKtx)
+    implementation(libs.lifecycleCommonJava8)
+    implementation(libs.livedataKtx)
+    implementation(libs.viewmodel)
+    implementation(libs.coreKtx)
+    implementation(libs.androidXAnnotations)
+}

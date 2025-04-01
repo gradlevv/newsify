@@ -7,6 +7,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import com.gradlevv.core.util.dp
 import com.gradlevv.core.util.dpf
+import com.gradlevv.newsify.news.sources.R
 import com.gradlevv.sources.R
 import com.gradlevv.sources.domain.model.SourceItem
 import com.gradlevv.ui.dsl.imageView
