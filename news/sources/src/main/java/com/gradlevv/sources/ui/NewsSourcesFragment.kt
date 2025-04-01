@@ -17,12 +17,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.gradlevv.core.di.ViewModelFactory
 import com.gradlevv.core.util.IntentUtils
-import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dp
 import com.gradlevv.sources.R
-import com.gradlevv.sources.di.DaggerNewsSourcesComponent
 import com.gradlevv.sources.domain.model.CategoryItem
 import com.gradlevv.sources.domain.model.SourceItem
 import com.gradlevv.ui.base.BaseFragment
@@ -36,10 +33,11 @@ import com.gradlevv.ui.utils.ThemeHandler
 import com.gradlevv.ui.utils.matchWidthAndHeight
 import com.gradlevv.ui.utils.matchWidthWrapHeight
 import com.gradlevv.ui.utils.setCompatDrawable
-import kotlinx.coroutines.flow.collect
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
 
     private lateinit var root: FrameLayout
@@ -79,10 +77,7 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
     @Inject
     lateinit var intentUtils: IntentUtils
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    override val viewModel: NewsSourcesViewModel by viewModels { viewModelFactory }
+    override val viewModel: NewsSourcesViewModel by viewModels()
 
     override fun initLayout(): View? {
 
@@ -200,6 +195,5 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
     }
 
     override fun daggerConfiguration() {
-        DaggerNewsSourcesComponent.factory().create(requireActivity().coreComponent()).inject(this)
     }
 }
