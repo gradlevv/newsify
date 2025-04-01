@@ -16,4 +16,15 @@ dependencies {
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+
+    implementation(libs.viewmodel)
+    implementation(libs.lifecycleViewModelKtx)
+    implementation(libs.lifecycleruntimeKtx)
+    implementation(libs.lifecycleCommonJava8)
+
+    implementation(libs.retrofit)
+
+    implementation(libs.navigationUiKtx)
+    implementation(libs.navigationFragmentKtx)
+
 }

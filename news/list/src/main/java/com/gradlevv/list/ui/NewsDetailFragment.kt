@@ -10,10 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.button.MaterialButton
 import com.gradlevv.core.util.IntentUtils
-import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dp
 import com.gradlevv.list.R
-import com.gradlevv.list.di.DaggerNewsListComponent
 import com.gradlevv.ui.base.BaseFragment
 import com.gradlevv.ui.dsl.imageView
 import com.gradlevv.ui.dsl.linearLayout
@@ -21,7 +19,6 @@ import com.gradlevv.ui.dsl.normalButton
 import com.gradlevv.ui.dsl.textView
 import com.gradlevv.ui.shape.materialShape
 import com.gradlevv.ui.utils.*
-import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
@@ -37,7 +34,7 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
     @Inject
     lateinit var intentUtils: IntentUtils
 
-    override val viewModel: NewsListViewModel by navGraphViewModels(R.id.main_navigation) { viewModelFactory }
+    override val viewModel: NewsListViewModel by navGraphViewModels(R.id.main_navigation)
 
     override fun initLayout(): View? {
         root = linearLayout {

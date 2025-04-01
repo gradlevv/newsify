@@ -3,8 +3,12 @@ package com.gradlevv.list.di
 import com.gradlevv.list.data.source.NewsListService
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 import retrofit2.Retrofit
 
+
+@InstallIn(ViewModelComponent::class)
 @Module
 object NewsListModule {
 
