@@ -1,19 +1,12 @@
 package com.gradlevv.setting.di
 
-import androidx.lifecycle.ViewModel
-import com.gradlevv.core.di.ViewModelKey
-import com.gradlevv.setting.ui.SettingViewModel
-import dagger.Binds
 import dagger.Module
-import dagger.multibindings.IntoMap
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 
+@InstallIn(ViewModelComponent::class)
 @Module
 abstract class BinderModule {
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(SettingViewModel::class)
-    abstract fun bindSettingViewModel(settingViewModel: SettingViewModel): ViewModel
 
 }
 
