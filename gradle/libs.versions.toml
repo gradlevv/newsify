@@ -1,5 +1,7 @@
 [versions]
 compiledSdkVersion = "34"
+hiltAndroid = "2.52"
+hiltAndroidCompiler = "2.51.1"
 targetSdkVersion = "34"
 minSdkVersion = "24"
 major = "0"
@@ -32,6 +34,8 @@ paging = "3.2.1"
 
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "gradle" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 navigation-safeargs = { group = "androidx.navigation", name = "navigation-safe-args-gradle-plugin", version.ref = "navigationVersion" }
 
