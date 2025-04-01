@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.button.MaterialButton
-import com.gradlevv.core.di.ViewModelFactory
 import com.gradlevv.core.util.IntentUtils
 import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dp
@@ -37,9 +36,6 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
 
     @Inject
     lateinit var intentUtils: IntentUtils
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
 
     override val viewModel: NewsListViewModel by navGraphViewModels(R.id.main_navigation) { viewModelFactory }
 
@@ -141,7 +137,5 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
     }
 
     override fun daggerConfiguration() {
-        DaggerNewsListComponent.factory()
-            .create(requireActivity().coreComponent()).inject(this)
     }
 }
