@@ -6,7 +6,7 @@ import com.gradlevv.core.base.BaseViewModel
 import com.gradlevv.core.data.model.Result
 import com.gradlevv.core.util.Constants.DATE_FORMAT
 import com.gradlevv.core.util.Constants.SORT_BY
-import com.gradlevv.search.R
+import com.gradlevv.newsify.core.R
 import com.gradlevv.search.domain.SearchDomainModel
 import com.gradlevv.search.domain.SearchNewsItem
 import com.gradlevv.search.domain.usecase.SearchNewsUseCase

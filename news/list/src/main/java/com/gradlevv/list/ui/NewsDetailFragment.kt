@@ -6,12 +6,12 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.navGraphViewModels
 import com.google.android.material.button.MaterialButton
 import com.gradlevv.core.util.IntentUtils
 import com.gradlevv.core.util.dp
-import com.gradlevv.list.R
+import com.gradlevv.newsify.ui.R
 import com.gradlevv.ui.base.BaseFragment
 import com.gradlevv.ui.dsl.imageView
 import com.gradlevv.ui.dsl.linearLayout
@@ -34,7 +34,7 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
     @Inject
     lateinit var intentUtils: IntentUtils
 
-    override val viewModel: NewsListViewModel by navGraphViewModels(R.id.main_navigation)
+    override val viewModel: NewsListViewModel by hiltNavGraphViewModels(R.id.main_navigation)
 
     override fun initLayout(): View? {
         root = linearLayout {
@@ -43,7 +43,7 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
             tvToolbar = textView {
                 setTextColor(ThemeHandler.getColor(Colors.colorWhite))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
-                text = getString(R.string.top_news_detail_title)
+                text = getString(com.gradlevv.newsify.news.list.R.string.top_news_detail_title)
                 gravity = Gravity.CENTER or Gravity.CENTER_HORIZONTAL
                 background = materialShape {
                     fillColor = ThemeHandler.getColorState(Colors.colorText)
@@ -68,7 +68,7 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
             }
 
             btnMoreInfo = normalButton {
-                text = context.getString(R.string.more_info)
+                text = context.getString(com.gradlevv.newsify.news.list.R.string.more_info)
                 insetTop = 0
                 insetBottom = 0
                 setTextColor(ThemeHandler.getColor(Colors.colorBackground))

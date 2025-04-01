@@ -2,10 +2,9 @@ package com.gradlevv.ui.dsl
 
 import android.view.ViewGroup
 import android.widget.*
-import androidx.fragment.app.Fragment
+import androidx.appcompat.R
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
-import com.gradlevv.ui.R
 
 inline fun ViewGroup.textView(init : TextView.() -> Unit): TextView {
     return TextView(context).apply(init)
@@ -32,5 +31,5 @@ inline fun ViewGroup.editText(init: EditText.() -> Unit): EditText {
 }
 
 inline fun ViewGroup.normalButton(init: MaterialButton.() -> Unit): MaterialButton {
-    return MaterialButton(context,null,R.attr.borderlessButtonStyle).apply(init)
+    return MaterialButton(context,null, R.attr.borderlessButtonStyle).apply(init)
 }

@@ -3,7 +3,11 @@ package com.gradlevv.list.ui
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
-import android.widget.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.ScrollView
+import android.widget.TextView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,12 +15,20 @@ import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gradlevv.core.util.dp
-import com.gradlevv.list.R
 import com.gradlevv.list.domain.CategoryItem
 import com.gradlevv.list.domain.TopHeadLinesItem
+import com.gradlevv.newsify.ui.R
 import com.gradlevv.ui.base.BaseFragment
-import com.gradlevv.ui.dsl.*
-import com.gradlevv.ui.utils.*
+import com.gradlevv.ui.dsl.frameLayout
+import com.gradlevv.ui.dsl.imageView
+import com.gradlevv.ui.dsl.linearLayout
+import com.gradlevv.ui.dsl.recyclerView
+import com.gradlevv.ui.dsl.textView
+import com.gradlevv.ui.utils.Colors
+import com.gradlevv.ui.utils.ThemeHandler
+import com.gradlevv.ui.utils.matchWidthHeight
+import com.gradlevv.ui.utils.matchWidthWrapHeight
+import com.gradlevv.ui.utils.setCompatDrawable
 import kotlinx.coroutines.launch
 
 class NewsListFragment : BaseFragment<NewsListViewModel>() {
@@ -71,14 +83,14 @@ class NewsListFragment : BaseFragment<NewsListViewModel>() {
             tvCategories = textView {
                 setTextColor(ThemeHandler.getColor(Colors.colorOnBackground100))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-                text = getString(R.string.news_list_categories)
+                text = getString(com.gradlevv.newsify.news.list.R.string.news_list_categories)
                 gravity = Gravity.LEFT or Gravity.CENTER_HORIZONTAL
             }
 
             tvTopNews = textView {
                 setTextColor(ThemeHandler.getColor(Colors.colorOnBackground100))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-                text = getString(R.string.news_list_lines_title)
+                text = getString(com.gradlevv.newsify.news.list.R.string.news_list_lines_title)
                 gravity = Gravity.LEFT or Gravity.CENTER_HORIZONTAL
             }
 

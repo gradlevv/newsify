@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gradlevv.core.util.IntentUtils
 import com.gradlevv.core.util.dp
-import com.gradlevv.sources.R
+import com.gradlevv.newsify.ui.R
 import com.gradlevv.sources.domain.model.CategoryItem
 import com.gradlevv.sources.domain.model.SourceItem
 import com.gradlevv.ui.base.BaseFragment
@@ -95,7 +95,7 @@ class NewsSourcesFragment : BaseFragment<NewsSourcesViewModel>() {
                 setTextColor(ThemeHandler.getColor(Colors.colorOnBackground100))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 24f)
                 typeface = Typeface.DEFAULT_BOLD
-                text = getString(R.string.top_news_source_title)
+                text = getString(com.gradlevv.newsify.news.sources.R.string.top_news_source_title)
                 gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
             }
 

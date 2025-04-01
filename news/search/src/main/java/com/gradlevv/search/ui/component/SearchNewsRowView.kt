@@ -9,8 +9,8 @@ import android.widget.LinearLayout.VERTICAL
 import androidx.cardview.widget.CardView
 import com.gradlevv.core.util.dp
 import com.gradlevv.core.util.dpf
+import com.gradlevv.newsify.ui.R
 import com.gradlevv.search.domain.SearchNewsItem
-import com.gradlevv.ui.R
 import com.gradlevv.ui.dsl.frameLayout
 import com.gradlevv.ui.dsl.imageView
 import com.gradlevv.ui.dsl.linearLayout
@@ -48,7 +48,7 @@ class SearchNewsRowView(context: Context) : CardView(context) {
         setTextColor(ThemeHandler.getColor(Colors.colorPrimary))
         gravity = Gravity.RIGHT
         setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
-        text = context.getString(com.gradlevv.search.R.string.search_read_more)
+        text = context.getString(com.gradlevv.newsify.news.search.R.string.search_read_more)
     }
 
     init {

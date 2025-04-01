@@ -2,7 +2,6 @@ package com.gradlevv.newsify.ui
 
 import android.animation.Animator
 import android.content.res.ColorStateList
-import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
@@ -19,9 +18,9 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.gradlevv.core.util.dpf
 import com.gradlevv.core.util.getSelectorDrawable
 import com.gradlevv.core.util.setSystemBarsColor
-import com.gradlevv.newsify.R
 import com.gradlevv.ui.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.core.net.toUri
 
 
 @AndroidEntryPoint
@@ -40,7 +39,8 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 Menus.HOME.id -> {
                     navController.navigate(
-                        Uri.parse(applicationContext.getString(R.string.news_list_fragment)),
+                        applicationContext.getString(com.gradlevv.newsify.core.R.string.news_list_fragment)
+                            .toUri(),
                         NavOptions.Builder()
                             .setPopUpTo(R.id.newsListFragment, true).build()
                     )
@@ -49,7 +49,8 @@ class MainActivity : AppCompatActivity() {
 
                 Menus.SOURCES.id -> {
                     navController.navigate(
-                        Uri.parse(applicationContext.getString(R.string.news_sources_fragment)),
+                        applicationContext.getString(com.gradlevv.newsify.core.R.string.news_sources_fragment)
+                            .toUri(),
                         NavOptions.Builder()
                             .setPopUpTo(R.id.newsSourcesFragment, true).build()
                     )
@@ -58,7 +59,8 @@ class MainActivity : AppCompatActivity() {
 
                 Menus.SEARCH.id -> {
                     navController.navigate(
-                        Uri.parse(applicationContext.getString(R.string.search_news_fragment)),
+                        applicationContext.getString(com.gradlevv.newsify.core.R.string.search_news_fragment)
+                            .toUri(),
                         NavOptions.Builder()
                             .setPopUpTo(R.id.searchNewsFragment, true).build()
                     )
@@ -67,7 +69,8 @@ class MainActivity : AppCompatActivity() {
 
                 Menus.SETTING.id -> {
                     navController.navigate(
-                        Uri.parse(applicationContext.getString(R.string.setting_fragment)),
+                        applicationContext.getString(com.gradlevv.newsify.core.R.string.setting_fragment)
+                            .toUri(),
                         NavOptions.Builder()
                             .setPopUpTo(R.id.settingFragment, true).build()
                     )

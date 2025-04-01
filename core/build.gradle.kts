@@ -10,7 +10,6 @@ android {
 }
 
 dependencies {
-    kapt(libs.daggerCompiler)
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
@@ -24,6 +23,9 @@ dependencies {
     implementation(libs.interceptor)
 
     implementation(libs.appcompat)
+
+    implementation(libs.navigationUiKtx)
+    implementation(libs.navigationFragmentKtx)
 
     implementation(libs.timber)
 }

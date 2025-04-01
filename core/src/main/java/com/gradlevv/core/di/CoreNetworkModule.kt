@@ -3,7 +3,7 @@ package com.gradlevv.core.di
 import android.content.Context
 import android.net.ConnectivityManager
 import com.google.gson.Gson
-import com.gradlevv.core.BuildConfig
+
 import com.gradlevv.core.util.Constants.API_KEY
 import com.gradlevv.core.util.Constants.BASE_URL_API
 import dagger.Lazy
@@ -93,10 +93,11 @@ object CoreNetworkModule {
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor =
         HttpLoggingInterceptor().apply {
-            level = if (BuildConfig.DEBUG) {
-                HttpLoggingInterceptor.Level.BODY
-            } else {
-                HttpLoggingInterceptor.Level.NONE
-            }
+            HttpLoggingInterceptor.Level.BODY
+//            level = if (BuildConfig.DEBUG) {
+//                HttpLoggingInterceptor.Level.BODY
+//            } else {
+//                HttpLoggingInterceptor.Level.NONE
+//            }
         }
 }

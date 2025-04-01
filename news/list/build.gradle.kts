@@ -15,6 +15,7 @@ dependencies {
     implementation(project(":ui"))
 
     implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.fragment)
     kapt(libs.hilt.android.compiler)
 
     implementation(libs.viewmodel)
@@ -23,6 +24,7 @@ dependencies {
     implementation(libs.lifecycleCommonJava8)
 
     implementation(libs.retrofit)
+    implementation(libs.retrofitGson)
 
     implementation(libs.navigationUiKtx)
     implementation(libs.navigationFragmentKtx)

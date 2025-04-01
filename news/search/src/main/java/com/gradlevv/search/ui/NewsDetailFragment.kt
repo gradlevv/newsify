@@ -12,13 +12,28 @@ import androidx.cardview.widget.CardView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.navGraphViewModels
-import com.gradlevv.core.util.*
-import com.gradlevv.search.R
+import com.gradlevv.core.util.IntentUtils
+import com.gradlevv.core.util.dp
+import com.gradlevv.core.util.dpf
+import com.gradlevv.core.util.getCompatDrawable
+import com.gradlevv.newsify.ui.R
 import com.gradlevv.ui.base.BaseFragment
-import com.gradlevv.ui.dsl.*
+import com.gradlevv.ui.dsl.frameLayout
+import com.gradlevv.ui.dsl.imageView
+import com.gradlevv.ui.dsl.linearLayout
+import com.gradlevv.ui.dsl.normalButton
+import com.gradlevv.ui.dsl.textView
 import com.gradlevv.ui.shape.materialShape
-import com.gradlevv.ui.utils.*
+import com.gradlevv.ui.utils.Colors
+import com.gradlevv.ui.utils.ThemeHandler
+import com.gradlevv.ui.utils.customWidthAndHeight
+import com.gradlevv.ui.utils.loadImage
+import com.gradlevv.ui.utils.matchWidthAndCustomHeight
+import com.gradlevv.ui.utils.matchWidthHeight
+import com.gradlevv.ui.utils.matchWidthWrapHeight
+import com.gradlevv.ui.utils.setCompatDrawable
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import com.gradlevv.ui.utils.wrapWidthAndHeight
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -40,7 +55,7 @@ class NewsDetailFragment : BaseFragment<SearchNewsViewModel>() {
     @Inject
     lateinit var intentUtils: IntentUtils
 
-    override val viewModel: SearchNewsViewModel by navGraphViewModels(R.id.main_navigation) {  }
+    override val viewModel: SearchNewsViewModel by hiltNavGraphViewModels(R.id.main_navigation)
 
     override fun initLayout(): View? {
         root = linearLayout {
@@ -49,12 +64,12 @@ class NewsDetailFragment : BaseFragment<SearchNewsViewModel>() {
 
             ivDate = imageView {
                 scaleType = ImageView.ScaleType.CENTER_CROP
-                setCompatDrawable(com.gradlevv.ui.R.drawable.ic_clock)
+                setCompatDrawable(R.drawable.ic_clock)
             }
 
             ivBack = imageView {
                 scaleType = ImageView.ScaleType.CENTER_CROP
-                setCompatDrawable(com.gradlevv.ui.R.drawable.ic_back)
+                setCompatDrawable(R.drawable.ic_back)
             }
 
             tvAuthor = textView {
@@ -94,7 +109,7 @@ class NewsDetailFragment : BaseFragment<SearchNewsViewModel>() {
                 icon = getCompatDrawable(R.drawable.ic_link_14)
                 iconTint = ColorStateList.valueOf(ThemeHandler.getColor(Colors.colorPrimary))
                 cornerRadius = 10.dp()
-                text = getString(R.string.search_read_full_article)
+                text = getString(com.gradlevv.newsify.news.search.R.string.search_read_full_article)
                 backgroundTintList =
                     ColorStateList.valueOf(
                         ThemeHandler.getColor(

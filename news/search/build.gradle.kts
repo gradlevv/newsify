@@ -15,6 +15,7 @@ dependencies {
     implementation(project(":ui"))
 
     implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.fragment)
     kapt(libs.hilt.android.compiler)
 
     implementation(libs.viewmodel)

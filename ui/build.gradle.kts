@@ -14,7 +14,11 @@ dependencies {
     // Constraint Layout
     api(libs.constraintLayout)
     api(libs.material)
+    api(libs.appcompat)
 
     api(libs.glide)
     kapt(libs.glideCompiler)
+
+    implementation(libs.navigationUiKtx)
+    implementation(libs.navigationFragmentKtx)
 }

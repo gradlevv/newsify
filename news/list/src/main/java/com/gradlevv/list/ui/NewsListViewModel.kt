@@ -3,12 +3,12 @@ package com.gradlevv.list.ui
 import androidx.lifecycle.viewModelScope
 import com.gradlevv.core.base.BaseViewModel
 import com.gradlevv.core.data.model.Result
-import com.gradlevv.list.R
 import com.gradlevv.list.domain.CategoryItem
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.list.domain.usecase.GetCategoryTypeUseCase
 import com.gradlevv.list.domain.usecase.GetTopHeadLinesUseCase
 import com.gradlevv.list.ui.state.TopHeadLinesState
+import com.gradlevv.newsify.core.R
 import com.gradlevv.ui.utils.navOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
