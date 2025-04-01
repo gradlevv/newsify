@@ -8,7 +8,7 @@ import android.view.Menu
 import android.view.animation.AccelerateInterpolator
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isGone
+import androidx.core.net.toUri
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.NavOptions
@@ -18,9 +18,12 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.gradlevv.core.util.dpf
 import com.gradlevv.core.util.getSelectorDrawable
 import com.gradlevv.core.util.setSystemBarsColor
-import com.gradlevv.ui.utils.*
+import com.gradlevv.ui.utils.Colors
+import com.gradlevv.ui.utils.ThemeHandler
+import com.gradlevv.ui.utils.frameLayout
+import com.gradlevv.ui.utils.matchWidthCustomHeight
+import com.gradlevv.ui.utils.matchWidthWrapHeight
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.core.net.toUri
 
 
 @AndroidEntryPoint
@@ -86,16 +89,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(com.gradlevv.newsify.R.layout.activity_main)
         setUpView()
     }
 
     private fun setUpView() {
 
-        root = findViewById(R.id.root)
+        root = findViewById(com.gradlevv.newsify.R.id.root)
 
         navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
+            supportFragmentManager.findFragmentById(com.gradlevv.newsify.R.id.nav_host_fragment_container) as NavHostFragment
 
         val graphInflater = navHostFragment.navController.navInflater
         navGraph = graphInflater.inflate(R.navigation.navigation)
@@ -228,14 +231,20 @@ class MainActivity : AppCompatActivity() {
             .alpha(if (isHide) 0f else 1f)
             .setInterpolator(AccelerateInterpolator())
             .setListener(object : Animator.AnimatorListener {
-                override fun onAnimationRepeat(animation: Animator?) {
-                    bottomNavigationContainer.isGone = isHide
-                    bottomNavigationView.isGone = isHide
+
+                override fun onAnimationStart(animation: Animator) {
+
                 }
 
-                override fun onAnimationEnd(animation: Animator?) {}
-                override fun onAnimationCancel(animation: Animator?) {}
-                override fun onAnimationStart(animation: Animator?) {}
+                override fun onAnimationEnd(animation: Animator) {
+                }
+
+                override fun onAnimationCancel(animation: Animator) {
+                }
+
+                override fun onAnimationRepeat(animation: Animator) {
+                }
+
             })
             .start()
     }

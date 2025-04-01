@@ -30,3 +30,7 @@ dependencies {
     implementation(libs.navigationFragmentKtx)
 
 }
+
+kapt {
+    correctErrorTypes = true
+}

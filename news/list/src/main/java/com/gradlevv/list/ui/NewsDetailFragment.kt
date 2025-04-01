@@ -19,8 +19,10 @@ import com.gradlevv.ui.dsl.normalButton
 import com.gradlevv.ui.dsl.textView
 import com.gradlevv.ui.shape.materialShape
 import com.gradlevv.ui.utils.*
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
 
     private lateinit var root: LinearLayout

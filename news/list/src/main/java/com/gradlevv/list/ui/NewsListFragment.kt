@@ -29,8 +29,10 @@ import com.gradlevv.ui.utils.ThemeHandler
 import com.gradlevv.ui.utils.matchWidthHeight
 import com.gradlevv.ui.utils.matchWidthWrapHeight
 import com.gradlevv.ui.utils.setCompatDrawable
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class NewsListFragment : BaseFragment<NewsListViewModel>() {
 
     private lateinit var root: LinearLayout

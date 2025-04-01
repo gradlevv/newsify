@@ -2,7 +2,7 @@ package com.gradlevv.core.util
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
+import androidx.core.net.toUri
 import javax.inject.Inject
 
 interface IntentUtils {
@@ -20,7 +20,7 @@ class IntentUtilsImpl @Inject constructor(
         val intent = Intent().apply {
             action = Intent.ACTION_VIEW
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            data = Uri.parse(url)
+            data = url?.toUri()
         }
 
         context.startActivity(intent)

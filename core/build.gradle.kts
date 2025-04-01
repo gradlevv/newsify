@@ -29,3 +29,7 @@ dependencies {
 
     implementation(libs.timber)
 }
+
+kapt {
+    correctErrorTypes = true
+}
