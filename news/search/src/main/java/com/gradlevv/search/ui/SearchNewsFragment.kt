@@ -15,22 +15,19 @@ import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.gradlevv.core.di.ViewModelFactory
-import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dp
 import com.gradlevv.core.util.dpf
 import com.gradlevv.search.R
-import com.gradlevv.search.di.DaggerSearchNewsComponent
 import com.gradlevv.search.domain.SearchNewsItem
 import com.gradlevv.ui.base.BaseFragment
 import com.gradlevv.ui.dsl.*
 import com.gradlevv.ui.shape.materialShape
 import com.gradlevv.ui.shape.rippleDrawable
 import com.gradlevv.ui.utils.*
-import kotlinx.coroutines.flow.collect
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
 
     private lateinit var root: LinearLayout
@@ -55,10 +52,7 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
         viewModel.navigateToDetailFragment(item)
     }
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    override val viewModel: SearchNewsViewModel by navGraphViewModels(R.id.main_navigation) { viewModelFactory }
+    override val viewModel: SearchNewsViewModel by navGraphViewModels(R.id.main_navigation) { }
 
     override fun initLayout(): View? {
 
@@ -229,6 +223,5 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
     }
 
     override fun daggerConfiguration() {
-        DaggerSearchNewsComponent.factory().create(requireActivity().coreComponent()).inject(this)
     }
 }

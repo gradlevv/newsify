@@ -13,18 +13,17 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.navGraphViewModels
-import com.gradlevv.core.di.ViewModelFactory
 import com.gradlevv.core.util.*
 import com.gradlevv.search.R
-import com.gradlevv.search.di.DaggerSearchNewsComponent
 import com.gradlevv.ui.base.BaseFragment
 import com.gradlevv.ui.dsl.*
 import com.gradlevv.ui.shape.materialShape
 import com.gradlevv.ui.utils.*
-import kotlinx.coroutines.flow.collect
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NewsDetailFragment : BaseFragment<SearchNewsViewModel>() {
 
     private lateinit var root: LinearLayout
@@ -41,10 +40,7 @@ class NewsDetailFragment : BaseFragment<SearchNewsViewModel>() {
     @Inject
     lateinit var intentUtils: IntentUtils
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    override val viewModel: SearchNewsViewModel by navGraphViewModels(R.id.main_navigation) { viewModelFactory }
+    override val viewModel: SearchNewsViewModel by navGraphViewModels(R.id.main_navigation) {  }
 
     override fun initLayout(): View? {
         root = linearLayout {
@@ -214,7 +210,6 @@ class NewsDetailFragment : BaseFragment<SearchNewsViewModel>() {
     }
 
     override fun daggerConfiguration() {
-        DaggerSearchNewsComponent.factory()
-            .create(requireActivity().coreComponent()).inject(this)
+
     }
 }
