@@ -12,7 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.gradlevv.core.util.dp
 import com.gradlevv.core.util.dpf
-import com.gradlevv.sources.R
+import com.gradlevv.newsify.ui.R
 import com.gradlevv.sources.domain.model.SourceItem
 import com.gradlevv.ui.dsl.linearLayout
 import com.gradlevv.ui.dsl.normalButton
@@ -63,7 +63,7 @@ class NewsSourceBottomSheet(private val context: Context) {
                 }
 
                 btnGoToWebSite = normalButton {
-                    text = context.getString(R.string.got_to_website)
+                    text = context.getString(com.gradlevv.newsify.news.sources.R.string.got_to_website)
                     insetTop = 0
                     insetBottom = 0
                     setTextColor(ThemeHandler.getColor(Colors.colorPrimary))

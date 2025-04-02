@@ -6,6 +6,7 @@ import com.gradlevv.core.data.model.Result
 import com.gradlevv.sources.domain.usecase.GetCategoryTypeUseCase
 import com.gradlevv.sources.domain.usecase.GetSourceListUseCase
 import com.gradlevv.sources.ui.state.NewsSourceState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class NewsSourcesViewModel @Inject constructor(
     private val getSourceListUseCase: GetSourceListUseCase,
     getCategoryTypeUseCase: GetCategoryTypeUseCase

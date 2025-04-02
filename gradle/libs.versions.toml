@@ -1,5 +1,8 @@
 [versions]
 compiledSdkVersion = "34"
+hiltAndroid = "2.52"
+hiltNavigation = "1.0.0"
+hiltAndroidCompiler = "2.51.1"
 targetSdkVersion = "34"
 minSdkVersion = "24"
 major = "0"
@@ -24,7 +27,6 @@ timberVersion = "4.7.1"
 navigationVersion = "2.7.7"
 okHttpVersion = "4.10.0"
 retrofitVersion = "2.9.0"
-dagger2Version = "2.44"
 glideVersion = "4.15.1"
 vectordrawableVersion = "1.1.0"
 androidxLegacy = "1.0.0"
@@ -32,15 +34,15 @@ paging = "3.2.1"
 
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "gradle" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 navigation-safeargs = { group = "androidx.navigation", name = "navigation-safe-args-gradle-plugin", version.ref = "navigationVersion" }
-
+hilt-navigation-fragment = { module = "androidx.hilt:hilt-navigation-fragment", version.ref = "hiltNavigation" }
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 coreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "androidXCoreKtx" }
 androidXAnnotations = { group = "androidx.annotation", name = "annotation", version.ref = "androidXAnnotations" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appCompatVersion" }
-dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger2Version" }
-daggerCompiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger2Version" }
 coroutineCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutinesCoreVersion" }
 coroutineAndroid = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutinesAndroidVersion" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVersion" }

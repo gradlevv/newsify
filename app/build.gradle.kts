@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.navigation.safe.args)
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -57,5 +58,11 @@ dependencies {
 
     implementation(libs.navigationFragmentKtx)
     implementation(libs.navigationUiKtx)
-    kapt(libs.daggerCompiler)
-} 
+
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+}
+
+kapt {
+    correctErrorTypes = true
+}

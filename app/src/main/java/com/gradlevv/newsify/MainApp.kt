@@ -1,25 +1,13 @@
 package com.gradlevv.newsify
 
-import com.gradlevv.core.CoreApp
-import com.gradlevv.newsify.di.AppComponent
-import com.gradlevv.newsify.di.DaggerAppComponent
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-interface AppComponentProvider {
-    fun appComponent(): AppComponent
-}
-
-class MainApp : CoreApp(),AppComponentProvider{
-
-    private val appComponent: AppComponent by lazy {
-        DaggerAppComponent.factory().create(coreComponent())
-    }
+@HiltAndroidApp
+class MainApp : Application(){
 
     override fun onCreate() {
         super.onCreate()
-
-        appComponent.inject(this)
     }
-
-    override fun appComponent() = appComponent
 
 }

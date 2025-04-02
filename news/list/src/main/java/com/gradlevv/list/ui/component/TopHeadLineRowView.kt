@@ -9,7 +9,7 @@ import androidx.cardview.widget.CardView
 import com.gradlevv.core.util.dp
 import com.gradlevv.core.util.dpf
 import com.gradlevv.list.domain.TopHeadLinesItem
-import com.gradlevv.ui.R
+import com.gradlevv.newsify.ui.R
 import com.gradlevv.ui.dsl.frameLayout
 import com.gradlevv.ui.dsl.imageView
 import com.gradlevv.ui.dsl.linearLayout
@@ -47,7 +47,7 @@ class TopHeadLineRowView(context: Context) : CardView(context) {
         setTextColor(ThemeHandler.getColor(Colors.colorPrimary))
         gravity = Gravity.RIGHT
         setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
-        text = context.getString(com.gradlevv.list.R.string.news_list_read_more)
+        text = context.getString(com.gradlevv.newsify.news.list.R.string.news_list_read_more)
     }
 
     private val ivDate = imageView {

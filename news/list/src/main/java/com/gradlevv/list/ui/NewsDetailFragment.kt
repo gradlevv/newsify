@@ -6,15 +6,12 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.navGraphViewModels
 import com.google.android.material.button.MaterialButton
-import com.gradlevv.core.di.ViewModelFactory
 import com.gradlevv.core.util.IntentUtils
-import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dp
-import com.gradlevv.list.R
-import com.gradlevv.list.di.DaggerNewsListComponent
+import com.gradlevv.newsify.ui.R
 import com.gradlevv.ui.base.BaseFragment
 import com.gradlevv.ui.dsl.imageView
 import com.gradlevv.ui.dsl.linearLayout
@@ -22,9 +19,10 @@ import com.gradlevv.ui.dsl.normalButton
 import com.gradlevv.ui.dsl.textView
 import com.gradlevv.ui.shape.materialShape
 import com.gradlevv.ui.utils.*
-import kotlinx.coroutines.flow.collect
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
 
     private lateinit var root: LinearLayout
@@ -38,10 +36,7 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
     @Inject
     lateinit var intentUtils: IntentUtils
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    override val viewModel: NewsListViewModel by navGraphViewModels(R.id.main_navigation) { viewModelFactory }
+    override val viewModel: NewsListViewModel by hiltNavGraphViewModels(R.id.main_navigation)
 
     override fun initLayout(): View? {
         root = linearLayout {
@@ -50,7 +45,7 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
             tvToolbar = textView {
                 setTextColor(ThemeHandler.getColor(Colors.colorWhite))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
-                text = getString(R.string.top_news_detail_title)
+                text = getString(com.gradlevv.newsify.news.list.R.string.top_news_detail_title)
                 gravity = Gravity.CENTER or Gravity.CENTER_HORIZONTAL
                 background = materialShape {
                     fillColor = ThemeHandler.getColorState(Colors.colorText)
@@ -75,7 +70,7 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
             }
 
             btnMoreInfo = normalButton {
-                text = context.getString(R.string.more_info)
+                text = context.getString(com.gradlevv.newsify.news.list.R.string.more_info)
                 insetTop = 0
                 insetBottom = 0
                 setTextColor(ThemeHandler.getColor(Colors.colorBackground))
@@ -141,7 +136,5 @@ class NewsDetailFragment : BaseFragment<NewsListViewModel>() {
     }
 
     override fun daggerConfiguration() {
-        DaggerNewsListComponent.factory()
-            .create(requireActivity().coreComponent()).inject(this)
     }
 }

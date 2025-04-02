@@ -12,9 +12,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.gradlevv.core.base.BaseViewModel
 import com.gradlevv.core.data.model.ApiError
 import com.gradlevv.core.util.NavigationModel
-import com.gradlevv.ui.R
 import com.gradlevv.ui.utils.Colors
 import com.gradlevv.ui.utils.ThemeHandler
+import androidx.core.net.toUri
+import com.gradlevv.newsify.ui.R
 
 abstract class BaseFragment<V : BaseViewModel> : Fragment() {
 
@@ -53,7 +54,7 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
 
                 is NavigationModel.ToDeppLink -> {
                     findNavController().navigate(
-                        Uri.parse(requireContext().getString(it.deepLink)),it.navOptions
+                        requireContext().getString(it.deepLink).toUri(),it.navOptions
                     )
                 }
 

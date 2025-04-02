@@ -6,25 +6,18 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.viewModels
-import com.gradlevv.core.di.ViewModelFactory
-import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dp
-import com.gradlevv.setting.di.DaggerSettingComponent
 import com.gradlevv.ui.base.BaseFragment
 import com.gradlevv.ui.dsl.linearLayout
 import com.gradlevv.ui.dsl.textView
 import com.gradlevv.ui.utils.matchWidthWrapHeight
-import javax.inject.Inject
 
 class SettingFragment : BaseFragment<SettingViewModel>() {
 
     private lateinit var root: LinearLayout
     private lateinit var tvTitle: TextView
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    override val viewModel: SettingViewModel by viewModels { viewModelFactory }
+    override val viewModel: SettingViewModel by viewModels()
 
     override fun initLayout(): View? {
         root = linearLayout {
@@ -49,6 +42,5 @@ class SettingFragment : BaseFragment<SettingViewModel>() {
     }
 
     override fun daggerConfiguration() {
-        DaggerSettingComponent.factory().create(requireActivity().coreComponent()).inject(this)
     }
 }

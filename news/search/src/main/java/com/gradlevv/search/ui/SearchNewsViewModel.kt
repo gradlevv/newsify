@@ -6,12 +6,13 @@ import com.gradlevv.core.base.BaseViewModel
 import com.gradlevv.core.data.model.Result
 import com.gradlevv.core.util.Constants.DATE_FORMAT
 import com.gradlevv.core.util.Constants.SORT_BY
-import com.gradlevv.search.R
+import com.gradlevv.newsify.core.R
 import com.gradlevv.search.domain.SearchDomainModel
 import com.gradlevv.search.domain.SearchNewsItem
 import com.gradlevv.search.domain.usecase.SearchNewsUseCase
 import com.gradlevv.search.ui.state.SearchNewsState
 import com.gradlevv.ui.utils.navOptions
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -19,6 +20,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
+@HiltViewModel
 class SearchNewsViewModel @Inject constructor(
     private val searchNewsUseCase: SearchNewsUseCase
 ) : BaseViewModel() {

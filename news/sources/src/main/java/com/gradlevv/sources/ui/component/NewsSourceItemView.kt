@@ -7,7 +7,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import com.gradlevv.core.util.dp
 import com.gradlevv.core.util.dpf
-import com.gradlevv.sources.R
+import com.gradlevv.newsify.ui.R
 import com.gradlevv.sources.domain.model.SourceItem
 import com.gradlevv.ui.dsl.imageView
 import com.gradlevv.ui.dsl.textView
@@ -40,7 +40,7 @@ class NewsSourceItemView(context: Context) : FrameLayout(context) {
         }
 
 
-        addView(ivLogo,customWithAndHeight(24,24){
+        addView(ivLogo, customWithAndHeight(24, 24) {
             gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
             leftMargin = 16.dp()
         })
@@ -50,7 +50,7 @@ class NewsSourceItemView(context: Context) : FrameLayout(context) {
             leftMargin = 52.dp()
         })
 
-        addView(ivArrow, customWithAndHeight(24,24) {
+        addView(ivArrow, customWithAndHeight(24, 24) {
             gravity = Gravity.RIGHT or Gravity.CENTER_VERTICAL
             rightMargin = 16.dp()
         })

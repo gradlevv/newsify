@@ -2,29 +2,31 @@ package com.gradlevv.newsify.ui
 
 import android.animation.Animator
 import android.content.res.ColorStateList
-import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
 import android.view.animation.AccelerateInterpolator
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isGone
+import androidx.core.net.toUri
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
-import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dpf
 import com.gradlevv.core.util.getSelectorDrawable
 import com.gradlevv.core.util.setSystemBarsColor
-import com.gradlevv.newsify.R
-import com.gradlevv.newsify.di.DaggerAppComponent
-import com.gradlevv.ui.utils.*
+import com.gradlevv.ui.utils.Colors
+import com.gradlevv.ui.utils.ThemeHandler
+import com.gradlevv.ui.utils.frameLayout
+import com.gradlevv.ui.utils.matchWidthCustomHeight
+import com.gradlevv.ui.utils.matchWidthWrapHeight
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var root: FrameLayout
@@ -40,7 +42,8 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 Menus.HOME.id -> {
                     navController.navigate(
-                        Uri.parse(applicationContext.getString(R.string.news_list_fragment)),
+                        applicationContext.getString(com.gradlevv.newsify.core.R.string.news_list_fragment)
+                            .toUri(),
                         NavOptions.Builder()
                             .setPopUpTo(R.id.newsListFragment, true).build()
                     )
@@ -49,7 +52,8 @@ class MainActivity : AppCompatActivity() {
 
                 Menus.SOURCES.id -> {
                     navController.navigate(
-                        Uri.parse(applicationContext.getString(R.string.news_sources_fragment)),
+                        applicationContext.getString(com.gradlevv.newsify.core.R.string.news_sources_fragment)
+                            .toUri(),
                         NavOptions.Builder()
                             .setPopUpTo(R.id.newsSourcesFragment, true).build()
                     )
@@ -58,7 +62,8 @@ class MainActivity : AppCompatActivity() {
 
                 Menus.SEARCH.id -> {
                     navController.navigate(
-                        Uri.parse(applicationContext.getString(R.string.search_news_fragment)),
+                        applicationContext.getString(com.gradlevv.newsify.core.R.string.search_news_fragment)
+                            .toUri(),
                         NavOptions.Builder()
                             .setPopUpTo(R.id.searchNewsFragment, true).build()
                     )
@@ -67,12 +72,14 @@ class MainActivity : AppCompatActivity() {
 
                 Menus.SETTING.id -> {
                     navController.navigate(
-                        Uri.parse(applicationContext.getString(R.string.setting_fragment)),
+                        applicationContext.getString(com.gradlevv.newsify.core.R.string.setting_fragment)
+                            .toUri(),
                         NavOptions.Builder()
                             .setPopUpTo(R.id.settingFragment, true).build()
                     )
                     true
                 }
+
                 else -> {
                     true
                 }
@@ -82,21 +89,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        daggerSetUp()
-        setContentView(R.layout.activity_main)
+        setContentView(com.gradlevv.newsify.R.layout.activity_main)
         setUpView()
-    }
-
-    private fun daggerSetUp() {
-        DaggerAppComponent.factory().create(coreComponent()).inject(this)
     }
 
     private fun setUpView() {
 
-        root = findViewById(R.id.root)
+        root = findViewById(com.gradlevv.newsify.R.id.root)
 
         navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
+            supportFragmentManager.findFragmentById(com.gradlevv.newsify.R.id.nav_host_fragment_container) as NavHostFragment
 
         val graphInflater = navHostFragment.navController.navInflater
         navGraph = graphInflater.inflate(R.navigation.navigation)
@@ -229,14 +231,20 @@ class MainActivity : AppCompatActivity() {
             .alpha(if (isHide) 0f else 1f)
             .setInterpolator(AccelerateInterpolator())
             .setListener(object : Animator.AnimatorListener {
-                override fun onAnimationRepeat(animation: Animator?) {
-                    bottomNavigationContainer.isGone = isHide
-                    bottomNavigationView.isGone = isHide
+
+                override fun onAnimationStart(animation: Animator) {
+
                 }
 
-                override fun onAnimationEnd(animation: Animator?) {}
-                override fun onAnimationCancel(animation: Animator?) {}
-                override fun onAnimationStart(animation: Animator?) {}
+                override fun onAnimationEnd(animation: Animator) {
+                }
+
+                override fun onAnimationCancel(animation: Animator) {
+                }
+
+                override fun onAnimationRepeat(animation: Animator) {
+                }
+
             })
             .start()
     }

@@ -1,7 +1,6 @@
 package com.gradlevv.sources.data.model
 
-import com.gradlevv.sources.R
-
+import com.gradlevv.newsify.news.sources.R
 
 sealed class CategoryType(
     val type: Int,

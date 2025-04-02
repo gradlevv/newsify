@@ -1,8 +1,8 @@
 package com.gradlevv.core.util
 
-import android.content.Context
+import android.app.Application
 import android.content.Intent
-import android.net.Uri
+import androidx.core.net.toUri
 import javax.inject.Inject
 
 interface IntentUtils {
@@ -10,7 +10,7 @@ interface IntentUtils {
 }
 
 class IntentUtilsImpl @Inject constructor(
-    private val context: Context
+    private val application: Application
 ) : IntentUtils {
 
     override fun openLinkInDeviceBrowser(url: String?) {
@@ -20,9 +20,9 @@ class IntentUtilsImpl @Inject constructor(
         val intent = Intent().apply {
             action = Intent.ACTION_VIEW
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            data = Uri.parse(url)
+            data = url?.toUri()
         }
 
-        context.startActivity(intent)
+        application.startActivity(intent)
     }
 }

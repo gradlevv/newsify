@@ -6,31 +6,47 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.*
+import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.core.widget.doAfterTextChanged
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.gradlevv.core.di.ViewModelFactory
-import com.gradlevv.core.util.coreComponent
 import com.gradlevv.core.util.dp
 import com.gradlevv.core.util.dpf
-import com.gradlevv.search.R
-import com.gradlevv.search.di.DaggerSearchNewsComponent
+import com.gradlevv.newsify.ui.R
 import com.gradlevv.search.domain.SearchNewsItem
 import com.gradlevv.ui.base.BaseFragment
-import com.gradlevv.ui.dsl.*
+import com.gradlevv.ui.dsl.editText
+import com.gradlevv.ui.dsl.frameLayout
+import com.gradlevv.ui.dsl.imageView
+import com.gradlevv.ui.dsl.linearLayout
+import com.gradlevv.ui.dsl.recyclerView
+import com.gradlevv.ui.dsl.textView
 import com.gradlevv.ui.shape.materialShape
 import com.gradlevv.ui.shape.rippleDrawable
-import com.gradlevv.ui.utils.*
-import kotlinx.coroutines.flow.collect
+import com.gradlevv.ui.utils.Colors
+import com.gradlevv.ui.utils.ThemeHandler
+import com.gradlevv.ui.utils.customWidthAndHeight
+import com.gradlevv.ui.utils.customWidthAndWrapHeight
+import com.gradlevv.ui.utils.matchWidthAndCustomHeight
+import com.gradlevv.ui.utils.matchWidthCustomHeight
+import com.gradlevv.ui.utils.matchWidthHeight
+import com.gradlevv.ui.utils.matchWidthWrapHeight
+import com.gradlevv.ui.utils.setCompatDrawable
+import com.gradlevv.ui.utils.wrapWidthAndHeight
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
 
     private lateinit var root: LinearLayout
@@ -55,10 +71,7 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
         viewModel.navigateToDetailFragment(item)
     }
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    override val viewModel: SearchNewsViewModel by navGraphViewModels(R.id.main_navigation) { viewModelFactory }
+    override val viewModel: SearchNewsViewModel by hiltNavGraphViewModels(R.id.main_navigation)
 
     override fun initLayout(): View? {
 
@@ -80,7 +93,7 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
                 background = null
                 setHintTextColor(ThemeHandler.getColor(Colors.colorOnBackground70))
                 setTextColor(ThemeHandler.getColor(Colors.colorOnBackground100))
-                hint = getString(R.string.search_hint)
+                hint = getString(com.gradlevv.newsify.news.search.R.string.search_hint)
             }
 
             ivSearch = imageView {
@@ -91,7 +104,7 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
                 setTextColor(ThemeHandler.getColor(Colors.colorText))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 24f)
                 visibility = View.GONE
-                text = getString(R.string.no_result_found)
+                text = getString(com.gradlevv.newsify.news.search.R.string.no_result_found)
                 gravity = Gravity.CENTER or Gravity.CENTER_VERTICAL
                 visibility = View.GONE
             }
@@ -100,7 +113,7 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
                 setTextColor(ThemeHandler.getColor(Colors.colorOnBackground70))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
                 gravity = Gravity.CENTER
-                text = getString(R.string.cancel)
+                text = getString(com.gradlevv.newsify.news.search.R.string.cancel)
                 background = rippleDrawable {
                     rippleColor = ThemeHandler.getColorWithAlpha(Colors.colorOnBackground50, 20)
                     drawable = materialShape { setCornerSize(16.dpf()) }
@@ -229,6 +242,5 @@ class SearchNewsFragment : BaseFragment<SearchNewsViewModel>() {
     }
 
     override fun daggerConfiguration() {
-        DaggerSearchNewsComponent.factory().create(requireActivity().coreComponent()).inject(this)
     }
 }

@@ -8,7 +8,7 @@ import androidx.annotation.DrawableRes
 import androidx.navigation.NavOptions
 import com.bumptech.glide.Glide
 import com.gradlevv.core.util.getCompatDrawable
-import com.gradlevv.ui.R
+import com.gradlevv.newsify.ui.R
 
 
 fun ImageView.setCompatDrawable(@DrawableRes id: Int) {
