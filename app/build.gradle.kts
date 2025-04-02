@@ -1,3 +1,4 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -46,6 +47,14 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.3.2"
+    }
 }
 
 dependencies {
@@ -55,6 +64,17 @@ dependencies {
     implementation(project(":news:sources"))
     implementation(project(":news:search"))
     implementation(project(":news:setting"))
+
+    implementation(platform(libs.compose.bom))
+    androidTestImplementation(platform(libs.compose.bom))
+
+    implementation(libs.runtime)
+    implementation(libs.ui)
+    implementation(libs.foundation)
+    implementation(libs.foundation.layout)
+    implementation(libs.material3)
+    implementation(libs.runtime.livedata)
+    implementation(libs.ui.tooling)
 
     implementation(libs.navigationFragmentKtx)
     implementation(libs.navigationUiKtx)
