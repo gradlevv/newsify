@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">newsify</string>
+    <string name="sources">sources</string>
+    <string name="home">home</string>
+    <string name="setting">setting</string>
+    <string name="search">searching</string>
 </resources>
