@@ -27,6 +27,7 @@ dependencies {
     implementation(platform(libs.compose.bom))
     androidTestImplementation(platform(libs.compose.bom))
     implementation(libs.androidx.material.icons.extended)
+    implementation(libs.androidx.material3)
 
     api(libs.glide)
     kapt(libs.glideCompiler)
