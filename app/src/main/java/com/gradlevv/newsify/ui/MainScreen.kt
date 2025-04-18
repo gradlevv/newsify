@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.gradlevv.newsify.navigation.NewsifyNavigationBar
+import com.gradlevv.newsify.navigation.RootScreen
 import com.gradlevv.newsify.navigation.TopLevelScreen
 
 
@@ -20,17 +21,25 @@ fun MainScreen(
             NewsifyNavigationBar(
                 destinations = TopLevelScreen.entries,
                 onNavigationSelected = { destination ->
-                    val navOption = navOptions {
+                    val navOptions = navOptions {
                         launchSingleTop = true
                     }
                     when (destination) {
                         TopLevelScreen.HOME -> {
-                            navController.navigate(TopLevelScreen.HOME)
+                            navController.navigate(RootScreen.Home.route, navOptions)
                         }
 
-                        TopLevelScreen.SOURCES -> {}
-                        TopLevelScreen.SEARCH -> {}
-                        TopLevelScreen.SETTING -> {}
+                        TopLevelScreen.SOURCES -> {
+                            navController.navigate(RootScreen.Sources.route, navOptions)
+                        }
+
+                        TopLevelScreen.SEARCH -> {
+                            navController.navigate(RootScreen.Search.route, navOptions)
+                        }
+
+                        TopLevelScreen.SETTING -> {
+                            navController.navigate(RootScreen.Settings.route, navOptions)
+                        }
                     }
                 },
                 modifier = modifier
