@@ -2,6 +2,7 @@ plugins {
     id("newsify.android.library")
     alias(libs.plugins.kotlin.kapt)
     id("com.google.dagger.hilt.android")
+    kotlin("plugin.serialization") version "2.1.20"
 }
 
 android {
@@ -26,4 +27,9 @@ dependencies {
 
     implementation(libs.navigationUiKtx)
     implementation(libs.navigationFragmentKtx)
+
+    implementation(platform(libs.compose.bom))
+    implementation(libs.navigation.compose)
+
+    implementation(libs.kotlinx.serialization.json)
 }
