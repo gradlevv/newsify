@@ -4,6 +4,7 @@ composeBom = "2025.03.01"
 hiltAndroid = "2.52"
 hiltNavigation = "1.0.0"
 hiltAndroidCompiler = "2.51.1"
+kotlinxSerializationJson = "1.8.1"
 material = "1.7.8"
 material3 = "1.3.1"
 navigationCompose = "2.8.9"
@@ -49,6 +50,7 @@ foundation-layout = { module = "androidx.compose.foundation:foundation-layout" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 material3 = { module = "androidx.compose.material3:material3" }
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 navigation-safeargs = { group = "androidx.navigation", name = "navigation-safe-args-gradle-plugin", version.ref = "navigationVersion" }
