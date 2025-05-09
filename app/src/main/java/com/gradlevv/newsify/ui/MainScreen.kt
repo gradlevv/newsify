@@ -61,7 +61,7 @@ fun MainScreen(
             startDestination = NewsListDestination
         ) {
             newsListScreen()
-
+            searchNewsScreen()
             searchNewsScreen()
         }
     }
