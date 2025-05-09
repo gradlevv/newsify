@@ -16,6 +16,7 @@ import com.gradlevv.list.ui.newsListScreen
 import com.gradlevv.newsify.navigation.NewsifyNavigationBar
 import com.gradlevv.newsify.navigation.RootScreen
 import com.gradlevv.newsify.navigation.TopLevelScreen
+import com.gradlevv.search.ui.searchNewsScreen
 
 
 @Composable
@@ -60,6 +61,8 @@ fun MainScreen(
             startDestination = NewsListDestination
         ) {
             newsListScreen()
+
+            searchNewsScreen()
         }
     }
 }
