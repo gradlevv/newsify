@@ -21,7 +21,7 @@ dependencies {
     implementation(libs.lifecycleViewModelKtx)
     implementation(libs.lifecycleruntimeKtx)
     implementation(libs.lifecycleCommonJava8)
-
+    implementation(libs.material3)
     implementation(libs.retrofit)
     implementation(libs.retrofitGson)
 
