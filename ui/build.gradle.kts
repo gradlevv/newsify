@@ -2,6 +2,7 @@ plugins {
     id("newsify.android.library")
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -12,7 +13,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.2"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
 }
 
@@ -26,7 +27,7 @@ dependencies {
     implementation(libs.androidx.material)
     implementation(platform(libs.compose.bom))
     androidTestImplementation(platform(libs.compose.bom))
-    implementation(libs.androidx.material.icons.extended)
+   implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.ui.tooling)
 

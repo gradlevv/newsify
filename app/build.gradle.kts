@@ -8,6 +8,8 @@ plugins {
     id("com.google.dagger.hilt.android")
 }
 
+
+
 android {
     namespace = "com.gradlevv.newsify"
     compileSdk = libs.versions.compiledSdkVersion.get().toInt()
@@ -53,7 +55,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.2"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
 }
 

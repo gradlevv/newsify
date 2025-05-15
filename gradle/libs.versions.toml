@@ -1,11 +1,12 @@
 [versions]
-compiledSdkVersion = "34"
+compiledSdkVersion = "35"
 composeBom = "2025.05.00"
 hiltAndroid = "2.52"
 hiltNavigation = "1.2.0"
 hiltAndroidCompiler = "2.51.1"
 kotlinxSerializationJson = "1.8.1"
 material = "1.8.1"
+icon = "1.7.8"
 material3 = "1.3.2"
 navigationCompose = "2.9.0"
 targetSdkVersion = "34"
@@ -13,8 +14,8 @@ minSdkVersion = "24"
 major = "0"
 minor = "0"
 patch = "1"
-gradle = "8.2.2"
-kotlin = "1.9.22"
+gradle = "8.6.1"
+kotlin = "2.1.0"
 appCompatVersion = "1.7.0"
 multidexVersion = "2.0.1"
 constraintLayoutVersion = "2.2.1"
@@ -41,7 +42,7 @@ paging = "3.3.6"
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "gradle" }
 androidx-material = { module = "androidx.compose.material:material", version.ref = "material" }
-androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material" }
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "icon" }
 androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiTooling" }
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
@@ -90,6 +91,7 @@ androidxLegacy = { group = "androidx.legacy", name = "legacy-support-v4", versio
 android-application = { id = "com.android.application", version.ref = "gradle" }
 android-library = { id = "com.android.library", version.ref = "gradle" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 navigation-safe-args = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigationVersion" }

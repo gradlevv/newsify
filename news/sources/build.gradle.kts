@@ -2,6 +2,7 @@ plugins {
     id("newsify.android.library")
     alias(libs.plugins.kotlin.kapt)
     id("com.google.dagger.hilt.android")
+    alias(libs.plugins.compose.compiler)
     kotlin("plugin.serialization") version "2.1.20"
 }
 
