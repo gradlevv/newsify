@@ -18,7 +18,7 @@ import com.gradlevv.sources.ui.sourcesScreen
 
 @Composable
 fun MainScreen(
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     val navController = rememberNavController()
     Scaffold(
