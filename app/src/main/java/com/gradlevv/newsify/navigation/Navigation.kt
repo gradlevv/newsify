@@ -10,7 +10,7 @@ import androidx.compose.ui.res.stringResource
 
 
 @Composable
-fun NewsifyNavigationBar(
+fun  NewsifyNavigationBar(
     destinations: List<TopLevelScreen>,
     onNavigationSelected: (TopLevelScreen) -> Unit,
     modifier: Modifier
