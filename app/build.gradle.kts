@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.navigation.safe.args)
-    alias(libs.plugins.compose.compiler)
     id("com.google.dagger.hilt.android")
 }
 
@@ -56,7 +55,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.15"
+        kotlinCompilerExtensionVersion = "1.5.8"
     }
 }
 

@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
     id("com.google.dagger.hilt.android")
-    alias(libs.plugins.compose.compiler)
     kotlin("plugin.serialization") version "2.1.20"
 }
 

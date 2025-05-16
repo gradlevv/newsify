@@ -3,7 +3,7 @@ compiledSdkVersion = "35"
 composeBom = "2025.05.00"
 hiltAndroid = "2.52"
 hiltNavigation = "1.2.0"
-hiltAndroidCompiler = "2.51.1"
+hiltAndroidCompiler = "2.52"
 kotlinxSerializationJson = "1.8.1"
 material = "1.8.1"
 icon = "1.7.8"
@@ -15,7 +15,7 @@ major = "0"
 minor = "0"
 patch = "1"
 gradle = "8.6.1"
-kotlin = "2.1.0"
+kotlin = "1.9.22"
 appCompatVersion = "1.7.0"
 multidexVersion = "2.0.1"
 constraintLayoutVersion = "2.2.1"
@@ -91,7 +91,7 @@ androidxLegacy = { group = "androidx.legacy", name = "legacy-support-v4", versio
 android-application = { id = "com.android.application", version.ref = "gradle" }
 android-library = { id = "com.android.library", version.ref = "gradle" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+compose-compiler = { id = "androidx.compose.compiler", version = "1.5.8" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 navigation-safe-args = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigationVersion" }
