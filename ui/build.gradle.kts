@@ -2,6 +2,7 @@ plugins {
     id("newsify.android.library")
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -12,7 +13,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.8"
+        kotlinCompilerExtensionVersion = "2.0.21"
     }
 }
 
