@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.navigation.safe.args)
     alias(libs.plugins.kotlin.compose)
-    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.hilt)
 }
 
 

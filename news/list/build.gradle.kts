@@ -2,7 +2,7 @@ plugins {
     id("newsify.android.library")
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
-    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.compose)
 }
