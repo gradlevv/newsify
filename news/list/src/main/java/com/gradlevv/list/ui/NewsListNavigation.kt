@@ -1,5 +1,6 @@
 package com.gradlevv.list.ui
 
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
@@ -12,3 +13,7 @@ fun NavGraphBuilder.newsListScreen() {
 
 @Serializable
 data object NewsListDestination
+
+fun NavController.navigateToListScreen() {
+    navigate(NewsListDestination)
+}
