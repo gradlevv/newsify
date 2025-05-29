@@ -1,11 +1,14 @@
 [versions]
+activityCompose = "1.10.1"
 coilCompose = "3.0.0"
 compiledSdkVersion = "35"
 composeBom = "2024.09.00"
 hiltAndroid = "2.51"
 hiltNavigation = "1.2.0"
 hiltAndroidCompiler = "2.51"
+hiltNavigationCompose = "1.2.0"
 kotlinxSerializationJson = "1.6.3"
+lifecycleViewmodelCompose = "2.6.2"
 material = "1.6.7"
 icon = "1.6.7"
 material3 = "1.2.1"
@@ -42,6 +45,9 @@ paging = "3.2.1"
 
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "gradle" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 androidx-material = { module = "androidx.compose.material:material", version.ref = "material" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "icon" }
 androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
