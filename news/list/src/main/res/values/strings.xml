@@ -20,5 +20,6 @@
     <string name="news_list_sports_name">Sports</string>
     <string name="news_list_technology_name">Technology</string>
     <string name="news_list_read_more">Read More</string>
+    <string name="news_list_categories_title">Categories</string>
 
 </resources>
