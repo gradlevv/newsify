@@ -94,10 +94,5 @@ object CoreNetworkModule {
     fun provideLoggingInterceptor(): HttpLoggingInterceptor =
         HttpLoggingInterceptor().apply {
             HttpLoggingInterceptor.Level.BODY
-//            level = if (BuildConfig.DEBUG) {
-//                HttpLoggingInterceptor.Level.BODY
-//            } else {
-//                HttpLoggingInterceptor.Level.NONE
-//            }
         }
 }
