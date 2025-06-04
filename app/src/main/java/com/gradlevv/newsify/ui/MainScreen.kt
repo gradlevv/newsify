@@ -22,7 +22,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.gradlevv.list.ui.NewsListDestination
+import com.gradlevv.list.ui.navigateToDetailScreen
 import com.gradlevv.list.ui.navigateToListScreen
+import com.gradlevv.list.ui.newsDetailScreen
 import com.gradlevv.list.ui.newsListScreen
 import com.gradlevv.newsify.R
 import com.gradlevv.newsify.navigation.NewsifyNavigationBar
@@ -63,7 +65,10 @@ fun MainScreen(
             navController = navController,
             startDestination = NewsListDestination
         ) {
-            newsListScreen()
+            newsListScreen(
+                onNavigateToDetail = { navController.navigateToDetailScreen() }
+            )
+            newsDetailScreen()
             searchNewsScreen()
             settingScreen()
             sourcesScreen()
