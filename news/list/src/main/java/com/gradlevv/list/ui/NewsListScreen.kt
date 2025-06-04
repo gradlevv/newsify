@@ -1,6 +1,7 @@
 package com.gradlevv.list.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,7 +49,10 @@ import com.gradlevv.ui.theme.ColorSurface
 
 
 @Composable
-fun NewsListScreen(viewModel: NewsListViewModel = hiltViewModel()) {
+fun NewsListScreen(
+    viewModel: NewsListViewModel = hiltViewModel(),
+    onNavigateToDetail: (item: TopHeadLinesItem) -> Unit
+) {
 
     val data by viewModel.categoryList.collectAsState()
     val topHeadLines by viewModel.topHeadLinesList.collectAsState()
@@ -84,8 +88,14 @@ fun NewsListScreen(viewModel: NewsListViewModel = hiltViewModel()) {
 
         topHeadLines.items.isNotEmpty() -> {
             Column {
-                TypeItemListComponent(data = data)
-                TopNewsListComponent(data = topHeadLines)
+                TypeItemListComponent(
+                    data = data,
+                    onTypeClick = viewModel::categoryChangeClick
+                )
+                TopNewsListComponent(
+                    data = topHeadLines,
+                    onItemClick = onNavigateToDetail
+                )
             }
         }
     }
@@ -95,7 +105,8 @@ fun NewsListScreen(viewModel: NewsListViewModel = hiltViewModel()) {
 @Composable
 fun TypeItemListComponent(
     modifier: Modifier = Modifier,
-    data: List<CategoryItem>
+    data: List<CategoryItem>,
+    onTypeClick: (item: CategoryItem) -> Unit
 ) {
     Column(modifier = modifier) {
         Text(
@@ -113,7 +124,7 @@ fun TypeItemListComponent(
             )
         ) {
             items(data, key = { it.type }) { item ->
-                TypeItemComponent(item = item)
+                TypeItemComponent(item = item, onTypeClick = onTypeClick)
             }
         }
     }
@@ -123,10 +134,13 @@ fun TypeItemListComponent(
 @Composable
 fun TypeItemComponent(
     modifier: Modifier = Modifier,
-    item: CategoryItem
+    item: CategoryItem,
+    onTypeClick: (item: CategoryItem) -> Unit
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.clickable {
+            onTypeClick(item)
+        },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
@@ -147,7 +161,8 @@ fun TypeItemComponent(
 @Composable
 fun TopNewsListComponent(
     modifier: Modifier = Modifier,
-    data: TopHeadLinesState
+    data: TopHeadLinesState,
+    onItemClick: (item: TopHeadLinesItem) -> Unit
 ) {
 
     val items = data.items
@@ -172,7 +187,7 @@ fun TopNewsListComponent(
             )
         }
         items(items = items, key = { it.title }) { item ->
-            TopNewsComponent(item)
+            TopNewsComponent(item, onItemClick)
         }
     }
 
@@ -180,7 +195,8 @@ fun TopNewsListComponent(
 
 @Composable
 fun TopNewsComponent(
-    item: TopHeadLinesItem
+    item: TopHeadLinesItem,
+    onItemClick: (item: TopHeadLinesItem) -> Unit
 ) {
 
     Card(
@@ -231,7 +247,7 @@ fun TopNewsComponent(
                     .padding(top = 24.dp)
             ) {
                 TextButton(
-                    onClick = {},
+                    onClick = { onItemClick(item) },
                     modifier = Modifier.align(Alignment.CenterEnd)
                 ) {
                     Text(
@@ -254,7 +270,7 @@ fun TopNewsComponent(
                 }
 
                 TextButton(
-                    onClick = {},
+                    onClick = { onItemClick(item) },
                     modifier = Modifier.align(Alignment.CenterStart)
                 ) {
                     Icon(
