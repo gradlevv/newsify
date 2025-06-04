@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -39,6 +40,7 @@ import com.gradlevv.list.domain.CategoryItem
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.list.ui.state.TopHeadLinesState
 import com.gradlevv.newsify.news.list.R
+import com.gradlevv.ui.component.FullScreenCentered
 import com.gradlevv.ui.theme.ColorOnBackground100
 import com.gradlevv.ui.theme.ColorOnBackground70
 import com.gradlevv.ui.theme.ColorPrimary
@@ -51,9 +53,41 @@ fun NewsListScreen(viewModel: NewsListViewModel = hiltViewModel()) {
     val data by viewModel.categoryList.collectAsState()
     val topHeadLines by viewModel.topHeadLinesList.collectAsState()
 
-    Column {
-        TypeItemListComponent(data = data)
-        TopNewsListComponent(data = topHeadLines)
+
+    when {
+
+        topHeadLines.isLoading -> {
+
+            FullScreenCentered {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .size(72.dp)
+                        .align(Alignment.Center),
+                    color = ColorOnBackground100,
+                    trackColor = ColorPrimary,
+                )
+            }
+
+        }
+
+        topHeadLines.isError -> {
+
+            FullScreenCentered {
+                Text(
+                    text = stringResource(
+                        R.string.news_list_something_gets_wrong
+                    ),
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+        }
+
+        topHeadLines.items.isNotEmpty() -> {
+            Column {
+                TypeItemListComponent(data = data)
+                TopNewsListComponent(data = topHeadLines)
+            }
+        }
     }
 
 }
