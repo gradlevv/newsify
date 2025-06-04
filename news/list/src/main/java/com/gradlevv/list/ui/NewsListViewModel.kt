@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class NewsListViewModel @Inject constructor(
     private val getTopHeadLinesUseCase: GetTopHeadLinesUseCase,
-    private val getCategoryTypeUseCase: GetCategoryTypeUseCase
+    getCategoryTypeUseCase: GetCategoryTypeUseCase
 ) : BaseViewModel() {
 
     private val _topHeadLinesList = MutableStateFlow(TopHeadLinesState.Empty)
@@ -35,6 +35,7 @@ class NewsListViewModel @Inject constructor(
 
 
     init {
+
         _categoryList.value = getCategoryTypeUseCase()
         getTopHeadlines()
     }
@@ -65,8 +66,8 @@ class NewsListViewModel @Inject constructor(
         navigate(R.string.news_detail_fragment, navOptions)
     }
 
-    fun categoryChangeClick(selectedCategory: String) {
-        category = selectedCategory
+    fun categoryChangeClick(selectedCategory: CategoryItem) {
+        category = selectedCategory.type
         getTopHeadlines()
     }
 }
