@@ -5,7 +5,7 @@ import com.gradlevv.core.data.model.mapTo
 import com.gradlevv.core.data.network.ResponseHandler
 import com.gradlevv.core.util.IoDispatcher
 import com.gradlevv.list.data.TopHeadLinesMapper
-import com.gradlevv.list.data.model.CategoryType
+import com.gradlevv.list.domain.model.CategoryType
 import com.gradlevv.list.domain.CategoryItem
 import com.gradlevv.list.domain.NewsListRepository
 import com.gradlevv.list.domain.TopHeadLinesItem
@@ -39,7 +39,7 @@ class NewsListRepositoryImpl @Inject constructor(
         ).map { categoryType ->
             CategoryItem(
                 type = categoryType.type,
-                categoryName = categoryType.categoryName,
+                categoryName = categoryType.categoryLabelRes,
                 icon = categoryType.icon
             )
         }

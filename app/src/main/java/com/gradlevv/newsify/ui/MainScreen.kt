@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -28,6 +29,8 @@ import com.gradlevv.list.ui.newsDetailScreen
 import com.gradlevv.list.ui.newsListScreen
 import com.gradlevv.newsify.R
 import com.gradlevv.newsify.navigation.NewsifyNavigationBar
+import com.gradlevv.newsify.navigation.bottomBarRoutes
+import com.gradlevv.newsify.navigation.isBottomBarVisible
 import com.gradlevv.search.ui.navigateToSearchScreen
 import com.gradlevv.search.ui.searchNewsScreen
 import com.gradlevv.setting.ui.navigateToSettingScreen
@@ -42,6 +45,9 @@ fun MainScreen(
     modifier: Modifier = Modifier
 ) {
     val navController = rememberNavController()
+    val currentEntry by navController.currentBackStackEntryAsState()
+    val isBottomBarVisible = currentEntry.isBottomBarVisible(bottomBarRoutes)
+
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -50,14 +56,16 @@ fun MainScreen(
             )
         },
         bottomBar = {
-            NewsifyNavigationBar(
-                hierarchy = navController.currentBackStackEntryAsState().value
-                    ?.destination?.hierarchy,
-                onNavigateToHomeClick = { navController.navigateToListScreen() },
-                onNavigateToSearchClick = { navController.navigateToSearchScreen() },
-                onNavigateToSourcesClick = { navController.navigateToSourcesScreen() },
-                onNavigateToSettingClick = { navController.navigateToSettingScreen() },
-            )
+            if (isBottomBarVisible) {
+                NewsifyNavigationBar(
+                    hierarchy = navController.currentBackStackEntryAsState().value
+                        ?.destination?.hierarchy,
+                    onNavigateToHomeClick = { navController.navigateToListScreen() },
+                    onNavigateToSearchClick = { navController.navigateToSearchScreen() },
+                    onNavigateToSourcesClick = { navController.navigateToSourcesScreen() },
+                    onNavigateToSettingClick = { navController.navigateToSettingScreen() },
+                )
+            }
         }
     ) { padding ->
         NavHost(

@@ -10,7 +10,7 @@ fun NavGraphBuilder.newsListScreen(
     onNavigateToDetail: (item: TopHeadLinesItem) -> Unit
 ) {
     composable<NewsListDestination> {
-        NewsListScreen(onNavigateToDetail = onNavigateToDetail )
+        NewsListScreen(onNavigateToDetail = onNavigateToDetail)
     }
 }
 
