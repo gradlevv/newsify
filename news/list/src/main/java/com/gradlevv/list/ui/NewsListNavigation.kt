@@ -4,19 +4,27 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradlevv.list.domain.TopHeadLinesItem
+import com.gradlevv.ui.base.Destination
 import kotlinx.serialization.Serializable
 
 fun NavGraphBuilder.newsListScreen(
     onNavigateToDetail: (item: TopHeadLinesItem) -> Unit
 ) {
-    composable<NewsListDestination> {
+    composable(NewsListDestination.route) {
         NewsListScreen(onNavigateToDetail = onNavigateToDetail)
     }
 }
 
 @Serializable
-data object NewsListDestination
+data object NewsListDestination : Destination {
+    override val route = "NewsListDestination"
+}
 
-fun NavController.navigateToListScreen() {
-    navigate(NewsListDestination)
+@Serializable
+data object NewsGraph : Destination {
+    override val route = "NewGraph"
+}
+
+fun NavController.navigateToNewsGraph() {
+    navigate(NewsGraph.route)
 }

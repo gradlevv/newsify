@@ -21,10 +21,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.gradlevv.list.ui.NewsGraph
 import com.gradlevv.list.ui.NewsListDestination
 import com.gradlevv.list.ui.navigateToDetailScreen
-import com.gradlevv.list.ui.navigateToListScreen
+import com.gradlevv.list.ui.navigateToNewsGraph
 import com.gradlevv.list.ui.newsDetailScreen
 import com.gradlevv.list.ui.newsListScreen
 import com.gradlevv.newsify.R
@@ -60,7 +62,7 @@ fun MainScreen(
                 NewsifyNavigationBar(
                     hierarchy = navController.currentBackStackEntryAsState().value
                         ?.destination?.hierarchy,
-                    onNavigateToHomeClick = { navController.navigateToListScreen() },
+                    onNavigateToHomeClick = { navController.navigateToNewsGraph() },
                     onNavigateToSearchClick = { navController.navigateToSearchScreen() },
                     onNavigateToSourcesClick = { navController.navigateToSourcesScreen() },
                     onNavigateToSettingClick = { navController.navigateToSettingScreen() },
@@ -71,12 +73,18 @@ fun MainScreen(
         NavHost(
             modifier = modifier.padding(padding),
             navController = navController,
-            startDestination = NewsListDestination
+            startDestination = NewsGraph.route
         ) {
-            newsListScreen(
-                onNavigateToDetail = { navController.navigateToDetailScreen() }
-            )
-            newsDetailScreen()
+
+            navigation(
+                startDestination = NewsListDestination.route,
+                route = NewsGraph.route
+            ) {
+                newsListScreen(
+                    onNavigateToDetail = { navController.navigateToDetailScreen() }
+                )
+                newsDetailScreen()
+            }
             searchNewsScreen()
             settingScreen()
             sourcesScreen()
