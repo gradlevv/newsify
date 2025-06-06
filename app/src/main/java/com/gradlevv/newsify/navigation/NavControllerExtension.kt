@@ -17,7 +17,7 @@ fun NavBackStackEntry?.isBottomBarVisible(destinations: Set<String?>): Boolean {
 }
 
 val bottomBarRoutes = setOf(
-    NewsListDestination::class.qualifiedName,
+    NewsListDestination.route,
     SearchNewsDestination::class.qualifiedName,
     NewsSourcesDestination::class.qualifiedName,
     SettingDestination::class.qualifiedName

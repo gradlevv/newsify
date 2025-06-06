@@ -51,7 +51,7 @@ import com.gradlevv.ui.theme.ColorSurface
 @Composable
 fun NewsListScreen(
     viewModel: NewsListViewModel = hiltViewModel(),
-    onNavigateToDetail: (item: TopHeadLinesItem) -> Unit
+    onNavigateToDetail: () -> Unit
 ) {
 
     val data by viewModel.categoryList.collectAsState()
@@ -90,7 +90,10 @@ fun NewsListScreen(
             Column {
                 TypeItemListComponent(
                     data = data,
-                    onTypeClick = viewModel::categoryChangeClick
+                    onTypeClick = {
+                        viewModel.categoryChangeClick(it)
+                        onNavigateToDetail()
+                    }
                 )
                 TopNewsListComponent(
                     data = topHeadLines,
@@ -162,7 +165,7 @@ fun TypeItemComponent(
 fun TopNewsListComponent(
     modifier: Modifier = Modifier,
     data: TopHeadLinesState,
-    onItemClick: (item: TopHeadLinesItem) -> Unit
+    onItemClick: () -> Unit
 ) {
 
     val items = data.items
@@ -196,7 +199,7 @@ fun TopNewsListComponent(
 @Composable
 fun TopNewsComponent(
     item: TopHeadLinesItem,
-    onItemClick: (item: TopHeadLinesItem) -> Unit
+    onItemClick: () -> Unit
 ) {
 
     Card(
@@ -247,7 +250,7 @@ fun TopNewsComponent(
                     .padding(top = 24.dp)
             ) {
                 TextButton(
-                    onClick = { onItemClick(item) },
+                    onClick = { onItemClick() },
                     modifier = Modifier.align(Alignment.CenterEnd)
                 ) {
                     Text(
@@ -270,7 +273,7 @@ fun TopNewsComponent(
                 }
 
                 TextButton(
-                    onClick = { onItemClick(item) },
+                    onClick = { onItemClick() },
                     modifier = Modifier.align(Alignment.CenterStart)
                 ) {
                     Icon(

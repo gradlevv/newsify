@@ -83,7 +83,7 @@ fun MainScreen(
                 newsListScreen(
                     onNavigateToDetail = { navController.navigateToDetailScreen() }
                 )
-                newsDetailScreen()
+                newsDetailScreen(navController)
             }
             searchNewsScreen()
             settingScreen()
