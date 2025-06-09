@@ -13,6 +13,7 @@ import com.gradlevv.ui.utils.navOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -42,17 +43,21 @@ class NewsListViewModel @Inject constructor(
 
     private fun getTopHeadlines() {
 
-        _topHeadLinesList.value = TopHeadLinesState(isLoading = true)
+        _topHeadLinesList.update { TopHeadLinesState(isLoading = true) }
         viewModelScope.launch {
 
             when (val result = getTopHeadLinesUseCase(category)) {
 
                 is Result.Success -> {
-                    _topHeadLinesList.value = TopHeadLinesState(items = result.data ?: emptyList())
+                    _topHeadLinesList.update {
+                        TopHeadLinesState(
+                            items = result.data ?: emptyList()
+                        )
+                    }
                 }
 
                 is Result.Error -> {
-                    _topHeadLinesList.value = TopHeadLinesState(isError = true)
+                    _topHeadLinesList.update { TopHeadLinesState(isError = true) }
                     errorMessage.value = result.error
                 }
             }
@@ -62,7 +67,7 @@ class NewsListViewModel @Inject constructor(
     }
 
     fun navigateToNewsDetail(topHeadLinesItem: TopHeadLinesItem) {
-        _newsDetailItem.value = topHeadLinesItem
+        _newsDetailItem.update { topHeadLinesItem }
         navigate(R.string.news_detail_fragment, navOptions)
     }
 
