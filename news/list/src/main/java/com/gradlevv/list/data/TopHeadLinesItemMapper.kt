@@ -12,7 +12,7 @@ class TopHeadLinesItemMapper @Inject constructor() :
     override fun mapTo(from: TopHeadLinesResponse.Article): TopHeadLinesItem {
         return TopHeadLinesItem(
             source = TopHeadLinesItem.SourceItem(
-                id = from.source?.id ?: "",
+                id = from.source?.id ?: System.currentTimeMillis().toString(),
                 name = from.source?.name ?: ""
             ),
             author = from.author ?: "",
