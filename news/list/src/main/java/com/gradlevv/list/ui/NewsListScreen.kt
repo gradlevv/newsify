@@ -59,53 +59,97 @@ fun NewsListScreen(
     val parentEntry = remember(navController) { navController.getBackStackEntry(NewsGraph.route) }
     val viewModel: NewsListViewModel = hiltViewModel(parentEntry)
 
-    val data by viewModel.categoryList.collectAsState()
-    val topHeadLines by viewModel.topHeadLinesList.collectAsState()
+    val types by viewModel.categoryList.collectAsState()
+    val uiState by viewModel.topHeadLinesList.collectAsState()
 
+    NewsListComponent(
+        types = types,
+        uiState = uiState,
+        onNavigateToDetailClick = onNavigateToDetail,
+        onCategoryClick = { viewModel.categoryChangeClick(it) }
+    )
+
+}
+
+@Composable
+fun NewsListComponent(
+    types: List<CategoryItem> = listOf(),
+    uiState: TopHeadLinesState,
+    onNavigateToDetailClick: () -> Unit,
+    onCategoryClick: (CategoryItem) -> Unit,
+    loadingContent: @Composable () -> Unit = {
+        LoadingComponent()
+    },
+    errorContent: @Composable () -> Unit = {
+        ErrorComponent()
+    },
+    content: @Composable () -> Unit = {
+        TopNewsContent(
+            types = types,
+            uiState = uiState,
+            onNavigateToDetailClick = onNavigateToDetailClick,
+            onCategoryClick = onCategoryClick
+        )
+    }
+) {
 
     when {
+        uiState.isLoading -> loadingContent()
+        uiState.isError -> errorContent()
+        else -> content()
 
-        topHeadLines.isLoading -> {
+    }
+}
 
-            FullScreenCentered {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .size(72.dp)
-                        .align(Alignment.Center),
-                    color = ColorOnBackground100,
-                    trackColor = ColorPrimary,
-                )
+@Composable
+fun LoadingComponent() {
+
+    FullScreenCentered {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .size(72.dp)
+                .align(Alignment.Center),
+            color = ColorOnBackground100,
+            trackColor = ColorPrimary,
+        )
+    }
+
+}
+
+@Composable
+fun ErrorComponent() {
+
+    FullScreenCentered {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .size(72.dp)
+                .align(Alignment.Center),
+            color = ColorOnBackground100,
+            trackColor = ColorPrimary,
+        )
+    }
+
+}
+
+@Composable
+fun TopNewsContent(
+    types: List<CategoryItem> = listOf(),
+    uiState: TopHeadLinesState,
+    onNavigateToDetailClick: () -> Unit,
+    onCategoryClick: (CategoryItem) -> Unit
+) {
+    Column {
+        TypeItemListComponent(
+            types = types,
+            onTypeClick = {
+                onCategoryClick(it)
+                onNavigateToDetailClick()
             }
-
-        }
-
-        topHeadLines.isError -> {
-
-            FullScreenCentered {
-                Text(
-                    text = stringResource(
-                        R.string.news_list_something_gets_wrong
-                    ),
-                    modifier = Modifier.align(Alignment.Center)
-                )
-            }
-        }
-
-        topHeadLines.items.isNotEmpty() -> {
-            Column {
-                TypeItemListComponent(
-                    data = data,
-                    onTypeClick = {
-                        viewModel.categoryChangeClick(it)
-                        onNavigateToDetail()
-                    }
-                )
-                TopNewsListComponent(
-                    data = topHeadLines,
-                    onItemClick = onNavigateToDetail
-                )
-            }
-        }
+        )
+        TopNewsListComponent(
+            data = uiState,
+            onItemClick = onNavigateToDetailClick
+        )
     }
 
 }
@@ -113,7 +157,7 @@ fun NewsListScreen(
 @Composable
 fun TypeItemListComponent(
     modifier: Modifier = Modifier,
-    data: List<CategoryItem>,
+    types: List<CategoryItem>,
     onTypeClick: (item: CategoryItem) -> Unit
 ) {
     Column(modifier = modifier) {
@@ -131,7 +175,7 @@ fun TypeItemListComponent(
                 start = 8.dp, end = 8.dp
             )
         ) {
-            items(data, key = { it.type }) { item ->
+            items(types, key = { it.type }) { item ->
                 TypeItemComponent(item = item, onTypeClick = onTypeClick)
             }
         }
