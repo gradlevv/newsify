@@ -25,6 +25,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,6 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
 import com.gradlevv.list.domain.CategoryItem
 import com.gradlevv.list.domain.TopHeadLinesItem
@@ -50,9 +52,12 @@ import com.gradlevv.ui.theme.ColorSurface
 
 @Composable
 fun NewsListScreen(
-    viewModel: NewsListViewModel = hiltViewModel(),
+    navController: NavHostController,
     onNavigateToDetail: () -> Unit
 ) {
+
+    val parentEntry = remember(navController) { navController.getBackStackEntry(NewsGraph.route) }
+    val viewModel: NewsListViewModel = hiltViewModel(parentEntry)
 
     val data by viewModel.categoryList.collectAsState()
     val topHeadLines by viewModel.topHeadLinesList.collectAsState()

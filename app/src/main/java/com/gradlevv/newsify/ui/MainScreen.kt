@@ -81,6 +81,7 @@ fun MainScreen(
                 route = NewsGraph.route
             ) {
                 newsListScreen(
+                    navHostController = navController,
                     onNavigateToDetail = { navController.navigateToDetailScreen() }
                 )
                 newsDetailScreen(navController)
