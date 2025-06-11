@@ -149,7 +149,17 @@ fun TopNewsContent(
         TopNewsListComponent(
             data = uiState,
             onItemClick = onNavigateToDetailClick
-        )
+        ) {
+            Text(
+                modifier = Modifier.padding(
+                    start = 12.dp,
+                ),
+                text = stringResource(
+                    R.string.news_list_lines_title
+                ),
+                color = ColorOnBackground100,
+            )
+        }
     }
 
 }
@@ -214,7 +224,8 @@ fun TypeItemComponent(
 fun TopNewsListComponent(
     modifier: Modifier = Modifier,
     data: TopHeadLinesState,
-    onItemClick: () -> Unit
+    onItemClick: () -> Unit,
+    topContent: @Composable () -> Unit
 ) {
 
     val items = data.items
@@ -228,15 +239,7 @@ fun TopNewsListComponent(
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item {
-            Text(
-                modifier = Modifier.padding(
-                    start = 12.dp,
-                ),
-                text = stringResource(
-                    R.string.news_list_lines_title
-                ),
-                color = ColorOnBackground100,
-            )
+            topContent()
         }
         items(items = items, key = { it.title }) { item ->
             TopNewsComponent(item, onItemClick)
