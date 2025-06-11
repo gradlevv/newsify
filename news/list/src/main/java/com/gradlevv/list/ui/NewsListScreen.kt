@@ -53,7 +53,8 @@ import com.gradlevv.ui.theme.ColorSurface
 @Composable
 fun NewsListScreen(
     navController: NavHostController,
-    onNavigateToDetail: () -> Unit
+    onNavigateToDetail: () -> Unit,
+    onNavigateToCategory: () -> Unit
 ) {
 
     val parentEntry = remember(navController) { navController.getBackStackEntry(NewsGraph.route) }
@@ -66,7 +67,10 @@ fun NewsListScreen(
         types = types,
         uiState = uiState,
         onNavigateToDetailClick = onNavigateToDetail,
-        onCategoryClick = { viewModel.categoryChangeClick(it) }
+        onCategoryClick = {
+            viewModel.categoryChangeClick(it)
+            onNavigateToCategory()
+        }
     )
 
 }
@@ -143,7 +147,6 @@ fun TopNewsContent(
             types = types,
             onTypeClick = {
                 onCategoryClick(it)
-                onNavigateToDetailClick()
             }
         )
         TopNewsListComponent(

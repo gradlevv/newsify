@@ -9,12 +9,14 @@ import kotlinx.serialization.Serializable
 
 fun NavGraphBuilder.newsListScreen(
     navHostController: NavHostController,
-    onNavigateToDetail: () -> Unit
+    onNavigateToDetail: () -> Unit,
+    onNavigateToCategory: () -> Unit,
 ) {
     composable(NewsListDestination.route) {
         NewsListScreen(
             navController = navHostController,
-            onNavigateToDetail = onNavigateToDetail
+            onNavigateToDetail = onNavigateToDetail,
+            onNavigateToCategory = onNavigateToCategory
         )
     }
 }

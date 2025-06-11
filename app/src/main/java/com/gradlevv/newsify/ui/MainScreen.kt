@@ -25,6 +25,8 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.gradlevv.list.ui.NewsGraph
 import com.gradlevv.list.ui.NewsListDestination
+import com.gradlevv.list.ui.categoryScreen
+import com.gradlevv.list.ui.navigateToCategoryScreen
 import com.gradlevv.list.ui.navigateToDetailScreen
 import com.gradlevv.list.ui.navigateToNewsGraph
 import com.gradlevv.list.ui.newsDetailScreen
@@ -82,8 +84,10 @@ fun MainScreen(
             ) {
                 newsListScreen(
                     navHostController = navController,
-                    onNavigateToDetail = { navController.navigateToDetailScreen() }
+                    onNavigateToDetail = { navController.navigateToDetailScreen() },
+                    onNavigateToCategory = { navController.navigateToCategoryScreen() }
                 )
+                categoryScreen(navController)
                 newsDetailScreen(navController)
             }
             searchNewsScreen()
