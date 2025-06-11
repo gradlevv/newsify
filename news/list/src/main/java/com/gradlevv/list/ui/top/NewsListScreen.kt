@@ -1,4 +1,4 @@
-package com.gradlevv.list.ui
+package com.gradlevv.list.ui.top
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -41,6 +41,7 @@ import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
 import com.gradlevv.list.domain.CategoryItem
 import com.gradlevv.list.domain.TopHeadLinesItem
+import com.gradlevv.list.ui.NewsListViewModel
 import com.gradlevv.list.ui.state.TopHeadLinesState
 import com.gradlevv.newsify.news.list.R
 import com.gradlevv.ui.component.FullScreenCentered

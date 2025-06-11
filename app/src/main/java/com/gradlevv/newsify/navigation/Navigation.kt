@@ -5,10 +5,9 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.data.SourceLocation
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
-import com.gradlevv.list.ui.NewsListDestination
+import com.gradlevv.list.ui.top.NewsListDestination
 import com.gradlevv.newsify.ui.R
 import com.gradlevv.search.ui.SearchNewsDestination
 import com.gradlevv.setting.ui.SettingDestination

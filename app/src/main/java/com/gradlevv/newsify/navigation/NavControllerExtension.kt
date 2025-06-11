@@ -2,7 +2,7 @@ package com.gradlevv.newsify.navigation
 
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination.Companion.hierarchy
-import com.gradlevv.list.ui.NewsListDestination
+import com.gradlevv.list.ui.top.NewsListDestination
 import com.gradlevv.search.ui.SearchNewsDestination
 import com.gradlevv.setting.ui.SettingDestination
 import com.gradlevv.sources.ui.NewsSourcesDestination

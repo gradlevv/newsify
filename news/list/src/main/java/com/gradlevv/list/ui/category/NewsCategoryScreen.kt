@@ -1,4 +1,4 @@
-package com.gradlevv.list.ui
+package com.gradlevv.list.ui.category
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -14,7 +14,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.gradlevv.list.ui.NewsListViewModel
 import com.gradlevv.list.ui.state.TopHeadLinesState
+import com.gradlevv.list.ui.top.ErrorComponent
+import com.gradlevv.list.ui.top.LoadingComponent
+import com.gradlevv.list.ui.top.NewsGraph
+import com.gradlevv.list.ui.top.TopNewsListComponent
 import com.gradlevv.ui.theme.ColorOnBackground100
 
 
