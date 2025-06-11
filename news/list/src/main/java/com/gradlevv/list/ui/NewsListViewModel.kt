@@ -32,8 +32,6 @@ class NewsListViewModel @Inject constructor(
     private val _categoryList = MutableStateFlow<List<CategoryItem>>(listOf())
     val categoryList = _categoryList.asStateFlow()
 
-    private var category = "general"
-
 
     init {
 
@@ -43,21 +41,31 @@ class NewsListViewModel @Inject constructor(
 
     private fun getTopHeadlines() {
 
-        _topHeadLinesList.update { TopHeadLinesState(isLoading = true) }
+        _topHeadLinesList.update { it.copy(isLoading = true) }
+        val category = _topHeadLinesList.value.type
+
         viewModelScope.launch {
 
             when (val result = getTopHeadLinesUseCase(category)) {
 
                 is Result.Success -> {
                     _topHeadLinesList.update {
-                        TopHeadLinesState(
-                            items = result.data ?: emptyList()
+                        it.copy(
+                            isLoading = false,
+                            isError = false,
+                            items = result.data.orEmpty()
                         )
                     }
                 }
 
                 is Result.Error -> {
-                    _topHeadLinesList.update { TopHeadLinesState(isError = true) }
+                    _topHeadLinesList.update {
+                        it.copy(
+                            isLoading = false,
+                            isError = true,
+                            items = emptyList()
+                        )
+                    }
                     errorMessage.value = result.error
                 }
             }
@@ -72,7 +80,12 @@ class NewsListViewModel @Inject constructor(
     }
 
     fun categoryChangeClick(selectedCategory: CategoryItem) {
-        category = selectedCategory.type
+        _topHeadLinesList.update {
+            it.copy(
+                type = selectedCategory.type,
+                categoryName = selectedCategory.categoryName
+            )
+        }
         getTopHeadlines()
     }
 }

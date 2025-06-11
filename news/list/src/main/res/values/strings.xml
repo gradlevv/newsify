@@ -14,7 +14,7 @@
     <string name="news_list_technology_type">technology</string>
     <string name="news_list_business_name">Business</string>
     <string name="news_list_entertainment_name">Entertainment</string>
-    <string name="news_list_general_name">General</string>
+    <string name="news_list_general_name">General News</string>
     <string name="news_list_health_name">Health</string>
     <string name="news_list_science_name">Science</string>
     <string name="news_list_sports_name">Sports</string>
