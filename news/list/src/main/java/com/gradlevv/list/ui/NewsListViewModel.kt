@@ -3,8 +3,8 @@ package com.gradlevv.list.ui
 import androidx.lifecycle.viewModelScope
 import com.gradlevv.core.base.BaseViewModel
 import com.gradlevv.core.data.model.Result
-import com.gradlevv.list.domain.CategoryItem
 import com.gradlevv.list.domain.TopHeadLinesItem
+import com.gradlevv.list.domain.model.CategoryType
 import com.gradlevv.list.domain.usecase.GetCategoryTypeUseCase
 import com.gradlevv.list.domain.usecase.GetTopHeadLinesUseCase
 import com.gradlevv.list.ui.state.TopHeadLinesState
@@ -29,7 +29,7 @@ class NewsListViewModel @Inject constructor(
     private val _newsDetailItem = MutableStateFlow<TopHeadLinesItem?>(null)
     val newsDetailItem = _newsDetailItem.asStateFlow()
 
-    private val _categoryList = MutableStateFlow<List<CategoryItem>>(listOf())
+    private val _categoryList = MutableStateFlow<List<CategoryType>>(listOf())
     val categoryList = _categoryList.asStateFlow()
 
 
@@ -42,7 +42,7 @@ class NewsListViewModel @Inject constructor(
     private fun getTopHeadlines() {
 
         _topHeadLinesList.update { it.copy(isLoading = true) }
-        val category = _topHeadLinesList.value.type
+        val category = _topHeadLinesList.value.selectedCategory.type
 
         viewModelScope.launch {
 
@@ -79,11 +79,10 @@ class NewsListViewModel @Inject constructor(
         navigate(R.string.news_detail_fragment, navOptions)
     }
 
-    fun categoryChangeClick(selectedCategory: CategoryItem) {
+    fun categoryChangeClick(selectedCategory: CategoryType) {
         _topHeadLinesList.update {
             it.copy(
-                type = selectedCategory.type,
-                categoryName = selectedCategory.categoryName
+                selectedCategory = selectedCategory
             )
         }
         getTopHeadlines()

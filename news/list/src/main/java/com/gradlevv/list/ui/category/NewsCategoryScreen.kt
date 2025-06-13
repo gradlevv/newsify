@@ -24,7 +24,7 @@ import com.gradlevv.ui.theme.ColorOnBackground100
 
 
 @Composable
-fun NewsCategoryScreen(navController: NavHostController){
+fun NewsCategoryScreen(navController: NavHostController) {
     val parentEntry = remember(navController) { navController.getBackStackEntry(NewsGraph.route) }
 
     val viewModel: NewsListViewModel = hiltViewModel(parentEntry)
@@ -76,7 +76,7 @@ fun SelectedNewsComponent(
             modifier = Modifier.padding(
                 start = 16.dp,
             ),
-            text = stringResource(uiState.categoryName),
+            text = stringResource(uiState.selectedCategory.categoryLabelRes),
             color = ColorOnBackground100,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,

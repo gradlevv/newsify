@@ -1,21 +1,20 @@
 package com.gradlevv.ui.base
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.gradlevv.core.base.BaseViewModel
 import com.gradlevv.core.data.model.ApiError
 import com.gradlevv.core.util.NavigationModel
+import com.gradlevv.newsify.ui.R
 import com.gradlevv.ui.utils.Colors
 import com.gradlevv.ui.utils.ThemeHandler
-import androidx.core.net.toUri
-import com.gradlevv.newsify.ui.R
 
 abstract class BaseFragment<V : BaseViewModel> : Fragment() {
 
@@ -83,6 +82,8 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
                 is ApiError.Unavailable -> {
                     showSnackbar(getString(R.string.service_unavailable))
                 }
+
+                ApiError.NullError -> {}
             }
         }
     }

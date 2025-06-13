@@ -41,6 +41,7 @@ import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
 import com.gradlevv.list.domain.CategoryItem
 import com.gradlevv.list.domain.TopHeadLinesItem
+import com.gradlevv.list.domain.model.CategoryType
 import com.gradlevv.list.ui.NewsListViewModel
 import com.gradlevv.list.ui.state.TopHeadLinesState
 import com.gradlevv.newsify.news.list.R
@@ -78,10 +79,10 @@ fun NewsListScreen(
 
 @Composable
 fun NewsListComponent(
-    types: List<CategoryItem> = listOf(),
+    types: List<CategoryType> = listOf(),
     uiState: TopHeadLinesState,
     onNavigateToDetailClick: () -> Unit,
-    onCategoryClick: (CategoryItem) -> Unit,
+    onCategoryClick: (CategoryType) -> Unit,
     loadingContent: @Composable () -> Unit = {
         LoadingComponent()
     },
@@ -138,10 +139,10 @@ fun ErrorComponent() {
 
 @Composable
 fun TopNewsContent(
-    types: List<CategoryItem> = listOf(),
+    types: List<CategoryType> = listOf(),
     uiState: TopHeadLinesState,
     onNavigateToDetailClick: () -> Unit,
-    onCategoryClick: (CategoryItem) -> Unit
+    onCategoryClick: (CategoryType) -> Unit
 ) {
     Column {
         TypeItemListComponent(
@@ -171,8 +172,8 @@ fun TopNewsContent(
 @Composable
 fun TypeItemListComponent(
     modifier: Modifier = Modifier,
-    types: List<CategoryItem>,
-    onTypeClick: (item: CategoryItem) -> Unit
+    types: List<CategoryType>,
+    onTypeClick: (item: CategoryType) -> Unit
 ) {
     Column(modifier = modifier) {
         Text(
@@ -200,8 +201,8 @@ fun TypeItemListComponent(
 @Composable
 fun TypeItemComponent(
     modifier: Modifier = Modifier,
-    item: CategoryItem,
-    onTypeClick: (item: CategoryItem) -> Unit
+    item: CategoryType,
+    onTypeClick: (item: CategoryType) -> Unit
 ) {
     Column(
         modifier = modifier.clickable {
@@ -218,7 +219,7 @@ fun TypeItemComponent(
                 .clip(RoundedCornerShape(20.dp)),
         )
         Text(
-            text = stringResource(item.categoryName),
+            text = stringResource(item.categoryLabelRes),
             color = ColorOnBackground70
         )
     }

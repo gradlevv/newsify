@@ -5,7 +5,6 @@ import com.gradlevv.core.data.model.Result
 import com.gradlevv.core.data.model.map
 import com.gradlevv.core.data.network.safeApiCall
 import com.gradlevv.list.data.model.toDomain
-import com.gradlevv.list.domain.CategoryItem
 import com.gradlevv.list.domain.NewsListRepository
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.list.domain.model.CategoryType
@@ -26,7 +25,7 @@ class NewsListRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getCategoryList(): List<CategoryItem> {
+    override fun getCategoryList(): List<CategoryType> {
         val categoryList = listOf(
             CategoryType.General,
             CategoryType.Business,
@@ -35,13 +34,7 @@ class NewsListRepositoryImpl @Inject constructor(
             CategoryType.Technology,
             CategoryType.Science,
             CategoryType.Health
-        ).map { categoryType ->
-            CategoryItem(
-                type = categoryType.type,
-                categoryName = categoryType.categoryLabelRes,
-                icon = categoryType.icon
-            )
-        }
+        )
         return categoryList
     }
 }
