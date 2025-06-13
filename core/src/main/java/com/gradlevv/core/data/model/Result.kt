@@ -14,3 +14,10 @@ fun <From, To> Result<From>.mapTo(mapper: BaseDataMapper<From, To>): Result<To> 
         is Result.Success -> Result.Success(resource.data?.let { mapper.mapTo(it) })
     }
 }
+
+inline fun <From, To> Result<From>.map(transform: (From) -> To): Result<To> {
+    return when (this) {
+        is Result.Success -> Result.Success(data?.let(transform))
+        is Result.Error -> Result.Error(error)
+    }
+}
