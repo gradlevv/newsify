@@ -66,7 +66,6 @@ class NewsListViewModel @Inject constructor(
                             items = emptyList()
                         )
                     }
-                    errorMessage.value = result.error
                 }
             }
 
