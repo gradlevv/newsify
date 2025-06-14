@@ -67,7 +67,10 @@ fun NewsListScreen(
     NewsListComponent(
         types = types,
         uiState = uiState,
-        onNavigateToDetailClick = onNavigateToDetail,
+        onNavigateToDetailClick = {
+            viewModel.navigateToNewsDetail(it)
+            onNavigateToDetail()
+        },
         onCategoryClick = {
             viewModel.categoryChangeClick(it)
             onNavigateToCategory()
@@ -80,7 +83,7 @@ fun NewsListScreen(
 fun NewsListComponent(
     types: List<CategoryType> = listOf(),
     uiState: TopHeadLinesState,
-    onNavigateToDetailClick: () -> Unit,
+    onNavigateToDetailClick: (TopHeadLinesItem) -> Unit,
     onCategoryClick: (CategoryType) -> Unit,
     loadingContent: @Composable () -> Unit = {
         LoadingComponent()
@@ -139,7 +142,7 @@ fun ErrorComponent() {
 fun TopNewsContent(
     types: List<CategoryType> = listOf(),
     uiState: TopHeadLinesState,
-    onNavigateToDetailClick: () -> Unit,
+    onNavigateToDetailClick: (TopHeadLinesItem) -> Unit,
     onCategoryClick: (CategoryType) -> Unit
 ) {
     Column {
@@ -227,7 +230,7 @@ fun TypeItemComponent(
 fun TopNewsListComponent(
     modifier: Modifier = Modifier,
     data: TopHeadLinesState,
-    onItemClick: () -> Unit,
+    onItemClick: (TopHeadLinesItem) -> Unit,
     topContent: @Composable () -> Unit
 ) {
 
@@ -254,7 +257,7 @@ fun TopNewsListComponent(
 @Composable
 fun TopNewsComponent(
     item: TopHeadLinesItem,
-    onItemClick: () -> Unit
+    onItemClick: (TopHeadLinesItem) -> Unit
 ) {
 
     Card(
@@ -305,7 +308,7 @@ fun TopNewsComponent(
                     .padding(top = 24.dp)
             ) {
                 TextButton(
-                    onClick = { onItemClick() },
+                    onClick = { onItemClick(item) },
                     modifier = Modifier.align(Alignment.CenterEnd)
                 ) {
                     Text(
@@ -328,7 +331,7 @@ fun TopNewsComponent(
                 }
 
                 TextButton(
-                    onClick = { onItemClick() },
+                    onClick = { onItemClick(item) },
                     modifier = Modifier.align(Alignment.CenterStart)
                 ) {
                     Icon(

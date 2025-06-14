@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.list.ui.NewsListViewModel
 import com.gradlevv.list.ui.state.TopHeadLinesState
 import com.gradlevv.list.ui.top.ErrorComponent
@@ -42,7 +43,7 @@ fun NewsCategoryScreen(navController: NavHostController) {
 @Composable
 fun NewsCategoryComponent(
     uiState: TopHeadLinesState,
-    onDetailClick: () -> Unit,
+    onDetailClick: (TopHeadLinesItem) -> Unit,
     loadingContent: @Composable () -> Unit = {
         LoadingComponent()
     },
@@ -66,7 +67,7 @@ fun NewsCategoryComponent(
 @Composable
 fun SelectedNewsComponent(
     uiState: TopHeadLinesState,
-    onDetailClick: () -> Unit,
+    onDetailClick: (TopHeadLinesItem) -> Unit,
 ) {
     TopNewsListComponent(
         data = uiState,

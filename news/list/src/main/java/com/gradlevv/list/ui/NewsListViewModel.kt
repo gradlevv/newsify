@@ -3,6 +3,7 @@ package com.gradlevv.list.ui
 import androidx.lifecycle.viewModelScope
 import com.gradlevv.core.base.BaseViewModel
 import com.gradlevv.core.data.model.Result
+import com.gradlevv.core.util.IntentUtils
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.list.domain.model.CategoryType
 import com.gradlevv.list.domain.usecase.GetCategoryTypeUseCase
@@ -20,6 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class NewsListViewModel @Inject constructor(
     private val getTopHeadLinesUseCase: GetTopHeadLinesUseCase,
+    private val intentUtils: IntentUtils,
     getCategoryTypeUseCase: GetCategoryTypeUseCase
 ) : BaseViewModel() {
 
@@ -75,7 +77,6 @@ class NewsListViewModel @Inject constructor(
 
     fun navigateToNewsDetail(topHeadLinesItem: TopHeadLinesItem) {
         _newsDetailItem.update { topHeadLinesItem }
-        navigate(R.string.news_detail_fragment, navOptions)
     }
 
     fun categoryChangeClick(selectedCategory: CategoryType) {
@@ -85,5 +86,9 @@ class NewsListViewModel @Inject constructor(
             )
         }
         getTopHeadlines()
+    }
+
+    fun onReadArticleClick(item: TopHeadLinesItem) {
+        intentUtils.openLinkInDeviceBrowser(item.url)
     }
 }
