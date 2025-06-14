@@ -3,6 +3,7 @@ package com.gradlevv.list.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -11,10 +12,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -49,10 +50,13 @@ fun NewsDetailScreen(navController: NavHostController) {
     val viewModel: NewsListViewModel = hiltViewModel(parentEntry)
     val detail by viewModel.newsDetailItem.collectAsState()
 
-    NewsDetailComponent(
-        item = detail!!,
-        onReadArticleClick = { viewModel.onReadArticleClick(detail ?: return@NewsDetailComponent) }
-    )
+    detail?.let {
+        NewsDetailComponent(
+            item = it,
+            onReadArticleClick = { viewModel.onReadArticleClick(it) }
+        )
+    }
+
 }
 
 @Composable
@@ -133,11 +137,11 @@ fun NewsDetailComponent(
                 )
             }
 
-            VerticalDivider(
+            HorizontalDivider(
                 modifier = Modifier
                     .background(ColorBackground)
                     .fillMaxWidth()
-                    .height(2.dp)
+                    .height(1.dp)
                     .padding(start = 16.dp, end = 16.dp, top = 32.dp)
 
             )
@@ -145,22 +149,23 @@ fun NewsDetailComponent(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 24.dp)
-            ) {
-                TextButton(
-                    onClick = { onReadArticleClick() },
-                    modifier = Modifier.align(Alignment.CenterEnd)
-                ) {
-                    Text(
-                        text = item.author,
-                        color = ColorOnBackground70,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Normal,
+                    .padding(
+                        top = 24.dp,
+                        bottom = 16.dp
                     )
-                }
+            ) {
 
-                TextButton(
-                    onClick = { onReadArticleClick() },
+                Text(
+                    text = item.author,
+                    color = ColorOnBackground70,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Normal,
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .padding(end = 16.dp)
+                )
+
+                Row(
                     modifier = Modifier.align(Alignment.CenterStart)
                 ) {
                     Icon(
@@ -169,9 +174,9 @@ fun NewsDetailComponent(
                                 com.gradlevv.newsify.ui.R.drawable.ic_history_16
                             ),
                         contentDescription = null,
-                        tint = ColorOnBackground70
+                        tint = ColorOnBackground70,
+                        modifier = Modifier.padding(start = 8.dp, end = 8.dp)
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = item.publishedAt,
                         color = ColorOnBackground70,
