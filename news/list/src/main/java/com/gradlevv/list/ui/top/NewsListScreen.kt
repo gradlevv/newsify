@@ -39,7 +39,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
-import com.gradlevv.list.domain.CategoryItem
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.list.domain.model.CategoryType
 import com.gradlevv.list.ui.NewsListViewModel
@@ -126,12 +125,11 @@ fun LoadingComponent() {
 fun ErrorComponent() {
 
     FullScreenCentered {
-        CircularProgressIndicator(
-            modifier = Modifier
-                .size(72.dp)
-                .align(Alignment.Center),
-            color = ColorOnBackground100,
-            trackColor = ColorPrimary,
+        Text(
+            text = stringResource(
+                R.string.news_list_something_gets_wrong
+            ),
+            modifier = Modifier.align(Alignment.Center)
         )
     }
 
