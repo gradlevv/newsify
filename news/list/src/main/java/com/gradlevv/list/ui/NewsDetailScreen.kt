@@ -33,6 +33,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
 import com.gradlevv.list.domain.TopHeadLinesItem
+import com.gradlevv.list.ui.top.ErrorComponent
 import com.gradlevv.list.ui.top.NewsGraph
 import com.gradlevv.newsify.news.list.R
 import com.gradlevv.ui.theme.ColorBackground
@@ -50,11 +51,32 @@ fun NewsDetailScreen(navController: NavHostController) {
     val viewModel: NewsListViewModel = hiltViewModel(parentEntry)
     val detail by viewModel.newsDetailItem.collectAsState()
 
-    detail?.let {
-        NewsDetailComponent(
-            item = it,
-            onReadArticleClick = { viewModel.onReadArticleClick(it) }
-        )
+
+    NewsDetailContent(
+        detail = detail,
+        onReadArticleClick = { viewModel.onReadArticleClick(detail ?: return@NewsDetailContent) }
+    )
+
+
+}
+
+@Composable
+fun NewsDetailContent(
+    detail: TopHeadLinesItem?,
+    onReadArticleClick: () -> Unit,
+    errorContent: @Composable () -> Unit = {
+        ErrorComponent()
+    },
+    mainContent: @Composable () -> Unit = {
+        detail?.let {
+            NewsDetailComponent(item = it, onReadArticleClick = onReadArticleClick)
+        } ?: errorContent()
+    }
+) {
+
+    when (detail) {
+        null -> errorContent()
+        else -> mainContent()
     }
 
 }
@@ -107,6 +129,8 @@ fun NewsDetailComponent(
                 )
             )
 
+            Spacer(modifier = Modifier.height(32.dp))
+
             TextButton(
                 onClick = onReadArticleClick,
                 modifier = Modifier
@@ -137,12 +161,14 @@ fun NewsDetailComponent(
                 )
             }
 
+            Spacer(modifier = Modifier.height(32.dp))
+
             HorizontalDivider(
                 modifier = Modifier
                     .background(ColorBackground)
                     .fillMaxWidth()
                     .height(1.dp)
-                    .padding(start = 16.dp, end = 16.dp, top = 32.dp)
+                    .padding(horizontal = 16.dp)
 
             )
 
