@@ -7,17 +7,21 @@ import com.gradlevv.core.data.model.Result
 import com.gradlevv.core.util.Constants.DATE_FORMAT
 import com.gradlevv.core.util.Constants.SORT_BY
 import com.gradlevv.newsify.core.R
-import com.gradlevv.search.domain.SearchDomainModel
 import com.gradlevv.search.domain.SearchNewsItem
 import com.gradlevv.search.domain.usecase.SearchNewsUseCase
 import com.gradlevv.search.ui.state.SearchNewsState
 import com.gradlevv.ui.utils.navOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -50,14 +54,14 @@ class SearchNewsViewModel @Inject constructor(
                         val simpleDateFormat = SimpleDateFormat(DATE_FORMAT, Locale.US)
                         val date = Date()
 
-                        val request = SearchDomainModel(
+                        val request = SearchNewsUseCase.Params(
                             tag = search.ifEmpty { SEARCH_TAG },
                             from = simpleDateFormat.format(date),
                             to = simpleDateFormat.format(date),
                             sortedBy = SORT_BY
                         )
 
-                        when (val result = searchNewsUseCase(request = request)) {
+                        when (val result = searchNewsUseCase(params = request)) {
 
                             is Result.Success -> {
                                 _searchNewsList.value =

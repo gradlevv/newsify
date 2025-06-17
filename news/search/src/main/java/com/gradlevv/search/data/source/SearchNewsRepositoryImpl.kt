@@ -6,22 +6,22 @@ import com.gradlevv.core.data.model.map
 import com.gradlevv.core.data.network.ResponseHandler
 import com.gradlevv.core.data.network.safeApiCall
 import com.gradlevv.search.data.model.toDomain
-import com.gradlevv.search.domain.SearchDomainModel
 import com.gradlevv.search.domain.SearchNewsItem
 import com.gradlevv.search.domain.SearchNewsRepository
+import com.gradlevv.search.domain.usecase.SearchNewsUseCase.Params
 import javax.inject.Inject
 
 class SearchNewsRepositoryImpl @Inject constructor(
     private val searchNewsService: SearchNewsService,
 ) : ResponseHandler(), SearchNewsRepository {
 
-    override suspend fun searchNews(request: SearchDomainModel): Result<List<SearchNewsItem>> {
+    override suspend fun searchNews(params: Params): Result<List<SearchNewsItem>> {
         return safeApiCall {
             searchNewsService.searchNews(
-                tag = request.tag,
-                from = request.from,
-                to = request.to,
-                sortedBy = request.sortedBy
+                tag = params.tag,
+                from = params.from,
+                to = params.to,
+                sortedBy = params.sortedBy
             )
         }.map {
             val result = it.articleList?.toDomain().orEmpty()
