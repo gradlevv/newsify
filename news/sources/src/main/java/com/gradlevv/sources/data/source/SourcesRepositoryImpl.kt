@@ -3,7 +3,6 @@ package com.gradlevv.sources.data.source
 import com.gradlevv.core.data.model.ApiError
 import com.gradlevv.core.data.model.Result
 import com.gradlevv.core.data.model.map
-import com.gradlevv.core.data.network.ResponseHandler
 import com.gradlevv.core.data.network.safeApiCall
 import com.gradlevv.sources.data.model.CategoryType
 import com.gradlevv.sources.data.model.toDomain
@@ -16,7 +15,7 @@ import javax.inject.Inject
 
 class SourcesRepositoryImpl @Inject constructor(
     private val service: SourcesService,
-) : ResponseHandler(), SourcesRepository {
+) : SourcesRepository {
 
     override suspend fun getSourceList(type: String?): Result<List<SourceItem>> {
         return safeApiCall { service.getSourceList(type) }.map {
