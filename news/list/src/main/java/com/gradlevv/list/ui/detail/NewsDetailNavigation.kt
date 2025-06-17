@@ -1,4 +1,4 @@
-package com.gradlevv.list.ui
+package com.gradlevv.list.ui.detail
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder

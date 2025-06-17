@@ -1,4 +1,4 @@
-package com.gradlevv.list.ui
+package com.gradlevv.list.ui.detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -33,6 +33,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
 import com.gradlevv.list.domain.TopHeadLinesItem
+import com.gradlevv.list.ui.NewsListViewModel
 import com.gradlevv.list.ui.top.ErrorComponent
 import com.gradlevv.list.ui.top.NewsGraph
 import com.gradlevv.newsify.news.list.R

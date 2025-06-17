@@ -32,9 +32,9 @@ import com.gradlevv.list.ui.top.NewsGraph
 import com.gradlevv.list.ui.top.NewsListDestination
 import com.gradlevv.list.ui.category.categoryScreen
 import com.gradlevv.list.ui.category.navigateToCategoryScreen
-import com.gradlevv.list.ui.navigateToDetailScreen
+import com.gradlevv.list.ui.detail.navigateToDetailScreen
 import com.gradlevv.list.ui.top.navigateToNewsGraph
-import com.gradlevv.list.ui.newsDetailScreen
+import com.gradlevv.list.ui.detail.newsDetailScreen
 import com.gradlevv.list.ui.top.newsListScreen
 import com.gradlevv.newsify.R
 import com.gradlevv.newsify.navigation.NewsifyNavigationBar
