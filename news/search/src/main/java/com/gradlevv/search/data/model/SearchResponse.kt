@@ -1,6 +1,7 @@
 package com.gradlevv.search.data.model
 
 import com.google.gson.annotations.SerializedName
+import com.gradlevv.search.domain.SearchNewsItem
 
 
 data class SearchResponse(
@@ -34,4 +35,24 @@ data class SearchResponse(
         @SerializedName("name")
         val name: String?
     )
+}
+
+fun SearchResponse.Article.toDomain(): SearchNewsItem {
+    return SearchNewsItem(
+        source = SearchNewsItem.SourceItem(
+            id = source?.id ?: "",
+            name = source?.name ?: ""
+        ),
+        author = author ?: "",
+        title = title ?: "",
+        description = description ?: "",
+        url = url ?: "",
+        imageUrl = urlToImage ?: "",
+        publishedAt = publishedAt ?: "",
+        content = content ?: ""
+    )
+}
+
+fun List<SearchResponse.Article>.toDomain(): List<SearchNewsItem> {
+    return this.map { it.toDomain() }
 }
