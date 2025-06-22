@@ -44,7 +44,9 @@ import com.gradlevv.list.domain.model.CategoryType
 import com.gradlevv.list.ui.NewsListViewModel
 import com.gradlevv.list.ui.state.TopHeadLinesState
 import com.gradlevv.newsify.news.list.R
+import com.gradlevv.ui.component.ErrorComponent
 import com.gradlevv.ui.component.FullScreenCentered
+import com.gradlevv.ui.component.LoadingComponent
 import com.gradlevv.ui.theme.ColorOnBackground100
 import com.gradlevv.ui.theme.ColorOnBackground70
 import com.gradlevv.ui.theme.ColorPrimary
@@ -107,35 +109,6 @@ fun NewsListComponent(
         else -> content()
 
     }
-}
-
-@Composable
-fun LoadingComponent() {
-
-    FullScreenCentered {
-        CircularProgressIndicator(
-            modifier = Modifier
-                .size(72.dp)
-                .align(Alignment.Center),
-            color = ColorOnBackground100,
-            trackColor = ColorPrimary,
-        )
-    }
-
-}
-
-@Composable
-fun ErrorComponent() {
-
-    FullScreenCentered {
-        Text(
-            text = stringResource(
-                R.string.news_list_something_gets_wrong
-            ),
-            modifier = Modifier.align(Alignment.Center)
-        )
-    }
-
 }
 
 @Composable
