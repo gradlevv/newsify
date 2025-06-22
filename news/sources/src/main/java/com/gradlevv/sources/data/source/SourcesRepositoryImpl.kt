@@ -4,7 +4,7 @@ import com.gradlevv.core.data.model.ApiError
 import com.gradlevv.core.data.model.Result
 import com.gradlevv.core.data.model.map
 import com.gradlevv.core.data.network.safeApiCall
-import com.gradlevv.sources.data.model.CategoryType
+import com.gradlevv.sources.domain.model.CategoryType
 import com.gradlevv.sources.data.model.toDomain
 import com.gradlevv.sources.domain.model.CategoryItem
 import com.gradlevv.sources.domain.model.SourceItem

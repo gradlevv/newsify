@@ -1,4 +1,4 @@
-package com.gradlevv.sources.data.model
+package com.gradlevv.sources.domain.model
 
 import com.gradlevv.newsify.news.sources.R
 
