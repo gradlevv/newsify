@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface SourcesRepository {
     suspend fun getSourceList(type: String?): Result<List<SourceItem>>
-    fun getCategoryList(): Flow<List<CategoryItem>>
+    fun getCategoryList(): List<CategoryItem>
 }
