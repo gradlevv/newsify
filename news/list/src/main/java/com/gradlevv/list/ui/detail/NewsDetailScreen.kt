@@ -34,9 +34,9 @@ import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.list.ui.NewsListViewModel
-import com.gradlevv.list.ui.top.ErrorComponent
 import com.gradlevv.list.ui.top.NewsGraph
 import com.gradlevv.newsify.news.list.R
+import com.gradlevv.ui.component.ErrorComponent
 import com.gradlevv.ui.theme.ColorBackground
 import com.gradlevv.ui.theme.ColorOnBackground100
 import com.gradlevv.ui.theme.ColorOnBackground70

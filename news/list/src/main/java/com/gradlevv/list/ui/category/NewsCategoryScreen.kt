@@ -17,10 +17,10 @@ import androidx.navigation.NavHostController
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.list.ui.NewsListViewModel
 import com.gradlevv.list.ui.state.TopHeadLinesState
-import com.gradlevv.list.ui.top.ErrorComponent
-import com.gradlevv.list.ui.top.LoadingComponent
 import com.gradlevv.list.ui.top.NewsGraph
 import com.gradlevv.list.ui.top.TopNewsListComponent
+import com.gradlevv.ui.component.ErrorComponent
+import com.gradlevv.ui.component.LoadingComponent
 import com.gradlevv.ui.theme.ColorOnBackground100
 
 
