@@ -3,41 +3,41 @@ package com.gradlevv.sources.domain.model
 import com.gradlevv.newsify.news.sources.R
 
 sealed class CategoryType(
-    val type: Int,
+    val type: String,
     val categoryName: Int
 ) {
     object Business : CategoryType(
-        type = R.string.sources_business_type,
+        type = "business",
         categoryName = R.string.sources_business_name
     )
 
     object Entertainment : CategoryType(
-        type = R.string.sources_entertainment_type,
+        type = "entertainment",
         categoryName = R.string.sources_entertainment_name
     )
 
     object General : CategoryType(
-        type = R.string.sources_general_type,
+        type = "general",
         categoryName = R.string.sources_general_name
     )
 
     object Health : CategoryType(
-        type = R.string.sources_health_type,
+        type = "health",
         categoryName = R.string.sources_health_name
     )
 
     object Science : CategoryType(
-        type = R.string.sources_science_type,
+        type = "science",
         categoryName = R.string.sources_science_name
     )
 
     object Sports : CategoryType(
-        type = R.string.sources_sports_type,
+        type = "sports",
         categoryName = R.string.sources_sports_name
     )
 
     object Technology : CategoryType(
-        type = R.string.sources_technology_type,
+        type = "technology",
         categoryName = R.string.sources_technology_name
     )
 
