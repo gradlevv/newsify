@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetSourceListUseCase @Inject constructor(
     private val repository: SourcesRepository
 ) {
-    suspend operator fun invoke(type: String?): Result<List<SourceItem>> {
+    suspend operator fun invoke(type: String): Result<List<SourceItem>> {
         return repository.getSourceList(type)
     }
 }
