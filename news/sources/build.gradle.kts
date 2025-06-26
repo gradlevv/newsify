@@ -32,6 +32,8 @@ dependencies {
 
     implementation(platform(libs.compose.bom))
     implementation(libs.navigation.compose)
+    implementation(libs.ui.tooling)
+
 
     implementation(libs.kotlinx.serialization.json)
 
