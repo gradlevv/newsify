@@ -17,6 +17,6 @@ fun ScreenStateHandler(
         isLoading -> loadingContent()
         isError -> errorContent()
         isEmpty -> emptyContent()
-        else -> content
+        else -> content()
     }
 }
