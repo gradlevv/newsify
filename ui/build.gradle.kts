@@ -34,6 +34,10 @@ dependencies {
     api(libs.glide)
     kapt(libs.glideCompiler)
 
+    implementation(platform(libs.compose.bom))
+    implementation(libs.navigation.compose)
+    implementation(libs.ui.tooling)
+
     implementation(libs.navigationUiKtx)
     implementation(libs.navigationFragmentKtx)
 }
