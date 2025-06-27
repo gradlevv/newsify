@@ -18,7 +18,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -44,8 +43,8 @@ import com.gradlevv.list.domain.model.CategoryType
 import com.gradlevv.list.ui.NewsListViewModel
 import com.gradlevv.list.ui.state.TopHeadLinesState
 import com.gradlevv.newsify.news.list.R
+import com.gradlevv.ui.base.ScreenStateHandler
 import com.gradlevv.ui.component.ErrorComponent
-import com.gradlevv.ui.component.FullScreenCentered
 import com.gradlevv.ui.component.LoadingComponent
 import com.gradlevv.ui.theme.ColorOnBackground100
 import com.gradlevv.ui.theme.ColorOnBackground70
@@ -66,49 +65,36 @@ fun NewsListScreen(
     val types by viewModel.categoryList.collectAsState()
     val uiState by viewModel.topHeadLinesList.collectAsState()
 
-    NewsListComponent(
-        types = types,
-        uiState = uiState,
-        onNavigateToDetailClick = {
-            viewModel.navigateToNewsDetail(it)
-            onNavigateToDetail()
+    ScreenStateHandler(
+        isLoading = uiState.isLoading,
+        isError = uiState.isError,
+        isEmpty = uiState.items.isEmpty(),
+        loadingContent = {
+            LoadingComponent()
         },
-        onCategoryClick = {
-            viewModel.categoryChangeClick(it)
-            onNavigateToCategory()
+        errorContent = {
+            ErrorComponent()
+        },
+        emptyContent = {
+            // todo
+        },
+        content = {
+            TopNewsContent(
+                types = types,
+                uiState = uiState,
+                onNavigateToDetailClick = {
+                    viewModel.navigateToNewsDetail(it)
+                    onNavigateToDetail()
+                },
+                onCategoryClick = {
+                    viewModel.categoryChangeClick(it)
+                    onNavigateToCategory()
+                }
+            )
         }
     )
 
-}
 
-@Composable
-fun NewsListComponent(
-    types: List<CategoryType> = listOf(),
-    uiState: TopHeadLinesState,
-    onNavigateToDetailClick: (TopHeadLinesItem) -> Unit,
-    onCategoryClick: (CategoryType) -> Unit,
-    loadingContent: @Composable () -> Unit = {
-        LoadingComponent()
-    },
-    errorContent: @Composable () -> Unit = {
-        ErrorComponent()
-    },
-    content: @Composable () -> Unit = {
-        TopNewsContent(
-            types = types,
-            uiState = uiState,
-            onNavigateToDetailClick = onNavigateToDetailClick,
-            onCategoryClick = onCategoryClick
-        )
-    }
-) {
-
-    when {
-        uiState.isLoading -> loadingContent()
-        uiState.isError -> errorContent()
-        else -> content()
-
-    }
 }
 
 @Composable

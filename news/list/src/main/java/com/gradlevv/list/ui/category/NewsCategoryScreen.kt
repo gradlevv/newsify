@@ -19,6 +19,7 @@ import com.gradlevv.list.ui.NewsListViewModel
 import com.gradlevv.list.ui.state.TopHeadLinesState
 import com.gradlevv.list.ui.top.NewsGraph
 import com.gradlevv.list.ui.top.TopNewsListComponent
+import com.gradlevv.ui.base.ScreenStateHandler
 import com.gradlevv.ui.component.ErrorComponent
 import com.gradlevv.ui.component.LoadingComponent
 import com.gradlevv.ui.theme.ColorOnBackground100
@@ -31,37 +32,27 @@ fun NewsCategoryScreen(navController: NavHostController) {
     val viewModel: NewsListViewModel = hiltViewModel(parentEntry)
     val uiState by viewModel.topHeadLinesList.collectAsState()
 
-
-    NewsCategoryComponent(
-        uiState = uiState,
-        onDetailClick = {}
+    ScreenStateHandler(
+        isLoading = uiState.isLoading,
+        isError = uiState.isError,
+        isEmpty = uiState.items.isEmpty(),
+        loadingContent = {
+            LoadingComponent()
+        },
+        errorContent = {
+            ErrorComponent()
+        },
+        emptyContent = {
+            //todo
+        },
+        content = {
+            SelectedNewsComponent(
+                uiState = uiState,
+                onDetailClick = {}
+            )
+        }
     )
 
-}
-
-
-@Composable
-fun NewsCategoryComponent(
-    uiState: TopHeadLinesState,
-    onDetailClick: (TopHeadLinesItem) -> Unit,
-    loadingContent: @Composable () -> Unit = {
-        LoadingComponent()
-    },
-    errorContent: @Composable () -> Unit = {
-        ErrorComponent()
-    },
-    content: @Composable () -> Unit = {
-        SelectedNewsComponent(
-            uiState = uiState,
-            onDetailClick = onDetailClick
-        )
-    }
-) {
-    when {
-        uiState.isLoading -> loadingContent()
-        uiState.isError -> errorContent()
-        else -> content()
-    }
 }
 
 @Composable
