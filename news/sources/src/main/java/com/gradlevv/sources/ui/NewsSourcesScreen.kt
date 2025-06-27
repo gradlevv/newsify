@@ -35,6 +35,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -66,6 +68,29 @@ object SourcesComponentsDefaults {
         val arrowIconTintColor: Color,
     )
 
+    @Immutable
+    data class Sizes(
+        val screenPadding: Dp,
+        val titleTopPadding: Dp,
+        val titleFontSize: TextUnit,
+        val categoryItemSpacing: Dp,
+        val categoryItemPadding: PaddingValues,
+        val listVerticalSpacing: Dp,
+        val roundShapeCorner: Dp,
+        val itemMinHeight: Dp,
+        val itemIconSize: Dp,
+        val itemIconStartPadding: Dp,
+        val itemTextStartPadding: Dp,
+        val itemTextFontSize: TextUnit,
+        val itemArrowEndPadding: Dp,
+        val itemArrowIconSize: Dp,
+        val spacerHeight: Dp,
+        val spacerHeight2: Dp,
+        val sourceItemTextSize: TextUnit,
+        val sourceItemPadding: Dp,
+        val sourceItemPadding2: Dp,
+    )
+
     @Composable
     @ReadOnlyComposable
     fun colors(
@@ -90,6 +115,49 @@ object SourcesComponentsDefaults {
         arrowIconTintColor,
     )
 
+    @Composable
+    @ReadOnlyComposable
+    fun sizes(
+        screenPadding: Dp = 16.dp,
+        titleTopPadding: Dp = 18.dp,
+        titleFontSize: TextUnit = 24.sp,
+        categoryItemSpacing: Dp = 16.dp,
+        categoryItemPadding: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
+        listVerticalSpacing: Dp = 16.dp,
+        roundShapeCorner: Dp = 16.dp,
+        itemMinHeight: Dp = 56.dp,
+        itemIconSize: Dp = 24.dp,
+        itemIconStartPadding: Dp = 16.dp,
+        itemTextStartPadding: Dp = 52.dp,
+        itemTextFontSize: TextUnit = 15.sp,
+        itemArrowEndPadding: Dp = 20.dp,
+        itemArrowIconSize: Dp = 24.dp,
+        spacerHeight: Dp = 18.dp,
+        spacerHeight2: Dp = 16.dp,
+        sourceItemTextSize: TextUnit = 14.sp,
+        sourceItemPadding: Dp = 12.dp,
+        sourceItemPadding2: Dp = 6.dp,
+    ) = Sizes(
+        screenPadding,
+        titleTopPadding,
+        titleFontSize,
+        categoryItemSpacing,
+        categoryItemPadding,
+        listVerticalSpacing,
+        roundShapeCorner,
+        itemMinHeight,
+        itemIconSize,
+        itemIconStartPadding,
+        itemTextStartPadding,
+        itemTextFontSize,
+        itemArrowEndPadding,
+        itemArrowIconSize,
+        spacerHeight,
+        spacerHeight2,
+        sourceItemTextSize,
+        sourceItemPadding,
+        sourceItemPadding2
+    )
 
 }
 
@@ -103,6 +171,7 @@ fun NewsSourcesScreen() {
     val uiState by viewModel.uiState.collectAsState()
 
     val colors = SourcesComponentsDefaults.colors()
+    val sizes = SourcesComponentsDefaults.sizes()
 
     ScreenStateHandler(
         isLoading = uiState.isLoading,
@@ -123,7 +192,8 @@ fun NewsSourcesScreen() {
                 items = uiState.items,
                 onSourceItemClick = {},
                 onCategoryItemClick = viewModel::categoryChangeClick,
-                colors = colors
+                colors = colors,
+                sizes = sizes
             )
         },
     )
@@ -147,35 +217,38 @@ fun MainComponent(
     items: List<SourceItem>,
     onSourceItemClick: (SourceItem) -> Unit,
     onCategoryItemClick: (CategoryItem) -> Unit,
-    colors: SourcesComponentsDefaults.Colors
+    colors: SourcesComponentsDefaults.Colors,
+    sizes: SourcesComponentsDefaults.Sizes
 ) {
 
     Column {
         Text(
             modifier = Modifier.padding(
-                start = 16.dp,
+                start = sizes.screenPadding,
             ),
             text = stringResource(R.string.sources_title),
             color = colors.titleColor,
-            fontSize = 24.sp,
+            fontSize = sizes.titleFontSize,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Start,
         )
 
-        Spacer(modifier = Modifier.height(18.dp))
+        Spacer(modifier = Modifier.height(sizes.spacerHeight))
 
         SourceTypeListComponent(
             categories = categories,
             onCategoryItemClick,
-            colors = colors
+            colors = colors,
+            sizes = sizes
         )
 
-        Spacer(modifier = Modifier.size(16.dp))
+        Spacer(modifier = Modifier.size(sizes.spacerHeight2))
 
         SourceItemListComponent(
             items = items,
             onSourceItemClick,
-            colors
+            colors,
+            sizes = sizes
         )
     }
 }
@@ -184,14 +257,15 @@ fun MainComponent(
 fun SourceTypeListComponent(
     categories: List<CategoryItem>,
     onItemClick: (CategoryItem) -> Unit,
-    colors: SourcesComponentsDefaults.Colors
+    colors: SourcesComponentsDefaults.Colors,
+    sizes: SourcesComponentsDefaults.Sizes
 ) {
     LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        contentPadding = PaddingValues(start = 8.dp, end = 8.dp)
+        horizontalArrangement = Arrangement.spacedBy(sizes.categoryItemSpacing),
+        contentPadding = sizes.categoryItemPadding
     ) {
         items(categories, key = { it.type }) {
-            SourceTypeItemComponent(it, onItemClick, colors)
+            SourceTypeItemComponent(it, onItemClick, colors, sizes = sizes)
         }
     }
 }
@@ -200,11 +274,12 @@ fun SourceTypeListComponent(
 fun SourceTypeItemComponent(
     item: CategoryItem,
     onItemClick: (CategoryItem) -> Unit,
-    colors: SourcesComponentsDefaults.Colors
+    colors: SourcesComponentsDefaults.Colors,
+    sizes: SourcesComponentsDefaults.Sizes
 ) {
     Box(
         modifier = Modifier
-            .clip(RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(sizes.roundShapeCorner))
             .background(
                 if (item.isChecked)
                     colors.selectedTypeBackColor
@@ -218,9 +293,14 @@ fun SourceTypeItemComponent(
             )
     ) {
         Text(
-            modifier = Modifier.padding(start = 12.dp, top = 6.dp, end = 12.dp, bottom = 6.dp),
+            modifier = Modifier.padding(
+                start = sizes.sourceItemPadding,
+                top = sizes.sourceItemPadding2,
+                end = sizes.sourceItemPadding,
+                bottom = sizes.sourceItemPadding2
+            ),
             text = stringResource(item.categoryName),
-            fontSize = 14.sp,
+            fontSize = sizes.sourceItemTextSize,
             color = if (item.isChecked)
                 colors.selectedTextColor
             else
@@ -233,13 +313,19 @@ fun SourceTypeItemComponent(
 fun SourceItemListComponent(
     items: List<SourceItem>,
     onSourceItemClick: (SourceItem) -> Unit,
-    colors: SourcesComponentsDefaults.Colors
+    colors: SourcesComponentsDefaults.Colors,
+    sizes: SourcesComponentsDefaults.Sizes
 ) {
     LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(sizes.listVerticalSpacing),
     ) {
         items(items = items, key = { it.name }) {
-            SourceItemComponent(it, onSourceItemClick, colors)
+            SourceItemComponent(
+                it,
+                onSourceItemClick,
+                colors,
+                sizes = sizes
+            )
         }
     }
 }
@@ -248,13 +334,14 @@ fun SourceItemListComponent(
 fun SourceItemComponent(
     item: SourceItem,
     onSourceItemClick: (SourceItem) -> Unit,
-    colors: SourcesComponentsDefaults.Colors
+    colors: SourcesComponentsDefaults.Colors,
+    sizes: SourcesComponentsDefaults.Sizes
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .heightIn(56.dp)
-            .clip(RoundedCornerShape(16.dp))
+            .heightIn(sizes.itemMinHeight)
+            .clip(RoundedCornerShape(sizes.roundShapeCorner))
             .background(colors.sourceBackColor)
             .clickable(
                 onClick = { onSourceItemClick(item) },
@@ -267,18 +354,18 @@ fun SourceItemComponent(
             tint = colors.iconTintColor,
             contentDescription = null,
             modifier = Modifier
-                .padding(start = 16.dp)
-                .size(24.dp)
+                .padding(start = sizes.itemIconStartPadding)
+                .size(sizes.itemIconSize)
                 .align(Alignment.CenterStart)
         )
         Text(
             text = item.name,
             color = colors.sourceTextColor,
             fontWeight = FontWeight.Normal,
-            fontSize = 15.sp,
+            fontSize = sizes.itemTextFontSize,
             modifier = Modifier
                 .align(Alignment.CenterStart)
-                .padding(start = 52.dp)
+                .padding(start = sizes.itemTextStartPadding)
         )
         Icon(
             painter = painterResource(
@@ -287,8 +374,8 @@ fun SourceItemComponent(
             tint = colors.arrowIconTintColor,
             contentDescription = null,
             modifier = Modifier
-                .padding(end = 20.dp)
-                .size(24.dp)
+                .padding(end = sizes.itemArrowEndPadding)
+                .size(sizes.itemArrowIconSize)
                 .align(Alignment.CenterEnd)
         )
     }
@@ -307,7 +394,8 @@ fun SourceItemComponentPreview() {
             country = ""
         ),
         onSourceItemClick = {},
-        colors = SourcesComponentsDefaults.colors()
+        colors = SourcesComponentsDefaults.colors(),
+        sizes = SourcesComponentsDefaults.sizes()
     )
 }
 
