@@ -1,9 +1,11 @@
 package com.gradlevv.sources.ui
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gradlevv.core.base.BaseViewModel
 import com.gradlevv.core.data.model.Result
+import com.gradlevv.core.util.IntentUtils
 import com.gradlevv.sources.domain.model.CategoryItem
+import com.gradlevv.sources.domain.model.SourceItem
 import com.gradlevv.sources.domain.usecase.GetCategoryTypeUseCase
 import com.gradlevv.sources.domain.usecase.GetSourceListUseCase
 import com.gradlevv.sources.ui.state.NewsSourceState
@@ -17,41 +19,30 @@ import javax.inject.Inject
 @HiltViewModel
 class NewsSourcesViewModel @Inject constructor(
     private val getSourceListUseCase: GetSourceListUseCase,
+    private val intentUtils: IntentUtils,
     getCategoryTypeUseCase: GetCategoryTypeUseCase
-) : BaseViewModel() {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(NewsSourceState.Empty)
     val uiState = _uiState.asStateFlow()
 
-    private val _categoryList = MutableStateFlow<List<CategoryItem>>(listOf())
+    private val _categoryList = MutableStateFlow(getCategoryTypeUseCase())
     val categoryList = _categoryList.asStateFlow()
 
     init {
-        _categoryList.value = getCategoryTypeUseCase()
         getNewsSourceList()
     }
 
     private fun getNewsSourceList() {
 
-        _uiState.value = NewsSourceState(isLoading = true)
-        val type = _uiState.value.selectedCategory?.type.orEmpty()
-
-        viewModelScope.launch {
-
-            when (val result = getSourceListUseCase(type)) {
-
-                is Result.Success -> {
-                    _uiState.value = NewsSourceState(items = result.data ?: emptyList())
-                }
-
-                is Result.Error -> {
-                    _uiState.value = NewsSourceState(isError = true)
-                    errorMessage.value = result.error
-                }
-            }
-
+        _uiState.update {
+            it.copy(
+                isLoading = true,
+                isError = false
+            )
         }
-
+        val type = _uiState.value.selectedCategory?.type.orEmpty()
+        fetchNewsSource(type)
     }
 
     fun categoryChangeClick(item: CategoryItem) {
@@ -62,7 +53,8 @@ class NewsSourcesViewModel @Inject constructor(
 
         _uiState.update {
             it.copy(
-                selectedCategory = item
+                selectedCategory = item,
+                isError = false
             )
         }
 
@@ -77,20 +69,40 @@ class NewsSourcesViewModel @Inject constructor(
             }
         }
 
+        fetchNewsSource(type = item.type)
+
+    }
+
+    private fun fetchNewsSource(type: String) {
+
         viewModelScope.launch {
 
-            when (val result = getSourceListUseCase(type = item.type)) {
+            when (val result = getSourceListUseCase(type = type)) {
 
                 is Result.Success -> {
-                    _uiState.update { NewsSourceState(items = result.data.orEmpty()) }
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            isError = false,
+                            items = result.data.orEmpty()
+                        )
+                    }
                 }
 
                 is Result.Error -> {
-                    _uiState.update { it.copy(isError = true) }
-                    errorMessage.value = result.error
+                    _uiState.update {
+                        it.copy(
+                            isError = true,
+                            isLoading = false
+                        )
+                    }
                 }
             }
 
         }
+    }
+
+    fun openWebsite(item: SourceItem) {
+        intentUtils.openLinkInDeviceBrowser(item.url)
     }
 }
