@@ -17,7 +17,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
@@ -25,7 +29,10 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,6 +42,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -51,6 +59,7 @@ import com.gradlevv.ui.theme.ColorBackground
 import com.gradlevv.ui.theme.ColorOnBackground100
 import com.gradlevv.ui.theme.ColorOnBackground70
 import com.gradlevv.ui.theme.ColorPrimary
+import com.gradlevv.ui.theme.ColorPrimaryBackground
 
 
 object SourcesComponentsDefaults {
@@ -66,6 +75,10 @@ object SourcesComponentsDefaults {
         val sourceTextColor: Color,
         val iconTintColor: Color,
         val arrowIconTintColor: Color,
+        val bottomSheetTitleColor: Color,
+        val bottomSheetDescriptionColor: Color,
+        val bottomSheetButtonColor: Color,
+        val bottomSheetButtonTextColor: Color,
     )
 
     @Immutable
@@ -86,9 +99,15 @@ object SourcesComponentsDefaults {
         val itemArrowIconSize: Dp,
         val spacerHeight: Dp,
         val spacerHeight2: Dp,
+        val spacerHeight3: Dp,
         val sourceItemTextSize: TextUnit,
         val sourceItemPadding: Dp,
         val sourceItemPadding2: Dp,
+        val bottomSheetTitleFontSize: TextUnit,
+        val bottomSheetDescriptionFontSize: TextUnit,
+        val bottomSheetPadding: Dp,
+        val bottomSheetButtonCornerRadius: Dp,
+        val bottomSheetVerticalSpace: Dp,
     )
 
     @Composable
@@ -103,6 +122,10 @@ object SourcesComponentsDefaults {
         sourceTextColor: Color = ColorOnBackground100,
         iconTintColor: Color = ColorOnBackground70,
         arrowIconTintColor: Color = ColorPrimary,
+        bottomSheetTitleColor: Color = ColorPrimary,
+        bottomSheetDescriptionColor: Color = ColorOnBackground100,
+        bottomSheetButtonColor: Color = ColorPrimaryBackground,
+        bottomSheetButtonTextColor: Color = ColorPrimary,
     ) = Colors(
         titleColor,
         selectedTypeBackColor,
@@ -113,6 +136,10 @@ object SourcesComponentsDefaults {
         sourceTextColor,
         iconTintColor,
         arrowIconTintColor,
+        bottomSheetTitleColor,
+        bottomSheetDescriptionColor,
+        bottomSheetButtonColor,
+        bottomSheetButtonTextColor,
     )
 
     @Composable
@@ -137,6 +164,12 @@ object SourcesComponentsDefaults {
         sourceItemTextSize: TextUnit = 14.sp,
         sourceItemPadding: Dp = 12.dp,
         sourceItemPadding2: Dp = 6.dp,
+        bottomSheetTitleFontSize: TextUnit = 15.sp,
+        bottomSheetDescriptionFontSize: TextUnit = 14.sp,
+        bottomSheetPadding: Dp = 16.dp,
+        bottomSheetButtonCornerRadius: Dp = 10.dp,
+        bottomSheetVerticalSpace: Dp = 16.dp,
+        spacerHeight3: Dp = 24.dp
     ) = Sizes(
         screenPadding,
         titleTopPadding,
@@ -154,14 +187,21 @@ object SourcesComponentsDefaults {
         itemArrowIconSize,
         spacerHeight,
         spacerHeight2,
+        spacerHeight3,
         sourceItemTextSize,
         sourceItemPadding,
-        sourceItemPadding2
+        sourceItemPadding2,
+        bottomSheetTitleFontSize,
+        bottomSheetDescriptionFontSize,
+        bottomSheetPadding,
+        bottomSheetButtonCornerRadius,
+        bottomSheetVerticalSpace
     )
 
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewsSourcesScreen() {
 
@@ -187,10 +227,30 @@ fun NewsSourcesScreen() {
             EmptyComponent()
         },
         content = {
+
+            var showBottomSheet by rememberSaveable { mutableStateOf(false) }
+            var selectedSource by rememberSaveable { mutableStateOf<SourceItem?>(null) }
+
+            if (showBottomSheet && selectedSource != null) {
+                selectedSource?.let {
+                    ModalBottomSheet(onDismissRequest = { showBottomSheet = false }) {
+                        SourceBottomSheet(
+                            item = it,
+                            colors = colors,
+                            sizes = sizes,
+                            onClick = { viewModel.openWebsite(it) }
+                        )
+                    }
+                }
+            }
+
             MainComponent(
                 categories = categories,
                 items = uiState.items,
-                onSourceItemClick = {},
+                onSourceItemClick = {
+                    showBottomSheet = true
+                    selectedSource = it
+                },
                 onCategoryItemClick = viewModel::categoryChangeClick,
                 colors = colors,
                 sizes = sizes
@@ -381,13 +441,92 @@ fun SourceItemComponent(
     }
 }
 
+@Composable
+fun SourceBottomSheet(
+    item: SourceItem,
+    onClick: () -> Unit,
+    colors: SourcesComponentsDefaults.Colors,
+    sizes: SourcesComponentsDefaults.Sizes
+) {
+
+    Column(
+        verticalArrangement = Arrangement.spacedBy(sizes.bottomSheetVerticalSpace),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = item.name,
+            color = colors.bottomSheetTitleColor,
+            fontWeight = FontWeight.Normal,
+            fontSize = sizes.bottomSheetTitleFontSize,
+            textAlign = TextAlign.Center
+        )
+
+        Spacer(modifier = Modifier.size(sizes.spacerHeight2))
+
+        Text(
+            text = item.description,
+            color = colors.bottomSheetDescriptionColor,
+            fontWeight = FontWeight.Normal,
+            fontSize = sizes.bottomSheetDescriptionFontSize,
+            textAlign = TextAlign.Start,
+            modifier = Modifier
+                .padding(
+                    start = sizes.bottomSheetPadding,
+                    end = sizes.bottomSheetPadding
+                )
+                .fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.size(sizes.spacerHeight2))
+
+        Button(
+            onClick = onClick, colors = ButtonColors(
+                containerColor = colors.bottomSheetButtonColor,
+                contentColor = colors.bottomSheetButtonTextColor,
+                disabledContentColor = colors.unselectedTextColor,
+                disabledContainerColor = colors.unselectedTextColor
+            ),
+            modifier = Modifier
+                .padding(
+                    start = sizes.bottomSheetPadding,
+                    end = sizes.bottomSheetPadding
+                )
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(sizes.bottomSheetButtonCornerRadius)
+        ) {
+            Text(
+                stringResource(R.string.sources_go_to_website)
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun SourceBottomSheetPreview() {
+    SourceBottomSheet(
+        item = SourceItem(
+            name = "ABC",
+            description = LoremIpsum(words = 100).values.toList().first().toString(),
+            url = "",
+            category = "",
+            language = "",
+            country = ""
+        ),
+        colors = SourcesComponentsDefaults.colors(),
+        sizes = SourcesComponentsDefaults.sizes(),
+        onClick = {}
+    )
+}
+
 @Preview
 @Composable
 fun SourceItemComponentPreview() {
     SourceItemComponent(
         item = SourceItem(
-            name = "test",
-            description = "test test",
+            name = "ABC",
+            description = LoremIpsum(words = 200).values.toList().first().toString(),
             url = "",
             category = "",
             language = "",
