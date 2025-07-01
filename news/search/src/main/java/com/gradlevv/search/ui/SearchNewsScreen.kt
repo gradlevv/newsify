@@ -8,6 +8,3 @@ import kotlinx.serialization.Serializable
 fun SearchNewsScreen() {
     Text("SearchNewsScreen")
 }
-
-@Serializable
-data object SearchNewsDestination

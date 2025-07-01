@@ -7,6 +7,3 @@ import kotlinx.serialization.Serializable
 fun NewsDetailScreen() {
 
 }
-
-@Serializable
-data object NewsDetailDestination
