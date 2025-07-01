@@ -34,6 +34,14 @@ dependencies {
 
     implementation(platform(libs.compose.bom))
     implementation(libs.navigation.compose)
+    implementation(libs.ui.tooling)
+
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
     implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 }
