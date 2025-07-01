@@ -10,7 +10,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -19,27 +18,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.gradlevv.list.ui.top.NewsGraph
-import com.gradlevv.list.ui.top.NewsListDestination
 import com.gradlevv.list.ui.category.categoryScreen
 import com.gradlevv.list.ui.category.navigateToCategoryScreen
 import com.gradlevv.list.ui.detail.navigateToDetailScreen
-import com.gradlevv.list.ui.top.navigateToNewsGraph
 import com.gradlevv.list.ui.detail.newsDetailScreen
+import com.gradlevv.list.ui.top.NewsGraph
+import com.gradlevv.list.ui.top.NewsListDestination
+import com.gradlevv.list.ui.top.navigateToNewsGraph
 import com.gradlevv.list.ui.top.newsListScreen
 import com.gradlevv.newsify.R
 import com.gradlevv.newsify.navigation.NewsifyNavigationBar
 import com.gradlevv.newsify.navigation.bottomBarRoutes
 import com.gradlevv.newsify.navigation.isBottomBarVisible
+import com.gradlevv.search.ui.SearchNewsDestination
+import com.gradlevv.search.ui.SearchNewsGraph
+import com.gradlevv.search.ui.navigateToDetailScreen2
 import com.gradlevv.search.ui.navigateToSearchScreen
 import com.gradlevv.search.ui.searchNewsScreen
 import com.gradlevv.setting.ui.navigateToSettingScreen
@@ -95,7 +93,17 @@ fun MainScreen(
                 categoryScreen(navController)
                 newsDetailScreen(navController)
             }
-            searchNewsScreen()
+
+            navigation(
+                startDestination = SearchNewsDestination.route,
+                route = SearchNewsGraph.route
+            ) {
+                searchNewsScreen(
+                    navController = navController,
+                    onNavigateToDetail = { navController.navigateToDetailScreen2() }
+                )
+            }
+
             settingScreen()
             sourcesScreen()
         }
@@ -128,13 +136,4 @@ fun NewsifyTitleTopBar(
                 .height(20.dp)
         )
     }
-}
-
-@Composable
-inline fun <reified T : ViewModel> NavBackStackEntry.sharedViewModel(navController: NavController): T {
-    val route = destination.parent?.route ?: viewModel()
-    val parentEntry = remember(this) {
-        navController.getBackStackEntry(route)
-    }
-    return viewModel(parentEntry)
 }
