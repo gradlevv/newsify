@@ -13,50 +13,10 @@ fun ViewGroup.matchWidthCustomHeight(hInDp: Int): ViewGroup.LayoutParams {
     )
 }
 
-
-fun LinearLayout.customWidthAndHeight(
-    wInDp: Int,
-    hInDp: Int,
-    initLayout: LinearLayout.LayoutParams.() -> Unit = {}
-): LinearLayout.LayoutParams {
-    return LinearLayout.LayoutParams(
-        wInDp.dp(),
-        hInDp.dp()
-    ).apply(initLayout)
-}
-
-fun LinearLayout.customWidthAndWrapHeight(
-    wInDp: Int,
-    initLayout: LinearLayout.LayoutParams.() -> Unit = {}
-): LinearLayout.LayoutParams {
-    return LinearLayout.LayoutParams(
-        wInDp.dp(),
-        LinearLayout.LayoutParams.WRAP_CONTENT
-    ).apply(initLayout)
-}
-
-
-fun LinearLayout.matchWidthAndCustomHeight(
-    hInDp: Int,
-    initLayout: LinearLayout.LayoutParams.() -> Unit = {}
-): LinearLayout.LayoutParams {
-    return LinearLayout.LayoutParams(
-        LinearLayout.LayoutParams.MATCH_PARENT,
-        hInDp.dp()
-    ).apply(initLayout)
-}
-
 fun LinearLayout.matchWidthWrapHeight(initLayout: LinearLayout.LayoutParams.() -> Unit = {}): LinearLayout.LayoutParams {
     return LinearLayout.LayoutParams(
         LinearLayout.LayoutParams.MATCH_PARENT,
         LinearLayout.LayoutParams.WRAP_CONTENT
-    ).apply(initLayout)
-}
-
-fun LinearLayout.matchWidthHeight(initLayout: LinearLayout.LayoutParams.() -> Unit = {}): LinearLayout.LayoutParams {
-    return LinearLayout.LayoutParams(
-        LinearLayout.LayoutParams.MATCH_PARENT,
-        LinearLayout.LayoutParams.MATCH_PARENT
     ).apply(initLayout)
 }
 
@@ -71,25 +31,6 @@ fun FrameLayout.matchWidthAndHeight(initLayout: FrameLayout.LayoutParams.() -> U
     return FrameLayout.LayoutParams(
         FrameLayout.LayoutParams.MATCH_PARENT,
         FrameLayout.LayoutParams.MATCH_PARENT
-    ).apply(initLayout)
-}
-
-fun FrameLayout.matchWidthCustomHeight(
-    hInDp: Int, initLayout: FrameLayout.LayoutParams.() -> Unit = {}
-): FrameLayout.LayoutParams {
-    return FrameLayout.LayoutParams(
-        FrameLayout.LayoutParams.MATCH_PARENT,
-        hInDp.dp()
-    ).apply(initLayout)
-}
-
-fun FrameLayout.customWithAndHeight(
-    hInDp: Int, wInDp: Int,
-    initLayout: FrameLayout.LayoutParams.() -> Unit = {}
-): FrameLayout.LayoutParams {
-    return FrameLayout.LayoutParams(
-        wInDp.dp(),
-        hInDp.dp()
     ).apply(initLayout)
 }
 

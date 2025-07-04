@@ -14,14 +14,6 @@ inline fun View.materialShape(init: MaterialShapeDrawable.() -> Unit): MaterialS
     return MaterialShapeDrawable().apply(init)
 }
 
-inline fun Fragment.materialShape(init: MaterialShapeDrawable.() -> Unit): MaterialShapeDrawable {
-    return MaterialShapeDrawable().apply(init)
-}
-
-inline fun View.rippleDrawable(init: RippleDrawableBuilder.() -> Unit): RippleDrawable {
-    val builder = RippleDrawableBuilder().apply(init)
-    return builder.build()
-}
 
 data class RippleDrawableBuilder(
     @ColorInt
@@ -46,10 +38,6 @@ data class RippleDrawableBuilder(
     }
 }
 
-inline fun View.checkableDrawable(init: CheckableRippleDrawableBuilder.() -> Unit): Drawable {
-    val builder = CheckableRippleDrawableBuilder().apply(init)
-    return builder.build()
-}
 
 data class CheckableRippleDrawableBuilder(
     @ColorInt

@@ -21,15 +21,3 @@ inline fun ViewGroup.linearLayout(init : LinearLayout.() -> Unit): LinearLayout 
 inline fun ViewGroup.frameLayout(init : FrameLayout.() -> Unit): FrameLayout {
     return FrameLayout(context).apply(init)
 }
-
-inline fun ViewGroup.recyclerView(init: RecyclerView.() -> Unit): RecyclerView {
-    return RecyclerView(context).apply(init)
-}
-
-inline fun ViewGroup.editText(init: EditText.() -> Unit): EditText {
-    return EditText(context).apply(init)
-}
-
-inline fun ViewGroup.normalButton(init: MaterialButton.() -> Unit): MaterialButton {
-    return MaterialButton(context,null, R.attr.borderlessButtonStyle).apply(init)
-}
