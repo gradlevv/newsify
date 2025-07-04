@@ -41,7 +41,6 @@ class SearchNewsRowView(context: Context) : CardView(context) {
 
     private val ivReadMore = imageView {
         scaleType = ImageView.ScaleType.CENTER_CROP
-        setCompatDrawable(R.drawable.ic_arrow_right)
     }
 
     private val tvReadMore = textView {
@@ -107,6 +106,5 @@ class SearchNewsRowView(context: Context) : CardView(context) {
         tvTitle.text = item.title
         tvDescription.text = item.description
 
-        ivNews.loadImage(item.imageUrl)
     }
 }
