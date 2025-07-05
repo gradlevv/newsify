@@ -17,6 +17,7 @@ import androidx.navigation.NavHostController
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.list.ui.NewsListViewModel
 import com.gradlevv.list.ui.state.TopHeadLinesState
+import com.gradlevv.list.ui.top.NewsComponentDefaults
 import com.gradlevv.list.ui.top.NewsGraph
 import com.gradlevv.list.ui.top.TopNewsListComponent
 import com.gradlevv.ui.base.ScreenStateHandler
@@ -31,6 +32,9 @@ fun NewsCategoryScreen(navController: NavHostController) {
 
     val viewModel: NewsListViewModel = hiltViewModel(parentEntry)
     val uiState by viewModel.topHeadLinesList.collectAsState()
+
+    val sizes = NewsComponentDefaults.sizes()
+    val colors = NewsComponentDefaults.colors()
 
     ScreenStateHandler(
         isLoading = uiState.isLoading,
@@ -48,7 +52,9 @@ fun NewsCategoryScreen(navController: NavHostController) {
         content = {
             SelectedNewsComponent(
                 uiState = uiState,
-                onDetailClick = {}
+                onDetailClick = {},
+                sizes = sizes,
+                colors = colors
             )
         }
     )
@@ -59,10 +65,14 @@ fun NewsCategoryScreen(navController: NavHostController) {
 fun SelectedNewsComponent(
     uiState: TopHeadLinesState,
     onDetailClick: (TopHeadLinesItem) -> Unit,
+    sizes: NewsComponentDefaults.Sizes,
+    colors: NewsComponentDefaults.Colors,
 ) {
     TopNewsListComponent(
-        data = uiState,
-        onItemClick = onDetailClick
+        items = uiState.items,
+        onItemClick = onDetailClick,
+        sizes = sizes,
+        colors = colors
     ) {
         Text(
             modifier = Modifier.padding(
