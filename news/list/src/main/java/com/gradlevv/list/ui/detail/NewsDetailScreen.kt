@@ -17,16 +17,21 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -44,6 +49,106 @@ import com.gradlevv.ui.theme.ColorPrimary
 import com.gradlevv.ui.theme.ColorPrimaryBackground
 import com.gradlevv.ui.theme.ColorSurface
 
+object NewsDetailDefaults {
+
+    @Immutable
+    data class Sizes(
+        val componentSizes: DetailComponentSizes,
+        val textSizes: TextSizes
+    )
+
+    @Immutable
+    data class TextSizes(
+        val title: TextUnit,
+        val description: TextUnit,
+        val readFullArticle: TextUnit,
+        val author: TextUnit,
+        val publishedAt: TextUnit,
+    )
+
+    @Immutable
+    data class DetailComponentSizes(
+        val cardCorner: Dp,
+        val imageHeight: Dp,
+        val titleStartPadding: Dp,
+        val titleTopPadding: Dp,
+        val descriptionTopPadding: Dp,
+        val descriptionEndPadding: Dp,
+        val descriptionStartPadding: Dp,
+        val spacer: Dp,
+        val spacer2: Dp,
+        val buttonCorner: Dp,
+        val buttonPadding: Dp,
+        val boxTopPadding: Dp,
+        val boxBottomPadding: Dp,
+        val authorEndPadding: Dp,
+        val publishedAtIconEndPadding: Dp,
+        val publishedAtIconStartPadding: Dp,
+        val horizontalDividerHeight: Dp,
+        val horizontalDividerPadding: Dp,
+    )
+
+    @ReadOnlyComposable
+    @Composable
+    fun sizes() = Sizes(
+        textSizes = TextSizes(
+            title = 15.sp,
+            description = 14.sp,
+            readFullArticle = 12.sp,
+            author = 12.sp,
+            publishedAt = 12.sp
+        ),
+        componentSizes = DetailComponentSizes(
+            cardCorner = 20.dp,
+            imageHeight = 180.dp,
+            titleStartPadding = 16.dp,
+            titleTopPadding = 16.dp,
+            descriptionTopPadding = 8.dp,
+            descriptionStartPadding = 16.dp,
+            descriptionEndPadding = 16.dp,
+            spacer = 32.dp,
+            spacer2 = 8.dp,
+            buttonCorner = 14.dp,
+            buttonPadding = 16.dp,
+            boxTopPadding = 24.dp,
+            boxBottomPadding = 16.dp,
+            authorEndPadding = 16.dp,
+            publishedAtIconStartPadding = 8.dp,
+            publishedAtIconEndPadding = 8.dp,
+            horizontalDividerPadding = 16.dp,
+            horizontalDividerHeight = 1.dp
+        )
+    )
+
+    @Immutable
+    data class Colors(
+        val cardContainerColor: Color,
+        val titleTextColor: Color,
+        val descriptionTextColor: Color,
+        val buttonBackColor: Color,
+        val readFullArticleTintColor: Color,
+        val readFullArticleTextColor: Color,
+        val dividerColor: Color,
+        val authorTextColor: Color,
+        val publishedAtTintColor: Color,
+        val publishedAtTextColor: Color,
+    )
+
+    @Composable
+    fun colors() = Colors(
+        cardContainerColor = ColorSurface,
+        titleTextColor = ColorOnBackground100,
+        descriptionTextColor = ColorOnBackground100,
+        buttonBackColor = ColorPrimaryBackground,
+        readFullArticleTintColor = ColorPrimary,
+        readFullArticleTextColor = ColorPrimary,
+        dividerColor = ColorBackground,
+        authorTextColor = ColorOnBackground70,
+        publishedAtTextColor = ColorOnBackground70,
+        publishedAtTintColor = ColorOnBackground70
+    )
+}
+
 @Composable
 fun NewsDetailScreen(navController: NavHostController) {
 
@@ -52,27 +157,41 @@ fun NewsDetailScreen(navController: NavHostController) {
     val viewModel: NewsListViewModel = hiltViewModel(parentEntry)
     val detail by viewModel.newsDetailItem.collectAsState()
 
+    val sizes = NewsDetailDefaults.sizes()
+    val colors = NewsDetailDefaults.colors()
 
     NewsDetailContent(
         detail = detail,
-        onReadArticleClick = { viewModel.onReadArticleClick(detail ?: return@NewsDetailContent) }
+        onItemClick = {
+            viewModel.onReadArticleClick(
+                detail ?: return@NewsDetailContent
+            )
+        },
+        sizes = sizes,
+        colors = colors
     )
-
 
 }
 
 @Composable
 fun NewsDetailContent(
     detail: TopHeadLinesItem?,
-    onReadArticleClick: () -> Unit,
+    onItemClick: () -> Unit,
+    sizes: NewsDetailDefaults.Sizes,
+    colors: NewsDetailDefaults.Colors,
     errorContent: @Composable () -> Unit = {
         ErrorComponent()
     },
     mainContent: @Composable () -> Unit = {
         detail?.let {
-            NewsDetailComponent(item = it, onReadArticleClick = onReadArticleClick)
+            NewsDetailComponent(
+                item = it,
+                onItemClick = onItemClick,
+                sizes = sizes,
+                colors = colors
+            )
         } ?: errorContent()
-    }
+    },
 ) {
 
     when (detail) {
@@ -85,14 +204,16 @@ fun NewsDetailContent(
 @Composable
 fun NewsDetailComponent(
     item: TopHeadLinesItem,
-    onReadArticleClick: () -> Unit
+    onItemClick: () -> Unit,
+    sizes: NewsDetailDefaults.Sizes,
+    colors: NewsDetailDefaults.Colors
 ) {
 
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = ColorSurface
+            containerColor = colors.cardContainerColor
         ),
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(sizes.componentSizes.cardCorner),
         modifier = Modifier
             .fillMaxWidth()
     ) {
@@ -102,43 +223,43 @@ fun NewsDetailComponent(
                 model = item.imageUrl,
                 contentScale = ContentScale.FillWidth,
                 contentDescription = null,
-                modifier = Modifier.height(180.dp)
+                modifier = Modifier.height(sizes.componentSizes.imageHeight)
             )
 
             Text(
                 text = item.title,
-                color = ColorOnBackground100,
-                fontSize = 15.sp,
+                color = colors.titleTextColor,
+                fontSize = sizes.textSizes.title,
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Start,
                 modifier = Modifier.padding(
-                    top = 16.dp,
-                    start = 16.dp
+                    top = sizes.componentSizes.titleTopPadding,
+                    start = sizes.componentSizes.titleStartPadding
                 ),
             )
 
             Text(
                 text = item.description,
-                color = ColorOnBackground100,
-                fontSize = 14.sp,
+                color = colors.descriptionTextColor,
+                fontSize = sizes.textSizes.description,
                 fontWeight = FontWeight.Normal,
                 textAlign = TextAlign.Start,
                 modifier = Modifier.padding(
-                    top = 8.dp,
-                    start = 16.dp,
-                    end = 16.dp
+                    top = sizes.componentSizes.descriptionTopPadding,
+                    start = sizes.componentSizes.descriptionStartPadding,
+                    end = sizes.componentSizes.descriptionEndPadding
                 )
             )
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(sizes.componentSizes.spacer))
 
             TextButton(
-                onClick = onReadArticleClick,
+                onClick = onItemClick,
                 modifier = Modifier
-                    .padding(all = 16.dp)
+                    .padding(all = sizes.componentSizes.buttonPadding)
                     .background(
-                        shape = RoundedCornerShape(14.dp),
-                        color = ColorPrimaryBackground
+                        shape = RoundedCornerShape(sizes.componentSizes.buttonCorner),
+                        color = colors.buttonBackColor
                     )
                     .align(Alignment.CenterHorizontally)
             ) {
@@ -148,48 +269,47 @@ fun NewsDetailComponent(
                             com.gradlevv.newsify.ui.R.drawable.ic_link_14
                         ),
                     contentDescription = null,
-                    tint = ColorPrimary
+                    tint = colors.readFullArticleTintColor
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(sizes.componentSizes.spacer2))
                 Text(
                     text = stringResource(
                         R.string.news_list_read_full_article
                     ),
-                    color = ColorPrimary,
-                    fontSize = 12.sp,
+                    color = colors.readFullArticleTextColor,
+                    fontSize = sizes.textSizes.readFullArticle,
                     fontWeight = FontWeight.Normal,
                     textAlign = TextAlign.Center
                 )
             }
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(sizes.componentSizes.spacer))
 
             HorizontalDivider(
                 modifier = Modifier
-                    .background(ColorBackground)
+                    .background(colors.dividerColor)
                     .fillMaxWidth()
-                    .height(1.dp)
-                    .padding(horizontal = 16.dp)
-
+                    .height(sizes.componentSizes.horizontalDividerHeight)
+                    .padding(horizontal = sizes.componentSizes.horizontalDividerPadding)
             )
 
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        top = 24.dp,
-                        bottom = 16.dp
+                        top = sizes.componentSizes.boxTopPadding,
+                        bottom = sizes.componentSizes.boxBottomPadding
                     )
             ) {
 
                 Text(
                     text = item.author,
-                    color = ColorOnBackground70,
-                    fontSize = 12.sp,
+                    color = colors.authorTextColor,
+                    fontSize = sizes.textSizes.author,
                     fontWeight = FontWeight.Normal,
                     modifier = Modifier
                         .align(Alignment.CenterEnd)
-                        .padding(end = 16.dp)
+                        .padding(end = sizes.componentSizes.authorEndPadding)
                 )
 
                 Row(
@@ -201,13 +321,16 @@ fun NewsDetailComponent(
                                 com.gradlevv.newsify.ui.R.drawable.ic_history_16
                             ),
                         contentDescription = null,
-                        tint = ColorOnBackground70,
-                        modifier = Modifier.padding(start = 8.dp, end = 8.dp)
+                        tint = colors.publishedAtTintColor,
+                        modifier = Modifier.padding(
+                            start = sizes.componentSizes.publishedAtIconStartPadding,
+                            end = sizes.componentSizes.publishedAtIconEndPadding
+                        )
                     )
                     Text(
                         text = item.publishedAt,
-                        color = ColorOnBackground70,
-                        fontSize = 12.sp,
+                        color = colors.publishedAtTextColor,
+                        fontSize = sizes.textSizes.publishedAt,
                         fontWeight = FontWeight.Normal,
                     )
                 }
