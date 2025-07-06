@@ -11,7 +11,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.gradlevv.list.domain.TopHeadLinesItem
@@ -23,7 +22,6 @@ import com.gradlevv.list.ui.top.TopNewsListComponent
 import com.gradlevv.ui.base.ScreenStateHandler
 import com.gradlevv.ui.component.ErrorComponent
 import com.gradlevv.ui.component.LoadingComponent
-import com.gradlevv.ui.theme.ColorOnBackground100
 
 
 @Composable
@@ -33,7 +31,9 @@ fun NewsCategoryScreen(navController: NavHostController) {
     val viewModel: NewsListViewModel = hiltViewModel(parentEntry)
     val uiState by viewModel.topHeadLinesList.collectAsState()
 
-    val sizes = NewsComponentDefaults.sizes()
+    val sizes = NewsComponentDefaults.sizes().copy(
+        title = NewsComponentDefaults.TitleSizes(startPadding = 16.dp),
+    )
     val colors = NewsComponentDefaults.colors()
 
     ScreenStateHandler(
@@ -76,11 +76,11 @@ fun SelectedNewsComponent(
     ) {
         Text(
             modifier = Modifier.padding(
-                start = 16.dp,
+                start = sizes.title.startPadding,
             ),
             text = stringResource(uiState.selectedCategory.categoryLabelRes),
-            color = ColorOnBackground100,
-            fontSize = 24.sp,
+            color = colors.titleColors.textColor,
+            fontSize = sizes.shareTextSizes.secondaryTitle,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Start,
         )

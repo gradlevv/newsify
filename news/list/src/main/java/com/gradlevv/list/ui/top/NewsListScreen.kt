@@ -66,7 +66,8 @@ object NewsComponentDefaults {
         val topNewsList: TopNewsListSizes,
         val topNewsItem: TopNewsItemSizes,
         val title: TitleSizes,
-        val textSizes: TextSizes
+        val textSizes: TextSizes,
+        val shareTextSizes: SharedTextSizes
     )
 
     @Immutable
@@ -121,6 +122,11 @@ object NewsComponentDefaults {
         val description: TextUnit,
         val readMore: TextUnit,
         val publishedAt: TextUnit,
+    )
+
+    @Immutable
+    data class SharedTextSizes(
+        val secondaryTitle: TextUnit,
     )
 
     @Immutable
@@ -199,7 +205,10 @@ object NewsComponentDefaults {
             title = 15.sp,
             description = 14.sp,
             publishedAt = 12.sp,
-            readMore = 12.sp
+            readMore = 12.sp,
+        ),
+        shareTextSizes = SharedTextSizes(
+            secondaryTitle = 24.sp
         )
     )
 
