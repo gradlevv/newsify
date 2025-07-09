@@ -1,6 +1,7 @@
 package com.gradlevv.search.data.model
 
 import com.google.gson.annotations.SerializedName
+import com.gradlevv.core.util.DateTimeHelper.simpleDateFormat
 import com.gradlevv.search.domain.SearchNewsItem
 
 
@@ -14,19 +15,19 @@ data class SearchResponse(
         @SerializedName("source")
         val source: Source?,
         @SerializedName("author")
-        val author:String?,
+        val author: String?,
         @SerializedName("title")
         val title: String?,
         @SerializedName("description")
-        val description:String?,
+        val description: String?,
         @SerializedName("url")
         val url: String?,
         @SerializedName("urlToImage")
-        val urlToImage:String?,
+        val urlToImage: String?,
         @SerializedName("publishedAt")
-        val publishedAt:String?,
+        val publishedAt: String?,
         @SerializedName("content")
-        val content:String?
+        val content: String?
     )
 
     data class Source(
@@ -48,7 +49,7 @@ fun SearchResponse.Article.toDomain(): SearchNewsItem {
         description = description ?: "",
         url = url ?: "",
         imageUrl = urlToImage ?: "",
-        publishedAt = publishedAt ?: "",
+        publishedAt = simpleDateFormat(publishedAt ?: "") ?: "",
         content = content ?: ""
     )
 }
