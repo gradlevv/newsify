@@ -28,6 +28,7 @@ dependencies {
     implementation(libs.navigationFragmentKtx)
 
     implementation(libs.timber)
+    api(libs.threetenabp)
 }
 
 kapt {

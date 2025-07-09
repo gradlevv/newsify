@@ -1,6 +1,6 @@
 package com.gradlevv.search.ui
 
-import android.util.Log
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradlevv.core.data.model.Result
@@ -17,9 +17,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,7 +36,6 @@ class SearchNewsViewModel @Inject constructor(
 
     init {
         searchNews()
-        Log.d("TAG", "init")
     }
 
     @OptIn(FlowPreview::class)
@@ -49,13 +47,17 @@ class SearchNewsViewModel @Inject constructor(
 
                         _searchNewsList.value = SearchNewsState(isLoading = true)
 
-                        val simpleDateFormat = SimpleDateFormat(DATE_FORMAT, Locale.US)
-                        val date = Date()
+                        val formatter = DateTimeFormatter.ofPattern(DATE_FORMAT)
+                        val today = LocalDate.now()
+                        val yesterday = today.minusDays(1)
+
+                        val from = yesterday.format(formatter)
+                        val to = today.format(formatter)
 
                         val request = SearchNewsUseCase.Params(
                             tag = search.ifEmpty { SEARCH_TAG },
-                            from = simpleDateFormat.format(date),
-                            to = simpleDateFormat.format(date),
+                            from = from,
+                            to = to,
                             sortedBy = SORT_BY
                         )
 
@@ -90,6 +92,6 @@ class SearchNewsViewModel @Inject constructor(
     }
 
     companion object {
-        const val SEARCH_TAG = "Android"
+        const val SEARCH_TAG = "Iran"
     }
 }

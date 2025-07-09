@@ -13,6 +13,5 @@ interface SearchNewsService {
         @Query("from") from: String,
         @Query("to") to: String,
         @Query("sortBy") sortedBy: String
-
     ): Response<SearchResponse>
 }

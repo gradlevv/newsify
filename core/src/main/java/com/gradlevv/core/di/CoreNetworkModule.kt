@@ -84,7 +84,7 @@ object CoreNetworkModule {
     fun provideRequestHeadersInterceptor(): Interceptor {
         return Interceptor { chain ->
             val request = chain.request().newBuilder()
-                .addHeader("X-Api-Key", API_KEY)
+                .addHeader("x-api-key", API_KEY)
 
             return@Interceptor chain.proceed(request.build())
         }
@@ -93,6 +93,6 @@ object CoreNetworkModule {
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor =
         HttpLoggingInterceptor().apply {
-            HttpLoggingInterceptor.Level.BODY
+            level = HttpLoggingInterceptor.Level.BODY
         }
 }
