@@ -1,12 +1,16 @@
 package com.gradlevv.search.ui
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -29,6 +33,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -60,12 +65,22 @@ object SearchComponentDefaults {
 
     @Immutable
     data class Sizes(
-        val cardContainerMinHeight: Dp,
-        val cardImageMinHeight: Dp,
-        val cardCornerRadius: Dp,
-        val spacer: Dp,
-        val spacer2: Dp,
+        val card: CardSizes,
+        val spacing: Spacing,
         val textSizes: TextSizes
+    )
+
+    @Immutable
+    data class CardSizes(
+        val containerMinHeight: Dp,
+        val imageMinHeight: Dp,
+        val cornerRadius: Dp,
+    )
+
+    @Immutable
+    data class Spacing(
+        val default: Dp,
+        val secondary: Dp,
     )
 
     @Immutable
@@ -87,18 +102,16 @@ object SearchComponentDefaults {
 
     @Composable
     @ReadOnlyComposable
-    fun sizes(
-        cardContainerMinHeight: Dp = 170.dp,
-        cardImageMinHeight: Dp = 130.dp,
-        cardCornerRadius: Dp = 16.dp,
-        spacer: Dp = 8.dp,
-        spacer2: Dp = 30.dp
-    ) = Sizes(
-        cardContainerMinHeight,
-        cardImageMinHeight,
-        cardCornerRadius,
-        spacer,
-        spacer2,
+    fun sizes() = Sizes(
+        card = CardSizes(
+            containerMinHeight = 170.dp,
+            imageMinHeight = 130.dp,
+            cornerRadius = 16.dp
+        ),
+        spacing = Spacing(
+            default = 8.dp,
+            secondary = 30.dp
+        ),
         textSizes = TextSizes(
             titleTextSize = 12.sp,
             descriptionTextSize = 12.sp,
@@ -166,11 +179,19 @@ fun MainSearchComponent(
     sizes: SearchComponentDefaults.Sizes
 ) {
 
-    LazyHorizontalGrid(
-        rows = GridCells.Fixed(2)
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(150.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        contentPadding = PaddingValues(8.dp)
     ) {
-        items(items = data, key = { it.title }) {
-            SearchItemComponent(item = it, onClick = onItemClick, colors = colors, sizes = sizes)
+        items(items = data) {
+            SearchItemComponent(
+                item = it,
+                onClick = onItemClick,
+                colors = colors,
+                sizes = sizes
+            )
         }
     }
 
@@ -188,22 +209,26 @@ fun SearchItemComponent(
         colors = CardDefaults.cardColors(
             contentColor = colors.cardContentColor,
         ),
-        shape = RoundedCornerShape(sizes.cardCornerRadius),
+        shape = RoundedCornerShape(sizes.card.cornerRadius),
         modifier = Modifier
             .fillMaxWidth()
-            .heightIn(sizes.cardContainerMinHeight)
+            .clickable { onClick() }
+
     ) {
 
-        Column(modifier = Modifier.fillMaxWidth()) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
             AsyncImage(
                 model = item.imageUrl,
-                contentScale = ContentScale.FillWidth,
+                contentScale = ContentScale.Crop,
                 contentDescription = null,
-                modifier = Modifier.heightIn(sizes.cardImageMinHeight)
+                modifier = Modifier.heightIn(sizes.card.imageMinHeight)
             )
 
             Spacer(
-                modifier = Modifier.size(sizes.spacer)
+                modifier = Modifier.size(sizes.spacing.default)
             )
 
             Text(
@@ -212,11 +237,15 @@ fun SearchItemComponent(
                 fontSize = sizes.textSizes.titleTextSize,
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Start,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(start = 8.dp, end = 8.dp),
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
             )
 
             Spacer(
-                modifier = Modifier.size(sizes.spacer)
+                modifier = Modifier.size(sizes.spacing.secondary)
             )
 
             Text(
@@ -225,11 +254,14 @@ fun SearchItemComponent(
                 fontSize = sizes.textSizes.descriptionTextSize,
                 fontWeight = FontWeight.Normal,
                 textAlign = TextAlign.Start,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
+                modifier = Modifier
+                    .padding(start = 8.dp, end = 8.dp),
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 3
             )
 
             Spacer(
-                modifier = Modifier.size(sizes.spacer2)
+                modifier = Modifier.size(sizes.spacing.secondary)
             )
 
             Button(
@@ -270,14 +302,17 @@ fun SearchItemComponent(
 fun SearchItemComponentPreview() {
     SearchItemComponent(
         item = SearchNewsItem(
-            source = SearchNewsItem.SourceItem(id = "", name = "bbc"),
-            author = "Test",
-            title = "Test",
-            description = "Test",
-            url = "",
-            imageUrl = "",
-            publishedAt = "",
-            content = ""
+            source = SearchNewsItem.SourceItem(
+                id = "",
+                name = "BBC News"
+            ),
+            author = "",
+            title = "Search for survivors after Houthis sink Red Sea cargo ship",
+            description = "At least three of the 25 people on board the Eternity C were killed after it was attacked by the Yemen-based group.",
+            url = "https://www.bbc.com/news/articles/c3071vp2d8yo",
+            imageUrl = "https://ichef.bbci.co.uk/news/1024/branded_news/3bf2/live/c08c0e10-5cdc-11f0-b5c5-012c5796682d.jpg",
+            publishedAt = "2025-07-09T16:29:58Z",
+            content = "Six crew members have been recovered and at least three others killed after a cargo ship was attacked by Yemen's Houthis and sank in the Red Sea, a European naval mission says.\r\nThe Liberian-flagged,… [+3645 chars]"
         ),
         onClick = {},
         colors = SearchComponentDefaults.colors(),
