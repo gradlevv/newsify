@@ -3,6 +3,8 @@ package com.gradlevv.search.di
 import com.gradlevv.search.data.source.SearchNewsRepositoryImpl
 import com.gradlevv.search.data.source.SearchNewsService
 import com.gradlevv.search.domain.SearchNewsRepository
+import com.gradlevv.search.util.DateProvider
+import com.gradlevv.search.util.DateProviderImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -16,6 +18,9 @@ abstract class BinderModule {
 
     @Binds
     abstract fun bindSearchNewsRepository(impl: SearchNewsRepositoryImpl): SearchNewsRepository
+
+    @Binds
+    abstract fun bindDateProvider(impl: DateProviderImpl): DateProvider
 
     companion object {
         @Provides
