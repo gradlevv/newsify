@@ -4,9 +4,6 @@ package com.gradlevv.search.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradlevv.core.data.model.Result
-import com.gradlevv.core.util.Constants.DATE_FORMAT
-import com.gradlevv.core.util.Constants.SORT_BY
-import com.gradlevv.search.domain.SearchNewsItem
 import com.gradlevv.search.domain.usecase.SearchNewsUseCase
 import com.gradlevv.search.ui.state.SearchNewsState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,9 +13,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.threeten.bp.LocalDate
-import org.threeten.bp.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,10 +25,8 @@ class SearchNewsViewModel @Inject constructor(
     private val _searchNewsList = MutableStateFlow(SearchNewsState.Empty)
     val searchNewsList = _searchNewsList.asStateFlow()
 
-    private val _newsDetailItem = MutableStateFlow<SearchNewsItem?>(null)
-    val newsDetailItem = _newsDetailItem.asStateFlow()
-
-    private val searchQuery = MutableStateFlow("")
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery = _searchQuery.asStateFlow()
 
     init {
         searchNews()
@@ -41,35 +35,24 @@ class SearchNewsViewModel @Inject constructor(
     @OptIn(FlowPreview::class)
     private fun searchNews() {
         viewModelScope.launch {
-            searchQuery.debounce(500)
+            _searchQuery.debounce(500)
                 .onEach { search ->
                     val job = launch {
 
                         _searchNewsList.value = SearchNewsState(isLoading = true)
 
-                        val formatter = DateTimeFormatter.ofPattern(DATE_FORMAT)
-                        val today = LocalDate.now()
-                        val yesterday = today.minusDays(1)
-
-                        val from = yesterday.format(formatter)
-                        val to = today.format(formatter)
-
-                        val request = SearchNewsUseCase.Params(
-                            tag = search.ifEmpty { SEARCH_TAG },
-                            from = from,
-                            to = to,
-                            sortedBy = SORT_BY
-                        )
-
-                        when (val result = searchNewsUseCase(params = request)) {
+                        when (val result = searchNewsUseCase(tag = search)) {
 
                             is Result.Success -> {
-                                _searchNewsList.value =
+                                _searchNewsList.update {
                                     SearchNewsState(items = result.data.orEmpty())
+                                }
                             }
 
                             is Result.Error -> {
-                                _searchNewsList.value = SearchNewsState(isError = true)
+                                _searchNewsList.update {
+                                    SearchNewsState(isError = true)
+                                }
                             }
                         }
                     }
@@ -80,18 +63,11 @@ class SearchNewsViewModel @Inject constructor(
         }
     }
 
-    fun setSearchValue(search: String?) {
-
-        searchQuery.value = search ?: return
-
+    fun setSearchValue(search: String) {
+        _searchQuery.update { search }
     }
 
-    fun navigateToDetailFragment(item: SearchNewsItem) {
-        _newsDetailItem.value = item
-//        navigate(R.string.search_news_detail_fragment, navOptions)
-    }
-
-    companion object {
-        const val SEARCH_TAG = "Iran"
+    fun resetSearchValue() {
+        _searchQuery.update { "" }
     }
 }

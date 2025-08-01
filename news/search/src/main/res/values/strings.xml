@@ -8,4 +8,6 @@
     <string name="search_read_more">Read More</string>
     <string name="search_read_full_article">Read Full Article</string>
     <string name="there_is_nothing_to_show">There is nothing to show</string>
+    <string name="search_cancel">Cancel</string>
+    <string name="search_search">Search</string>
 </resources>

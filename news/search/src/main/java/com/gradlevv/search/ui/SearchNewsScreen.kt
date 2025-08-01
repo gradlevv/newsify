@@ -4,8 +4,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -13,12 +15,13 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.ReadOnlyComposable
@@ -31,6 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -51,6 +55,7 @@ import com.gradlevv.ui.component.LoadingComponent
 import com.gradlevv.ui.theme.ColorOnBackground100
 import com.gradlevv.ui.theme.ColorOnBackground70
 import com.gradlevv.ui.theme.ColorPrimary
+import com.gradlevv.ui.theme.ColorSurface
 
 object SearchComponentDefaults {
 
@@ -93,7 +98,7 @@ object SearchComponentDefaults {
     @Composable
     @ReadOnlyComposable
     fun colors() = Colors(
-        cardContentColor = ColorPrimary,
+        cardContentColor = ColorSurface,
         titleTextColor = ColorOnBackground100,
         descriptionTextColor = ColorOnBackground70,
         buttonTextColor = ColorPrimary,
@@ -131,6 +136,8 @@ fun SearchNewsScreen(
     val viewModel: SearchNewsViewModel = hiltViewModel(parentEntity)
     val uiState by viewModel.searchNewsList.collectAsState()
 
+    val searchQuery by viewModel.searchQuery.collectAsState()
+
     val colors = SearchComponentDefaults.colors()
     val sizes = SearchComponentDefaults.sizes()
 
@@ -150,7 +157,10 @@ fun SearchNewsScreen(
         content = {
             MainSearchComponent(
                 data = uiState.items,
+                text = searchQuery,
                 onItemClick = onNavigateToDetail,
+                onValueChange = viewModel::setSearchValue,
+                onClearSearchClick = viewModel::resetSearchValue,
                 colors = colors,
                 sizes = sizes
             )
@@ -174,27 +184,38 @@ fun EmptyComponent() {
 @Composable
 fun MainSearchComponent(
     data: List<SearchNewsItem>,
+    text: String,
     onItemClick: () -> Unit,
+    onValueChange: (String) -> Unit,
+    onClearSearchClick: () -> Unit,
     colors: SearchComponentDefaults.Colors,
     sizes: SearchComponentDefaults.Sizes
 ) {
 
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(150.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-        contentPadding = PaddingValues(8.dp)
-    ) {
-        items(items = data) {
-            SearchItemComponent(
-                item = it,
-                onClick = onItemClick,
-                colors = colors,
-                sizes = sizes
-            )
+    Column{
+
+        SearchComponent(
+            text = text,
+            onValueChange = onValueChange,
+            onDeleteClick = onClearSearchClick
+        )
+
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(150.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            contentPadding = PaddingValues(8.dp)
+        ) {
+            items(items = data) {
+                SearchItemComponent(
+                    item = it,
+                    onClick = onItemClick,
+                    colors = colors,
+                    sizes = sizes
+                )
+            }
         }
     }
-
 }
 
 @Composable
@@ -207,7 +228,7 @@ fun SearchItemComponent(
 
     Card(
         colors = CardDefaults.cardColors(
-            contentColor = colors.cardContentColor,
+            containerColor = ColorSurface,
         ),
         shape = RoundedCornerShape(sizes.card.cornerRadius),
         modifier = Modifier
@@ -238,8 +259,7 @@ fun SearchItemComponent(
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Start,
                 modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(start = 8.dp, end = 8.dp),
+                    .padding(start = 8.dp),
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1
             )
@@ -255,7 +275,7 @@ fun SearchItemComponent(
                 fontWeight = FontWeight.Normal,
                 textAlign = TextAlign.Start,
                 modifier = Modifier
-                    .padding(start = 8.dp, end = 8.dp),
+                    .padding(horizontal = 8.dp),
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 3
             )
@@ -264,14 +284,8 @@ fun SearchItemComponent(
                 modifier = Modifier.size(sizes.spacing.secondary)
             )
 
-            Button(
+            TextButton(
                 onClick = onClick,
-                colors = ButtonColors(
-                    contentColor = Color.Transparent,
-                    containerColor = Color.Transparent,
-                    disabledContentColor = Color.Transparent,
-                    disabledContainerColor = Color.Transparent
-                ),
                 modifier = Modifier.align(Alignment.End)
             ) {
                 Text(
@@ -297,7 +311,72 @@ fun SearchItemComponent(
     }
 }
 
+@Composable
+fun SearchComponent(
+    text: String,
+    onValueChange: (String) -> Unit,
+    onDeleteClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+
+        TextField(
+            value = text,
+            onValueChange = onValueChange,
+            placeholder = {
+                Text(
+                    stringResource(R.string.search_search),
+                    color = ColorOnBackground70
+                )
+            },
+            textStyle = TextStyle(
+                color = ColorPrimary,
+                fontWeight = FontWeight.Medium
+            ),
+            colors = TextFieldDefaults.colors(
+                focusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(com.gradlevv.newsify.ui.R.drawable.ic_search_stroke),
+                    contentDescription = "",
+                    tint = ColorPrimary
+                )
+            },
+            maxLines = 1,
+            modifier = Modifier
+                .weight(1f)
+                .height(56.dp)
+        )
+
+        TextButton(
+            onClick = onDeleteClick,
+            modifier = Modifier.height(56.dp)
+        ) {
+            Text(
+                stringResource(R.string.search_cancel),
+                color = ColorOnBackground70
+            )
+        }
+    }
+}
+
 @Preview
+@Composable
+fun SearchComponentPreview() {
+    SearchComponent(
+        text = "",
+        onDeleteClick = {},
+        onValueChange = {}
+    )
+}
+
 @Composable
 fun SearchItemComponentPreview() {
     SearchItemComponent(
