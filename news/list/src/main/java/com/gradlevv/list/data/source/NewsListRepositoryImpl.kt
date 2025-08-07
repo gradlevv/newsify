@@ -8,14 +8,15 @@ import com.gradlevv.list.data.model.toDomain
 import com.gradlevv.list.domain.NewsListRepository
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.list.domain.model.CategoryType
+import com.gradlevv.list.domain.usecase.CategoryTag
 import javax.inject.Inject
 
 class NewsListRepositoryImpl @Inject constructor(
     private val service: NewsListService,
 ) : NewsListRepository {
 
-    override suspend fun getTopHeadLines(category: String): Result<List<TopHeadLinesItem>> {
-        return safeApiCall { service.getTopHeadLines(category) }.map {
+    override suspend fun getTopHeadLines(category: CategoryTag): Result<List<TopHeadLinesItem>> {
+        return safeApiCall { service.getTopHeadLines(category.value) }.map {
 
             val result = it.articleList?.toDomain().orEmpty()
             return when {

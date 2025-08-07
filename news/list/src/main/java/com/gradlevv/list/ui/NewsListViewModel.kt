@@ -6,6 +6,7 @@ import com.gradlevv.core.data.model.Result
 import com.gradlevv.core.util.IntentUtils
 import com.gradlevv.list.domain.TopHeadLinesItem
 import com.gradlevv.list.domain.model.CategoryType
+import com.gradlevv.list.domain.usecase.CategoryTag
 import com.gradlevv.list.domain.usecase.GetCategoryTypeUseCase
 import com.gradlevv.list.domain.usecase.GetTopHeadLinesUseCase
 import com.gradlevv.list.ui.state.TopHeadLinesState
@@ -46,7 +47,7 @@ class NewsListViewModel @Inject constructor(
 
         viewModelScope.launch {
 
-            when (val result = getTopHeadLinesUseCase(category)) {
+            when (val result = getTopHeadLinesUseCase(CategoryTag(category))) {
 
                 is Result.Success -> {
                     _topHeadLinesList.update {
