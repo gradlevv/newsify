@@ -8,6 +8,7 @@ import com.gradlevv.sources.domain.model.CategoryItem
 import com.gradlevv.sources.domain.model.SourceItem
 import com.gradlevv.sources.domain.usecase.GetCategoryTypeUseCase
 import com.gradlevv.sources.domain.usecase.GetSourceListUseCase
+import com.gradlevv.sources.domain.usecase.SourceTag
 import com.gradlevv.sources.ui.state.NewsSourceState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -77,7 +78,7 @@ class NewsSourcesViewModel @Inject constructor(
 
         viewModelScope.launch {
 
-            when (val result = getSourceListUseCase(type = type)) {
+            when (val result = getSourceListUseCase(SourceTag(type))) {
 
                 is Result.Success -> {
                     _uiState.update {

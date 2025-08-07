@@ -3,6 +3,8 @@ package com.gradlevv.sources.di
 import com.gradlevv.sources.data.source.SourcesRepositoryImpl
 import com.gradlevv.sources.data.source.SourcesService
 import com.gradlevv.sources.domain.repository.SourcesRepository
+import com.gradlevv.sources.domain.usecase.GetCategoryTypeUseCase
+import com.gradlevv.sources.domain.usecase.GetSourceListUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -21,6 +23,16 @@ abstract class BinderModule {
         @Provides
         fun provideSourcesService(retrofit: Retrofit): SourcesService {
             return retrofit.create(SourcesService::class.java)
+        }
+
+        @Provides
+        fun provideGetCategoryTypeUseCase(repository: SourcesRepository): GetCategoryTypeUseCase {
+            return GetCategoryTypeUseCase(repository::getCategoryList)
+        }
+
+        @Provides
+        fun provideGetSourceListUseCase(repository: SourcesRepository): GetSourceListUseCase {
+            return GetSourceListUseCase(repository::getSourceList)
         }
     }
 }
