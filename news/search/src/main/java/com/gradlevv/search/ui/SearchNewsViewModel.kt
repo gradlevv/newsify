@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradlevv.core.data.model.Result
 import com.gradlevv.search.domain.usecase.SearchNewsUseCase
+import com.gradlevv.search.ui.state.LoadingType
 import com.gradlevv.search.ui.state.SearchNewsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
@@ -30,20 +31,27 @@ class SearchNewsViewModel @Inject constructor(
     val searchQuery = _searchQuery.asStateFlow()
 
     init {
+
+        initialSearch()
+
         viewModelScope.launch {
-            _searchQuery.debounce(500)
+            _searchQuery.debounce(1000)
                 .distinctUntilChanged()
                 .collectLatest {
-                    searchNews(it)
+                    searchNews(it, loadingType = LoadingType.SEARCH)
                 }
         }
     }
 
-    private fun searchNews(tag: String) {
+    private fun initialSearch() {
+        searchNews("", loadingType = LoadingType.INITIAL)
+    }
+
+    private fun searchNews(tag: String, loadingType: LoadingType) {
 
         viewModelScope.launch {
 
-            _searchNewsList.update { SearchNewsState(isLoading = true) }
+            _searchNewsList.update { SearchNewsState(loadingType = loadingType) }
 
             when (val result = searchNewsUseCase(tag = tag)) {
 

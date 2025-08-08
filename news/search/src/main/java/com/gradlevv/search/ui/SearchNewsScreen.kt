@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -142,7 +143,7 @@ fun SearchNewsScreen(
     val sizes = SearchComponentDefaults.sizes()
 
     ScreenStateHandler(
-        isLoading = uiState.isLoading,
+        isLoading = uiState.isInitialLoading,
         isError = uiState.isError,
         isEmpty = uiState.items.isEmpty(),
         loadingContent = {
@@ -157,6 +158,7 @@ fun SearchNewsScreen(
         content = {
             MainSearchComponent(
                 data = uiState.items,
+                isSearching = uiState.isSearching,
                 text = searchQuery,
                 onItemClick = onNavigateToDetail,
                 onValueChange = viewModel::setSearchValue,
@@ -184,6 +186,7 @@ fun EmptyComponent() {
 @Composable
 fun MainSearchComponent(
     data: List<SearchNewsItem>,
+    isSearching: Boolean,
     text: String,
     onItemClick: () -> Unit,
     onValueChange: (String) -> Unit,
@@ -192,7 +195,7 @@ fun MainSearchComponent(
     sizes: SearchComponentDefaults.Sizes
 ) {
 
-    Column{
+    Column {
 
         SearchComponent(
             text = text,
@@ -200,19 +203,28 @@ fun MainSearchComponent(
             onDeleteClick = onClearSearchClick
         )
 
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(150.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            contentPadding = PaddingValues(8.dp)
-        ) {
-            items(items = data) {
-                SearchItemComponent(
-                    item = it,
-                    onClick = onItemClick,
-                    colors = colors,
-                    sizes = sizes
-                )
+        if (isSearching) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .size(72.dp),
+                color = ColorOnBackground100,
+                trackColor = ColorPrimary,
+            )
+        } else {
+            LazyVerticalGrid(
+                columns = GridCells.Adaptive(150.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                contentPadding = PaddingValues(8.dp)
+            ) {
+                items(items = data) {
+                    SearchItemComponent(
+                        item = it,
+                        onClick = onItemClick,
+                        colors = colors,
+                        sizes = sizes
+                    )
+                }
             }
         }
     }
