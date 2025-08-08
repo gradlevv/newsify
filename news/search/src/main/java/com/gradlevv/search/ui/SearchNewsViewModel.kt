@@ -10,13 +10,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@OptIn(FlowPreview::class)
 @HiltViewModel
 class SearchNewsViewModel @Inject constructor(
     private val searchNewsUseCase: SearchNewsUseCase
@@ -29,38 +30,37 @@ class SearchNewsViewModel @Inject constructor(
     val searchQuery = _searchQuery.asStateFlow()
 
     init {
-        searchNews()
-    }
-
-    @OptIn(FlowPreview::class)
-    private fun searchNews() {
         viewModelScope.launch {
             _searchQuery.debounce(500)
-                .onEach { search ->
-                    val job = launch {
-
-                        _searchNewsList.value = SearchNewsState(isLoading = true)
-
-                        when (val result = searchNewsUseCase(tag = search)) {
-
-                            is Result.Success -> {
-                                _searchNewsList.update {
-                                    SearchNewsState(items = result.data.orEmpty())
-                                }
-                            }
-
-                            is Result.Error -> {
-                                _searchNewsList.update {
-                                    SearchNewsState(isError = true)
-                                }
-                            }
-                        }
-                    }
-
-                    job.join()
-
-                }.collect()
+                .distinctUntilChanged()
+                .collectLatest {
+                    searchNews(it)
+                }
         }
+    }
+
+    private fun searchNews(tag: String) {
+
+        viewModelScope.launch {
+
+            _searchNewsList.update { SearchNewsState(isLoading = true) }
+
+            when (val result = searchNewsUseCase(tag = tag)) {
+
+                is Result.Success -> {
+                    _searchNewsList.update {
+                        SearchNewsState(items = result.data.orEmpty())
+                    }
+                }
+
+                is Result.Error -> {
+                    _searchNewsList.update {
+                        SearchNewsState(isError = true)
+                    }
+                }
+            }
+        }
+
     }
 
     fun setSearchValue(search: String) {
