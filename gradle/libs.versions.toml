@@ -13,6 +13,7 @@ material = "1.6.7"
 icon = "1.6.7"
 material3 = "1.4.0-alpha18"
 navigationCompose = "2.9.0"
+retrofit2KotlinxSerializationConverter = "1.0.0"
 targetSdkVersion = "35"
 minSdkVersion = "24"
 major = "0"
@@ -73,6 +74,7 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 coroutineCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutinesCoreVersion" }
 coroutineAndroid = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutinesAndroidVersion" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVersion" }
+retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinxSerializationConverter" }
 retrofitGson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitVersion" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okHttpVersion" }
 interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttpVersion" }
