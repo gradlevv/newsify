@@ -8,9 +8,6 @@ fun Int.dpf(): Float {
     return this.dp().toFloat()
 }
 
-fun Float.dpf(): Float {
-    return this.dp().toFloat()
-}
 
 fun Int.dp(): Int {
     return if (this == 0) {

@@ -1,94 +1,81 @@
 package com.gradlevv.search.ui
 
-import android.util.Log
+
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gradlevv.core.base.BaseViewModel
 import com.gradlevv.core.data.model.Result
-import com.gradlevv.core.util.Constants.DATE_FORMAT
-import com.gradlevv.core.util.Constants.SORT_BY
-import com.gradlevv.newsify.core.R
-import com.gradlevv.search.domain.SearchDomainModel
-import com.gradlevv.search.domain.SearchNewsItem
 import com.gradlevv.search.domain.usecase.SearchNewsUseCase
+import com.gradlevv.search.ui.state.LoadingType
 import com.gradlevv.search.ui.state.SearchNewsState
-import com.gradlevv.ui.utils.navOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
+@OptIn(FlowPreview::class)
 @HiltViewModel
 class SearchNewsViewModel @Inject constructor(
     private val searchNewsUseCase: SearchNewsUseCase
-) : BaseViewModel() {
+) : ViewModel() {
 
     private val _searchNewsList = MutableStateFlow(SearchNewsState.Empty)
     val searchNewsList = _searchNewsList.asStateFlow()
 
-    private val _newsDetailItem = MutableStateFlow<SearchNewsItem?>(null)
-    val newsDetailItem = _newsDetailItem.asStateFlow()
-
-    private val searchQuery = MutableStateFlow("")
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery = _searchQuery.asStateFlow()
 
     init {
-        searchNews()
-        Log.d("TAG", "init")
-    }
 
-    @OptIn(FlowPreview::class)
-    private fun searchNews() {
+        initialSearch()
+
         viewModelScope.launch {
-            searchQuery.debounce(500)
-                .onEach { search ->
-                    val job = launch {
-
-                        _searchNewsList.value = SearchNewsState(isLoading = true)
-
-                        val simpleDateFormat = SimpleDateFormat(DATE_FORMAT, Locale.US)
-                        val date = Date()
-
-                        val request = SearchDomainModel(
-                            tag = search.ifEmpty { SEARCH_TAG },
-                            from = simpleDateFormat.format(date),
-                            to = simpleDateFormat.format(date),
-                            sortedBy = SORT_BY
-                        )
-
-                        when (val result = searchNewsUseCase(request = request)) {
-
-                            is Result.Success -> {
-                                _searchNewsList.value =
-                                    SearchNewsState(items = result.data.orEmpty())
-                            }
-
-                            is Result.Error -> {
-                                _searchNewsList.value = SearchNewsState(isError = true)
-                                errorMessage.value = result.error
-                            }
-                        }
-                    }
-
-                    job.join()
-
-                }.collect()
+            _searchQuery.debounce(1000)
+                .distinctUntilChanged()
+                .collectLatest {
+                    searchNews(it, loadingType = LoadingType.SEARCH)
+                }
         }
     }
 
-    fun setSearchValue(search: String?) {
+    private fun initialSearch() {
+        searchNews("", loadingType = LoadingType.INITIAL)
+    }
 
-        searchQuery.value = search ?: return
+    private fun searchNews(tag: String, loadingType: LoadingType) {
+
+        viewModelScope.launch {
+
+            _searchNewsList.update { SearchNewsState(loadingType = loadingType) }
+
+            when (val result = searchNewsUseCase(tag = tag)) {
+
+                is Result.Success -> {
+                    _searchNewsList.update {
+                        SearchNewsState(items = result.data.orEmpty())
+                    }
+                }
+
+                is Result.Error -> {
+                    _searchNewsList.update {
+                        SearchNewsState(isError = true)
+                    }
+                }
+            }
+        }
 
     }
 
-    fun navigateToDetailFragment(item: SearchNewsItem) {
-        _newsDetailItem.value = item
-        navigate(R.string.search_news_detail_fragment, navOptions)
+    fun setSearchValue(search: String) {
+        _searchQuery.update { search }
     }
 
-    companion object {
-        const val SEARCH_TAG = "Android"
+    fun resetSearchValue() {
+        _searchQuery.update { "" }
     }
 }

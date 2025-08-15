@@ -2,7 +2,9 @@ plugins {
     id("newsify.android.library")
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
-    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -28,7 +30,19 @@ dependencies {
 
     implementation(libs.navigationUiKtx)
     implementation(libs.navigationFragmentKtx)
+    implementation(libs.material3)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.navigation.compose)
+    implementation(libs.ui.tooling)
 
+    implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 }
 
 kapt {

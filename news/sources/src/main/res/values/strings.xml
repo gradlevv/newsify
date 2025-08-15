@@ -16,4 +16,7 @@
     <string name="sources_health_name">Health</string>
     <string name="sources_science_name">Science</string>
     <string name="sources_sports_name">Sports</string>
+    <string name="sources_title">Sources</string>
+    <string name="sources_there_is_nothing_to_show">There is nothing to show</string>
+    <string name="sources_go_to_website">Go To Website</string>
 </resources>

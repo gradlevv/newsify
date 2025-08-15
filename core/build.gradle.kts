@@ -2,7 +2,7 @@ plugins {
     id("newsify.android.library")
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
-    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -28,6 +28,7 @@ dependencies {
     implementation(libs.navigationFragmentKtx)
 
     implementation(libs.timber)
+    api(libs.threetenabp)
 }
 
 kapt {

@@ -1,16 +1,18 @@
 package com.gradlevv.sources.ui
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gradlevv.core.base.BaseViewModel
 import com.gradlevv.core.data.model.Result
+import com.gradlevv.core.util.IntentUtils
+import com.gradlevv.sources.domain.model.CategoryItem
+import com.gradlevv.sources.domain.model.SourceItem
 import com.gradlevv.sources.domain.usecase.GetCategoryTypeUseCase
 import com.gradlevv.sources.domain.usecase.GetSourceListUseCase
+import com.gradlevv.sources.domain.usecase.SourceTag
 import com.gradlevv.sources.ui.state.NewsSourceState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,19 +20,15 @@ import javax.inject.Inject
 @HiltViewModel
 class NewsSourcesViewModel @Inject constructor(
     private val getSourceListUseCase: GetSourceListUseCase,
+    private val intentUtils: IntentUtils,
     getCategoryTypeUseCase: GetCategoryTypeUseCase
-) : BaseViewModel() {
+) : ViewModel() {
 
-    private val _sourceList = MutableStateFlow(NewsSourceState.Empty)
-    val sourceList = _sourceList.asStateFlow()
+    private val _uiState = MutableStateFlow(NewsSourceState.Empty)
+    val uiState = _uiState.asStateFlow()
 
-    val categoryList = getCategoryTypeUseCase()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
-        )
-
+    private val _categoryList = MutableStateFlow(getCategoryTypeUseCase())
+    val categoryList = _categoryList.asStateFlow()
 
     init {
         getNewsSourceList()
@@ -38,44 +36,74 @@ class NewsSourcesViewModel @Inject constructor(
 
     private fun getNewsSourceList() {
 
-        _sourceList.value = NewsSourceState(isLoading = true)
-
-        viewModelScope.launch {
-
-            when (val result = getSourceListUseCase("")) {
-
-                is Result.Success -> {
-                    _sourceList.value = NewsSourceState(items = result.data ?: emptyList())
-                }
-
-                is Result.Error -> {
-                    _sourceList.value = NewsSourceState(isError = true)
-                    errorMessage.value = result.error
-                }
-            }
-
+        _uiState.update {
+            it.copy(
+                isLoading = true,
+                isError = false
+            )
         }
+        val type = _uiState.value.selectedCategory?.type.orEmpty()
+        fetchNewsSource(type)
+    }
+
+    fun categoryChangeClick(item: CategoryItem) {
+
+        if (item.type == _uiState.value.selectedCategory?.type)
+            return
+
+
+        _uiState.update {
+            it.copy(
+                selectedCategory = item,
+                isError = false
+            )
+        }
+
+        _categoryList.update {
+            it.map { category ->
+                category.copy(
+                    isChecked = when {
+                        category.type == item.type -> true
+                        else -> false
+                    }
+                )
+            }
+        }
+
+        fetchNewsSource(type = item.type)
 
     }
 
-    fun categoryChangeClick(type: String) {
-
-        _sourceList.update { it.copy(isLoading = true) }
+    private fun fetchNewsSource(type: String) {
 
         viewModelScope.launch {
 
-            when (val result = getSourceListUseCase(type = type)) {
+            when (val result = getSourceListUseCase(SourceTag(type))) {
 
                 is Result.Success -> {
-                    _sourceList.update { NewsSourceState(items = result.data.orEmpty()) }
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            isError = false,
+                            items = result.data.orEmpty()
+                        )
+                    }
                 }
 
                 is Result.Error -> {
-                    _sourceList.update { it.copy(isError = true) }
-                    errorMessage.value = result.error
+                    _uiState.update {
+                        it.copy(
+                            isError = true,
+                            isLoading = false
+                        )
+                    }
                 }
             }
 
         }
+    }
+
+    fun openWebsite(item: SourceItem) {
+        intentUtils.openLinkInDeviceBrowser(item.url)
     }
 }

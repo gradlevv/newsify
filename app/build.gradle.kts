@@ -1,11 +1,15 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.navigation.safe.args)
-    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.hilt)
 }
+
+
 
 android {
     namespace = "com.gradlevv.newsify"
@@ -46,6 +50,14 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "2.0.21"
+    }
 }
 
 dependencies {
@@ -56,11 +68,26 @@ dependencies {
     implementation(project(":news:search"))
     implementation(project(":news:setting"))
 
+    implementation(platform(libs.compose.bom))
+    androidTestImplementation(platform(libs.compose.bom))
+    implementation(libs.navigation.compose)
+
+    implementation(libs.runtime)
+    implementation(libs.ui)
+    implementation(libs.foundation)
+    implementation(libs.foundation.layout)
+    implementation(libs.material3)
+    implementation(libs.runtime.livedata)
+    implementation(libs.ui.tooling)
+
     implementation(libs.navigationFragmentKtx)
     implementation(libs.navigationUiKtx)
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+
+    implementation(libs.timber)
+
 }
 
 kapt {

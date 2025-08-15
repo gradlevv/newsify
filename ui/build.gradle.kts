@@ -2,10 +2,19 @@ plugins {
     id("newsify.android.library")
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
     namespace = "com.gradlevv.newsify.ui"
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "2.0.21"
+    }
 }
 
 dependencies {
@@ -15,9 +24,19 @@ dependencies {
     api(libs.constraintLayout)
     api(libs.material)
     api(libs.appcompat)
+    implementation(libs.androidx.material)
+    implementation(platform(libs.compose.bom))
+    androidTestImplementation(platform(libs.compose.bom))
+   implementation(libs.androidx.material.icons.extended)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.ui.tooling)
 
     api(libs.glide)
     kapt(libs.glideCompiler)
+
+    implementation(platform(libs.compose.bom))
+    implementation(libs.navigation.compose)
+    implementation(libs.ui.tooling)
 
     implementation(libs.navigationUiKtx)
     implementation(libs.navigationFragmentKtx)

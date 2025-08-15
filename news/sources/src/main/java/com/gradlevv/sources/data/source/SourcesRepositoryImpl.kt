@@ -1,44 +1,47 @@
 package com.gradlevv.sources.data.source
 
+import com.gradlevv.core.data.model.ApiError
 import com.gradlevv.core.data.model.Result
-import com.gradlevv.core.data.model.mapTo
-import com.gradlevv.core.data.network.ResponseHandler
-import com.gradlevv.sources.data.SourcesMapper
-import com.gradlevv.sources.data.model.CategoryType
+import com.gradlevv.core.data.model.map
+import com.gradlevv.core.data.network.safeApiCall
+import com.gradlevv.sources.data.model.toDomain
 import com.gradlevv.sources.domain.model.CategoryItem
+import com.gradlevv.sources.domain.model.CategoryType
 import com.gradlevv.sources.domain.model.SourceItem
 import com.gradlevv.sources.domain.repository.SourcesRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import com.gradlevv.sources.domain.usecase.SourceTag
 import javax.inject.Inject
 
 class SourcesRepositoryImpl @Inject constructor(
     private val service: SourcesService,
-    private val mapper: SourcesMapper
-) : ResponseHandler(), SourcesRepository {
+) : SourcesRepository {
 
-    override suspend fun getSourceList(type: String?): Result<List<SourceItem>> {
-        return getResource { service.getSourceList(type) }.mapTo(mapper)
+    override suspend fun getSourceList(type: SourceTag): Result<List<SourceItem>> {
+        return safeApiCall { service.getSourceList(type.value) }.map {
+            val result = it.sourceList?.toDomain().orEmpty()
+            return when {
+                result.isEmpty() -> Result.Error(ApiError.NullError)
+                else -> Result.Success(result)
+            }
+        }
     }
 
-    override fun getCategoryList(): Flow<List<CategoryItem>> {
-        return flow {
-            emit(
-                listOf(
-                    CategoryType.General,
-                    CategoryType.Business,
-                    CategoryType.Entertainment,
-                    CategoryType.Sports,
-                    CategoryType.Technology,
-                    CategoryType.Science,
-                    CategoryType.Health
-                ).map { categoryType ->
-                    CategoryItem(
-                        type = categoryType.type,
-                        categoryName = categoryType.categoryName,
-                    )
-                }
+    override fun getCategoryList(): List<CategoryItem> {
+        return listOf(
+            CategoryType.General,
+            CategoryType.Business,
+            CategoryType.Entertainment,
+            CategoryType.Sports,
+            CategoryType.Technology,
+            CategoryType.Science,
+            CategoryType.Health
+        ).map { categoryType ->
+            CategoryItem(
+                type = categoryType.type,
+                categoryName = categoryType.categoryName,
             )
         }
+
+
     }
 }

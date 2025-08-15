@@ -1,42 +1,69 @@
 [versions]
-compiledSdkVersion = "34"
-hiltAndroid = "2.52"
-hiltNavigation = "1.0.0"
-hiltAndroidCompiler = "2.51.1"
-targetSdkVersion = "34"
+activityCompose = "1.10.1"
+coilCompose = "3.0.0"
+compiledSdkVersion = "35"
+composeBom = "2024.09.00"
+hiltAndroid = "2.51"
+hiltNavigation = "1.2.0"
+hiltAndroidCompiler = "2.51"
+hiltNavigationCompose = "1.2.0"
+kotlinxSerializationJson = "1.6.3"
+lifecycleViewmodelCompose = "2.6.2"
+material = "1.6.7"
+icon = "1.6.7"
+material3 = "1.4.0-alpha18"
+navigationCompose = "2.9.0"
+targetSdkVersion = "35"
 minSdkVersion = "24"
 major = "0"
 minor = "0"
 patch = "1"
-gradle = "8.2.2"
-kotlin = "1.9.22"
-appCompatVersion = "1.7.0"
+gradle = "8.6.0"
+kotlin = "2.0.21"
+appCompatVersion = "1.6.1"
 multidexVersion = "2.0.1"
-constraintLayoutVersion = "2.2.0"
-roomVersion = "2.2.5"
-archVersion = "2.7.0"
-androidXAnnotations = "1.9.1"
+constraintLayoutVersion = "2.1.4"
+roomVersion = "2.6.1"
+archVersion = "2.6.2"
+androidXAnnotations = "1.7.1"
 androidXCoreKtx = "1.12.0"
-androidxTransition = "1.3.1"
+androidxTransition = "1.4.1"
 lifecycleRuntimeKtx = "2.7.0"
-coroutinesCoreVersion = "1.5.2"
+coroutinesCoreVersion = "1.7.3"
 coroutinesAndroidVersion = "1.7.3"
 fragmentKtxVersion = "1.6.2"
-materialVersion = "1.12.0"
-timberVersion = "4.7.1"
-navigationVersion = "2.7.7"
-okHttpVersion = "4.10.0"
+materialVersion = "1.11.0"
+threetenabp = "1.4.4"
+timberVersion = "5.0.1"
+navigationVersion = "2.9.0"
+okHttpVersion = "4.12.0"
 retrofitVersion = "2.9.0"
-glideVersion = "4.15.1"
+glideVersion = "4.16.0"
+uiTooling = "1.6.7"
 vectordrawableVersion = "1.1.0"
 androidxLegacy = "1.0.0"
 paging = "3.2.1"
 
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "gradle" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
+androidx-material = { module = "androidx.compose.material:material", version.ref = "material" }
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "icon" }
+androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
+androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiTooling" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
+compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
+foundation = { module = "androidx.compose.foundation:foundation" }
+foundation-layout = { module = "androidx.compose.foundation:foundation-layout" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+material3 = { module = "androidx.compose.material3:material3" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 navigation-safeargs = { group = "androidx.navigation", name = "navigation-safe-args-gradle-plugin", version.ref = "navigationVersion" }
 hilt-navigation-fragment = { module = "androidx.hilt:hilt-navigation-fragment", version.ref = "hiltNavigation" }
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
@@ -51,6 +78,11 @@ okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okHtt
 interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttpVersion" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glideVersion" }
 glideCompiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glideVersion" }
+runtime = { module = "androidx.compose.runtime:runtime" }
+runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata" }
+threetenabp = { module = "com.jakewharton.threetenabp:threetenabp", version.ref = "threetenabp" }
+ui = { module = "androidx.compose.ui:ui" }
+ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "archVersion" }
 livedataKtx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "archVersion" }
 lifecycleExtensions = { group = "androidx.lifecycle", name = "lifecycle-extensions", version.ref = "archVersion" }
@@ -70,6 +102,9 @@ androidxLegacy = { group = "androidx.legacy", name = "legacy-support-v4", versio
 android-application = { id = "com.android.application", version.ref = "gradle" }
 android-library = { id = "com.android.library", version.ref = "gradle" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 navigation-safe-args = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigationVersion" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }

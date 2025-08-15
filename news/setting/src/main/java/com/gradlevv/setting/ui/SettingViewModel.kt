@@ -1,9 +1,9 @@
 package com.gradlevv.setting.ui
 
-import com.gradlevv.core.base.BaseViewModel
+import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingViewModel @Inject constructor() : BaseViewModel() {
+class SettingViewModel @Inject constructor() : ViewModel() {
 }
