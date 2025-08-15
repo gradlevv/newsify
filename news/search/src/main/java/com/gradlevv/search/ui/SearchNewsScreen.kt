@@ -73,27 +73,52 @@ object SearchComponentDefaults {
     data class Sizes(
         val card: CardSizes,
         val spacing: Spacing,
-        val textSizes: TextSizes
+        val textSizes: TextSizes,
+        val componentSizes: ComponentSizes,
+        val padding: Padding,
+        val grid: GridSizes
     )
 
     @Immutable
     data class CardSizes(
         val containerMinHeight: Dp,
         val imageMinHeight: Dp,
-        val cornerRadius: Dp,
+        val cornerRadius: Dp
     )
 
     @Immutable
     data class Spacing(
-        val default: Dp,
-        val secondary: Dp,
+        val small: Dp,
+        val medium: Dp,
+        val large: Dp,
+        val sectionSpacing: Dp,
     )
 
     @Immutable
     data class TextSizes(
         val titleTextSize: TextUnit,
         val descriptionTextSize: TextUnit,
-        val buttonTextSize: TextUnit
+        val buttonTextSize: TextUnit,
+        val searchPlaceholderTextSize: TextUnit
+    )
+
+    @Immutable
+    data class ComponentSizes(
+        val searchFieldHeight: Dp,
+        val progressIndicatorSize: Dp
+    )
+
+    @Immutable
+    data class Padding(
+        val screenHorizontal: Dp,
+        val gridContent: Dp,
+        val textStart: Dp,
+        val textHorizontal: Dp
+    )
+
+    @Immutable
+    data class GridSizes(
+        val minCellWidth: Dp
     )
 
     @Composable
@@ -115,13 +140,29 @@ object SearchComponentDefaults {
             cornerRadius = 16.dp
         ),
         spacing = Spacing(
-            default = 8.dp,
-            secondary = 30.dp
+            small = 4.dp,
+            medium = 8.dp,
+            large = 30.dp,
+            sectionSpacing = 12.dp
         ),
         textSizes = TextSizes(
             titleTextSize = 12.sp,
             descriptionTextSize = 12.sp,
             buttonTextSize = 12.sp,
+            searchPlaceholderTextSize = 14.sp
+        ),
+        componentSizes = ComponentSizes(
+            searchFieldHeight = 56.dp,
+            progressIndicatorSize = 72.dp
+        ),
+        padding = Padding(
+            screenHorizontal = 8.dp,
+            gridContent = 8.dp,
+            textStart = 8.dp,
+            textHorizontal = 8.dp
+        ),
+        grid = GridSizes(
+            minCellWidth = 150.dp
         )
     )
 }
@@ -200,22 +241,23 @@ fun MainSearchComponent(
         SearchComponent(
             text = text,
             onValueChange = onValueChange,
-            onDeleteClick = onClearSearchClick
+            onDeleteClick = onClearSearchClick,
+            sizes = sizes
         )
 
         if (isSearching) {
             CircularProgressIndicator(
                 modifier = Modifier
-                    .size(72.dp),
+                    .size(sizes.componentSizes.progressIndicatorSize),
                 color = ColorOnBackground100,
                 trackColor = ColorPrimary,
             )
         } else {
             LazyVerticalGrid(
-                columns = GridCells.Adaptive(150.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                contentPadding = PaddingValues(8.dp)
+                columns = GridCells.Adaptive(sizes.grid.minCellWidth),
+                horizontalArrangement = Arrangement.spacedBy(sizes.spacing.medium),
+                verticalArrangement = Arrangement.spacedBy(sizes.spacing.sectionSpacing),
+                contentPadding = PaddingValues(sizes.padding.gridContent)
             ) {
                 items(items = data) {
                     SearchItemComponent(
@@ -261,7 +303,7 @@ fun SearchItemComponent(
             )
 
             Spacer(
-                modifier = Modifier.size(sizes.spacing.default)
+                modifier = Modifier.size(sizes.spacing.medium)
             )
 
             Text(
@@ -271,13 +313,13 @@ fun SearchItemComponent(
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Start,
                 modifier = Modifier
-                    .padding(start = 8.dp),
+                    .padding(start = sizes.padding.textStart),
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1
             )
 
             Spacer(
-                modifier = Modifier.size(sizes.spacing.secondary)
+                modifier = Modifier.size(sizes.spacing.large)
             )
 
             Text(
@@ -287,13 +329,13 @@ fun SearchItemComponent(
                 fontWeight = FontWeight.Normal,
                 textAlign = TextAlign.Start,
                 modifier = Modifier
-                    .padding(horizontal = 8.dp),
+                    .padding(horizontal = sizes.padding.textHorizontal),
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 3
             )
 
             Spacer(
-                modifier = Modifier.size(sizes.spacing.secondary)
+                modifier = Modifier.size(sizes.spacing.large)
             )
 
             TextButton(
@@ -327,12 +369,13 @@ fun SearchItemComponent(
 fun SearchComponent(
     text: String,
     onValueChange: (String) -> Unit,
-    onDeleteClick: () -> Unit
+    onDeleteClick: () -> Unit,
+    sizes: SearchComponentDefaults.Sizes
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp),
+            .padding(horizontal = sizes.padding.screenHorizontal),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -364,12 +407,12 @@ fun SearchComponent(
             maxLines = 1,
             modifier = Modifier
                 .weight(1f)
-                .height(56.dp)
+                .height(sizes.componentSizes.searchFieldHeight)
         )
 
         TextButton(
             onClick = onDeleteClick,
-            modifier = Modifier.height(56.dp)
+            modifier = Modifier.height(sizes.componentSizes.searchFieldHeight)
         ) {
             Text(
                 stringResource(R.string.search_cancel),
@@ -385,7 +428,8 @@ fun SearchComponentPreview() {
     SearchComponent(
         text = "",
         onDeleteClick = {},
-        onValueChange = {}
+        onValueChange = {},
+        sizes = SearchComponentDefaults.sizes()
     )
 }
 
