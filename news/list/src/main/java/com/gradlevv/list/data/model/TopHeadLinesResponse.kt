@@ -1,39 +1,44 @@
 package com.gradlevv.list.data.model
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
 import com.gradlevv.core.util.DateTimeHelper.simpleDateFormat
 import com.gradlevv.list.domain.TopHeadLinesItem
+import kotlinx.serialization.Serializable
 
 
+@Serializable
 data class TopHeadLinesResponse(
-    @SerializedName("status")
+    @SerialName("status")
     val status: String?,
-    @SerializedName("articles")
+    @SerialName("articles")
     val articleList: List<Article>?
 ) {
+
+    @Serializable
     data class Article(
-        @SerializedName("source")
+        @SerialName("source")
         val source: Source?,
-        @SerializedName("author")
+        @SerialName("author")
         val author: String?,
-        @SerializedName("title")
+        @SerialName("title")
         val title: String?,
-        @SerializedName("description")
+        @SerialName("description")
         val description: String?,
-        @SerializedName("url")
+        @SerialName("url")
         val url: String?,
-        @SerializedName("urlToImage")
+        @SerialName("urlToImage")
         val urlToImage: String?,
-        @SerializedName("publishedAt")
+        @SerialName("publishedAt")
         val publishedAt: String?,
-        @SerializedName("content")
+        @SerialName("content")
         val content: String?
     )
 
+    @Serializable
     data class Source(
-        @SerializedName("id")
+        @SerialName("id")
         val id: String?,
-        @SerializedName("name")
+        @SerialName("name")
         val name: String?
     )
 }
