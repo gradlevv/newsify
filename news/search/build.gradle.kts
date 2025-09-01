@@ -29,6 +29,8 @@ dependencies {
     implementation(libs.navigationUiKtx)
     implementation(libs.navigationFragmentKtx)
 
+    implementation(libs.retrofit)
+
     implementation(platform(libs.compose.bom))
     implementation(libs.navigation.compose)
     implementation(libs.ui.tooling)

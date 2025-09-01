@@ -32,6 +32,8 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.ui.tooling)
 
+    implementation(libs.retrofit)
+
     implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.coil.compose)

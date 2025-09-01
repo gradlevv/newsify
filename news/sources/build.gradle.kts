@@ -24,6 +24,8 @@ dependencies {
     implementation(libs.lifecycleCommonJava8)
     implementation(libs.material3)
 
+    implementation(libs.retrofit)
+
     implementation(libs.navigationUiKtx)
     implementation(libs.navigationFragmentKtx)
 
