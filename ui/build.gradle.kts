@@ -21,18 +21,14 @@ dependencies {
     implementation(project(":core"))
 
     // Constraint Layout
-    api(libs.constraintLayout)
     api(libs.material)
     api(libs.appcompat)
     implementation(libs.androidx.material)
     implementation(platform(libs.compose.bom))
     androidTestImplementation(platform(libs.compose.bom))
    implementation(libs.androidx.material.icons.extended)
-    implementation(libs.androidx.material3)
+    implementation(libs.material3)
     implementation(libs.androidx.ui.tooling)
-
-    api(libs.glide)
-    kapt(libs.glideCompiler)
 
     implementation(platform(libs.compose.bom))
     implementation(libs.navigation.compose)

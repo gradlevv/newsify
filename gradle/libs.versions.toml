@@ -7,7 +7,7 @@ hiltAndroid = "2.57.1"
 hiltNavigation = "1.2.0"
 hiltAndroidCompiler = "2.57.1"
 hiltNavigationCompose =  "1.2.0"
-kotlinxSerializationJson = "1.9.0"
+kotlinxSerializationJson = "1.6.0"
 lifecycleViewmodelCompose = "2.6.2"
 material = "1.6.7"
 icon = "1.6.7"
@@ -22,8 +22,6 @@ patch = "1"
 gradle = "8.6.0"
 kotlin = "2.0.21"
 appCompatVersion = "1.6.1"
-multidexVersion = "2.0.1"
-constraintLayoutVersion = "2.1.4"
 roomVersion = "2.6.1"
 archVersion = "2.6.2"
 androidXAnnotations = "1.7.1"
@@ -38,7 +36,6 @@ timberVersion = "5.0.1"
 navigationVersion = "2.9.0"
 okHttpVersion = "4.12.0"
 retrofitVersion = "2.9.0"
-glideVersion = "4.16.0"
 uiTooling = "1.6.7"
 paging = "3.2.1"
 
@@ -49,7 +46,6 @@ androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-com
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 androidx-material = { module = "androidx.compose.material:material", version.ref = "material" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "icon" }
-androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiTooling" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
@@ -60,7 +56,7 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltA
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
-material3 = { module = "androidx.compose.material3:material3" }
+material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 navigation-safeargs = { group = "androidx.navigation", name = "navigation-safe-args-gradle-plugin", version.ref = "navigationVersion" }
 hilt-navigation-fragment = { module = "androidx.hilt:hilt-navigation-fragment", version.ref = "hiltNavigation" }
@@ -72,13 +68,9 @@ coroutineCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-co
 coroutineAndroid = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutinesAndroidVersion" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVersion" }
 retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinxSerializationConverter" }
-retrofitGson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitVersion" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okHttpVersion" }
 interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttpVersion" }
-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glideVersion" }
-glideCompiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glideVersion" }
 runtime = { module = "androidx.compose.runtime:runtime" }
-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata" }
 threetenabp = { module = "com.jakewharton.threetenabp:threetenabp", version.ref = "threetenabp" }
 ui = { module = "androidx.compose.ui:ui" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
@@ -89,7 +81,6 @@ lifecycleruntimeKtx = { group = "androidx.lifecycle", name = "lifecycle-runtime-
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timberVersion" }
 navigationFragmentKtx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationVersion" }
 navigationUiKtx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationVersion" }
-constraintLayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintLayoutVersion" }
 paging = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "paging" }
 
 [plugins]
