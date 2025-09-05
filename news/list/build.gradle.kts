@@ -25,15 +25,14 @@ dependencies {
     implementation(libs.lifecycleruntimeKtx)
     implementation(libs.lifecycleCommonJava8)
 
-    implementation(libs.retrofit)
-    implementation(libs.retrofitGson)
-
     implementation(libs.navigationUiKtx)
     implementation(libs.navigationFragmentKtx)
     implementation(libs.material3)
     implementation(platform(libs.compose.bom))
     implementation(libs.navigation.compose)
     implementation(libs.ui.tooling)
+
+    implementation(libs.retrofit)
 
     implementation(libs.kotlinx.serialization.json)
 

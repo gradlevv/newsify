@@ -1,29 +1,32 @@
 package com.gradlevv.sources.data.model
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
 import com.gradlevv.sources.domain.model.SourceItem
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class SourcesResponse(
-    @SerializedName("status")
+    @SerialName("status")
     val status: String?,
-    @SerializedName("sources")
+    @SerialName("sources")
     val sourceList: List<SourceItemDto>?
 )
 
+@Serializable
 data class SourceItemDto(
-    @SerializedName("id")
+    @SerialName("id")
     val id: String?,
-    @SerializedName("name")
+    @SerialName("name")
     val name: String?,
-    @SerializedName("description")
+    @SerialName("description")
     val description: String?,
-    @SerializedName("url")
+    @SerialName("url")
     val url: String?,
-    @SerializedName("category")
+    @SerialName("category")
     val category: String?,
-    @SerializedName("language")
+    @SerialName("language")
     val language: String?,
-    @SerializedName("country")
+    @SerialName("country")
     val country: String?
 )
 

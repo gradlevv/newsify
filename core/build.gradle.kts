@@ -18,9 +18,10 @@ dependencies {
     api(libs.coroutineAndroid)
 
     implementation(libs.retrofit)
-    implementation(libs.retrofitGson)
     implementation(libs.okhttp)
     implementation(libs.interceptor)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.appcompat)
 

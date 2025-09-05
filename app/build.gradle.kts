@@ -77,7 +77,6 @@ dependencies {
     implementation(libs.foundation)
     implementation(libs.foundation.layout)
     implementation(libs.material3)
-    implementation(libs.runtime.livedata)
     implementation(libs.ui.tooling)
 
     implementation(libs.navigationFragmentKtx)

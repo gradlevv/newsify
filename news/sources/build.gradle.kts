@@ -25,7 +25,6 @@ dependencies {
     implementation(libs.material3)
 
     implementation(libs.retrofit)
-    implementation(libs.retrofitGson)
 
     implementation(libs.navigationUiKtx)
     implementation(libs.navigationFragmentKtx)

@@ -26,11 +26,10 @@ dependencies {
     implementation(libs.lifecycleCommonJava8)
     implementation(libs.material3)
 
-    implementation(libs.retrofit)
-    implementation(libs.retrofitGson)
-
     implementation(libs.navigationUiKtx)
     implementation(libs.navigationFragmentKtx)
+
+    implementation(libs.retrofit)
 
     implementation(platform(libs.compose.bom))
     implementation(libs.navigation.compose)
